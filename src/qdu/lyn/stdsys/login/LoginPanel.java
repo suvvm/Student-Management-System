@@ -18,7 +18,7 @@ public class LoginPanel extends JPanel{
 	}
 	public LoginPanel() {
 		super();
-		URL url = getClass().getResource("***");
+		URL url = getClass().getResource("");
 		image = new ImageIcon(url).getImage(); 
 	}
 	@Override
