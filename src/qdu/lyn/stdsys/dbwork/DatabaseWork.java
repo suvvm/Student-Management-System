@@ -18,7 +18,7 @@ public class DatabaseWork {
 	protected static String second = null;//
 	public static Connection conn = null;// MySQL数据库的连接对象
 	
-	static {// 静态初始化Dao类
+	static {
 		try {
 			if (conn == null) {
 				Class.forName(dbClassName);
