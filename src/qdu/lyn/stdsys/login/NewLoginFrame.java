@@ -10,13 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import qdu.lyn.stdsys.image.ImageUrl;
+import qdu.lyn.stdsys.user.UserInf;
+
 import javax.swing.JTextField;
+
+import org.omg.PortableInterceptor.USER_EXCEPTION;
+
 import javax.swing.JPasswordField;
 import java.awt.Color;
 
 
 public class NewLoginFrame extends JFrame{
-	private JTextField textField;
+	private JTextField userNameField;
 	private JPasswordField passwordField;
 	public NewLoginFrame() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewLoginFrame.class.getResource("/ico/ico.png")));
@@ -38,6 +43,14 @@ public class NewLoginFrame extends JFrame{
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
 				loginButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				UserInf user = new UserInf();
+				user.setUserName(new String(userNameField.getText()));
+				
 			}
 		});
 		getContentPane().add(loginButton);
@@ -74,17 +87,18 @@ public class NewLoginFrame extends JFrame{
 		});
 		getContentPane().add(exitButton);
 		
-		textField = new JTextField();
-		textField.setForeground(Color.WHITE);
-		textField.setBackground(Color.DARK_GRAY);
-		textField.setBounds(383, 420, 125, 24);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		userNameField = new JTextField();
+		userNameField.setForeground(Color.WHITE);
+		userNameField.setBackground(Color.DARK_GRAY);
+		userNameField.setBounds(383, 420, 125, 24);
+		getContentPane().add(userNameField);
+		userNameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setForeground(Color.WHITE);
 		passwordField.setBackground(Color.DARK_GRAY);
 		passwordField.setBounds(642, 420, 125, 24);
+		
 		getContentPane().add(passwordField);
 		
 		JLabel label = new JLabel("");
