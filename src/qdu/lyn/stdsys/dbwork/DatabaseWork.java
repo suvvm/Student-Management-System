@@ -2,6 +2,8 @@ package qdu.lyn.stdsys.dbwork;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,39 +11,141 @@ import java.util.List;
 import javax.sound.sampled.LineListener;
 import javax.swing.JOptionPane;
 
+import qdu.lyn.stdsys.user.UserInf;
+
 public class DatabaseWork {
-	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQLÊı¾İ¿âÇı¶¯ÀàµÄÃû³Æ
-	protected static String dbUrl = "jdbc:mysql://127.0.0.1:3306/studentdb";// ·ÃÎÊMySQLÊı¾İ¿âµÄÂ·¾¶
-	protected static String dbUser = "root";// ·ÃÎÊMySQLÊı¾İ¿âµÄÓÃ»§Ãû
-	protected static String dbPwd = "root";// ·ÃÎÊMySQLÊı¾İ¿âµÄÃÜÂë
-	protected static String dbName = "studentdb";// ·ÃÎÊMySQLÊı¾İ¿âÖĞµÄÊµÀı(studentdb)
-	protected static String second = null;//
-	public static Connection conn = null;// MySQLÊı¾İ¿âµÄÁ¬½Ó¶ÔÏó
+	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";
+	protected static String dbUrl = "jdbc:mysql://127.0.0.1:3306/studentdb";
+	protected static String dbUser = "root";
+	protected static String dbPwd = "root";
+	protected static String dbName = "studentdb";
+	
+	private Connection connection;
+	private PreparedStatement pStatement;
+	private ResultSet resultSet;
 	
 	static {
 		try {
-			if (conn == null) {
 				Class.forName(dbClassName);
-				conn = DriverManager.getConnection(dbUrl, dbUser, dbPwd);	// Á¬½ÓMySQLÊı¾İ¿â
 				JOptionPane.showMessageDialog(null,"MySQL Drive now is loaded!");
-			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "ÇëÈ·ÈÏMySQLµÄJDBCÇı¶¯°üÊÇ·ñ´æÔÚ¡£");// ²¶»ñÒì³£ºó£¬µ¯³öÌáÊ¾¿ò
-			System.exit(-1);// ÏµÍ³Í£Ö¹ÔËĞĞ
+			JOptionPane.showMessageDialog(null, "è¯·ç¡®è®¤MYSQLé©±åŠ¨æ˜¯å¦æ­£å¸¸å®‰è£…ï¼");
+			System.exit(-1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	// ¶ÁÈ¡ËùÓĞ¿Í»§ĞÅÏ¢
-		public static List getKhInfos() {
-			List list = findForList("select id,stuname,username from student");
-			return list;
-		}
-		public static List findForList(String mysql) {
-			// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
-			List<List> list = new ArrayList<List>();
+	public void getConnection() throws SQLException {
+		connection = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
+		JOptionPane.showMessageDialog(null, "æ•°æ®åº“è¿æ¥æˆåŠŸï¼");
+	}
+	
+	public boolean checkAdministrator(UserInf user) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from Administrator where username = ?");
+			pStatement.setString(1, user.getUserName());
 			
-			return null;
+			resultSet = pStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				return true;
+			}
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
 		}
+		return false;
+	}
+	public boolean confirmAdministrator(UserInf user) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from Administrator where username = ? AND password = ?");
+			pStatement.setString(1, user.getUserName());
+			pStatement.setString(2, user.getUserPassword());
+			
+			resultSet = pStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				return true;
+			}
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return false;
+	}
+	public boolean checkStudent(UserInf user) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from Student where username = ?");
+			pStatement.setString(1, user.getUserName());
+			
+			resultSet = pStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				return true;
+			}
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return false;
+	}
+	public boolean confirmStudent(UserInf user) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from Student where username = ? AND password = ?");
+			pStatement.setString(1, user.getUserName());
+			pStatement.setString(2, user.getUserPassword());
+			
+			resultSet = pStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				return true;
+			}
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return false;
+	}
+	public void insertStudent(UserInf user) {
+		
+	}
+	public void closeAll() {
+		if (resultSet != null) {
+			try {
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (pStatement != null) {
+			try {
+				pStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+		
 }
