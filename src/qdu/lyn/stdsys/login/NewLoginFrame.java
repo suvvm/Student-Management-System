@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
 import qdu.lyn.stdsys.image.ImageUrl;
 import qdu.lyn.stdsys.user.Administrator;
+import qdu.lyn.stdsys.user.Student;
 
 import javax.swing.JTextField;
 import javax.swing.plaf.metal.MetalInternalFrameTitlePane;
@@ -31,7 +32,7 @@ public class NewLoginFrame extends JFrame{
 	
 	private DatabaseWork dbWork = new DatabaseWork(); 
 	public NewLoginFrame() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(NewLoginFrame.class.getResource("/ico/ico.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(NewLoginFrame.class.getResource("/ico/NewPM.png")));
 		setSize(1280, 768);
 		getContentPane().setLayout(null);
 		
@@ -56,12 +57,16 @@ public class NewLoginFrame extends JFrame{
 				// TODO 自动生成的方法存根
 				super.mouseClicked(e);
 				Administrator user = new Administrator();
+				Student users = new Student();
 				user.setUserName(new String(userNameField.getText()));
 			
 				if(dbWork.checkAdministrator(user)) {
 					//new MainFrame().setVisiable(true);
 					NewLoginFrame.this.dispose();
-				}else {
+				}else if(dbWork.checkStudent(users)){
+					NewLoginFrame.this.dispose();
+				}
+				else {
 					JOptionPane.showMessageDialog(null, "登录失败", "用户名或密码不匹配", JOptionPane.ERROR_MESSAGE);
 	                return;
 				}
