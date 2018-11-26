@@ -3,6 +3,7 @@ package qdu.lyn.stdsys.user;
 public class Administrator {
 	private String userName;
 	private String password;
+	private String name;
 	
 	public String getUserName() {
 		return userName;
@@ -15,5 +16,11 @@ public class Administrator {
 	}
 	public void setUserPassword(String tPassword) {
 		password = tPassword;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String tName) {
+		name = tName;
 	}
 }

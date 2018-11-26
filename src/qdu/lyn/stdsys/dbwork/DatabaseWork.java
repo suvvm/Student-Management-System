@@ -12,6 +12,7 @@ import javax.sound.sampled.LineListener;
 import javax.swing.JOptionPane;
 
 import qdu.lyn.stdsys.user.Administrator;
+import qdu.lyn.stdsys.user.Student;
 
 public class DatabaseWork {
 	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";
@@ -80,7 +81,7 @@ public class DatabaseWork {
 		}
 		return false;
 	}
-	public boolean checkStudent(Administrator user) {
+	public boolean checkStudent(Student user) {
 		try {
 			getConnection();
 			pStatement = connection.prepareStatement("select * from Student where username = ?");
@@ -99,7 +100,7 @@ public class DatabaseWork {
 		}
 		return false;
 	}
-	public boolean confirmStudent(Administrator user) {
+	public boolean confirmStudent(Student user) {
 		try {
 			getConnection();
 			pStatement = connection.prepareStatement("select * from Student where username = ? AND password = ?");
@@ -119,8 +120,22 @@ public class DatabaseWork {
 		}
 		return false;
 	}
-	public void insertStudent(Administrator user) {
-		
+	public void insertAdministrator(Administrator user) {
+		try {
+			getConnection();
+			String insertAdministrator = "insert into Administrator values(null, ?, ?, ?)";
+			
+			pStatement = connection.prepareStatement(insertAdministrator);
+			pStatement.setString(1, user.getUserName());
+			pStatement.setString(2, user.getUserPassword());
+			pStatement.setString(3, user.getName());
+			
+			pStatement.executeUpdate();
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 	public void closeAll() {
 		if (resultSet != null) {

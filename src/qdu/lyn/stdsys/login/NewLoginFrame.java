@@ -6,13 +6,18 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Dimension;
+import java.awt.EventQueue;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
+import qdu.lyn.stdsys.dbwork.DatabaseWork;
 import qdu.lyn.stdsys.image.ImageUrl;
 import qdu.lyn.stdsys.user.Administrator;
 
 import javax.swing.JTextField;
+import javax.swing.plaf.metal.MetalInternalFrameTitlePane;
 
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 
@@ -23,6 +28,8 @@ import java.awt.Color;
 public class NewLoginFrame extends JFrame{
 	private JTextField userNameField;
 	private JPasswordField passwordField;
+	
+	private DatabaseWork dbWork = new DatabaseWork(); 
 	public NewLoginFrame() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewLoginFrame.class.getResource("/ico/ico.png")));
 		setSize(1280, 768);
@@ -50,7 +57,14 @@ public class NewLoginFrame extends JFrame{
 				super.mouseClicked(e);
 				Administrator user = new Administrator();
 				user.setUserName(new String(userNameField.getText()));
-				
+			
+				if(dbWork.checkAdministrator(user)) {
+					//new MainFrame().setVisiable(true);
+					NewLoginFrame.this.dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "登录失败", "用户名或密码不匹配", JOptionPane.ERROR_MESSAGE);
+	                return;
+				}
 			}
 		});
 		getContentPane().add(loginButton);
@@ -116,6 +130,17 @@ public class NewLoginFrame extends JFrame{
 	}
 	public static void main(String[] args) {
 		NewLoginFrame newLoginFrame = new NewLoginFrame();
-		newLoginFrame.setVisible(true);
+		EventQueue.invokeLater(new Runnable(){
+			public void run() {
+				try {
+					NewLoginFrame frame = new NewLoginFrame(); 
+					frame.setVisible(true);
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			}
+		});
+		//newLoginFrame.setVisible(true);
 	}
 }
