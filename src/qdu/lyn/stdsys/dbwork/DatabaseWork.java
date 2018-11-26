@@ -11,7 +11,7 @@ import java.util.List;
 import javax.sound.sampled.LineListener;
 import javax.swing.JOptionPane;
 
-import qdu.lyn.stdsys.user.UserInf;
+import qdu.lyn.stdsys.user.Administrator;
 
 public class DatabaseWork {
 	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";
@@ -41,7 +41,7 @@ public class DatabaseWork {
 		JOptionPane.showMessageDialog(null, "数据库连接成功！");
 	}
 	
-	public boolean checkAdministrator(UserInf user) {
+	public boolean checkAdministrator(Administrator user) {
 		try {
 			getConnection();
 			pStatement = connection.prepareStatement("select * from Administrator where username = ?");
@@ -60,7 +60,7 @@ public class DatabaseWork {
 		}
 		return false;
 	}
-	public boolean confirmAdministrator(UserInf user) {
+	public boolean confirmAdministrator(Administrator user) {
 		try {
 			getConnection();
 			pStatement = connection.prepareStatement("select * from Administrator where username = ? AND password = ?");
@@ -80,7 +80,7 @@ public class DatabaseWork {
 		}
 		return false;
 	}
-	public boolean checkStudent(UserInf user) {
+	public boolean checkStudent(Administrator user) {
 		try {
 			getConnection();
 			pStatement = connection.prepareStatement("select * from Student where username = ?");
@@ -99,7 +99,7 @@ public class DatabaseWork {
 		}
 		return false;
 	}
-	public boolean confirmStudent(UserInf user) {
+	public boolean confirmStudent(Administrator user) {
 		try {
 			getConnection();
 			pStatement = connection.prepareStatement("select * from Student where username = ? AND password = ?");
@@ -119,7 +119,7 @@ public class DatabaseWork {
 		}
 		return false;
 	}
-	public void insertStudent(UserInf user) {
+	public void insertStudent(Administrator user) {
 		
 	}
 	public void closeAll() {

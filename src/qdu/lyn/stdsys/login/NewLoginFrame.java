@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import qdu.lyn.stdsys.image.ImageUrl;
-import qdu.lyn.stdsys.user.UserInf;
+import qdu.lyn.stdsys.user.Administrator;
 
 import javax.swing.JTextField;
 
@@ -48,7 +48,7 @@ public class NewLoginFrame extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseClicked(e);
-				UserInf user = new UserInf();
+				Administrator user = new Administrator();
 				user.setUserName(new String(userNameField.getText()));
 				
 			}
