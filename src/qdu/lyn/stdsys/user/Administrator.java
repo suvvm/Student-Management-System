@@ -1,6 +1,6 @@
 package qdu.lyn.stdsys.user;
 
-public class UserInf {
+public class Administrator {
 	private String userName;
 	private String password;
 	
