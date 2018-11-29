@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
 import qdu.lyn.stdsys.image.ImageUrl;
+import qdu.lyn.stdsys.main.MainFrame;
 import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.Student;
 
@@ -58,12 +59,17 @@ public class NewLoginFrame extends JFrame{
 				super.mouseClicked(e);
 				Administrator user = new Administrator();
 				Student users = new Student();
-				user.setUserName(new String(userNameField.getText()));
-			
-				if(dbWork.checkAdministrator(user)) {
-					//new MainFrame().setVisiable(true);
+				user.setUserName(userNameField.getText());
+				user.setUserPassword(new String(passwordField.getPassword()));
+				
+				JOptionPane.showMessageDialog(null, passwordField.getText(), "", JOptionPane.ERROR_MESSAGE);
+				users.setUserName(userNameField.getText());
+				users.setUserPassword(new String(passwordField.getText()));
+				if(dbWork.confirmAdministrator(user)) {
+					new MainFrame().setVisible(true);
 					NewLoginFrame.this.dispose();
-				}else if(dbWork.checkStudent(users)){
+				}else if(dbWork.confirmStudent(users)){
+					new MainFrame().setVisible(true);
 					NewLoginFrame.this.dispose();
 				}
 				else {

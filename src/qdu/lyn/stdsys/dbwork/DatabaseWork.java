@@ -16,14 +16,16 @@ import qdu.lyn.stdsys.user.Student;
 
 public class DatabaseWork {
 	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";
-	protected static String dbUrl = "jdbc:mysql://127.0.0.1:3306/studentdb";
+	protected static String dbUrl = "jdbc:mysql://127.0.0.1:3306/StudentDB";
 	protected static String dbUser = "root";
 	protected static String dbPwd = "root";
-	protected static String dbName = "studentdb";
+	protected static String dbName = "StudentDB";
 	
 	private Connection connection;
 	private PreparedStatement pStatement;
-	private ResultSet resultSet;
+	private ResultSet rSet;
+	
+	
 	
 	static {
 		try {
@@ -39,7 +41,7 @@ public class DatabaseWork {
 	}
 	public void getConnection() throws SQLException {
 		connection = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
-		JOptionPane.showMessageDialog(null, "数据库连接成功！");
+		//JOptionPane.showMessageDialog(null, "数据库连接成功！");
 	}
 	
 	public boolean checkAdministrator(Administrator user) {
@@ -47,10 +49,8 @@ public class DatabaseWork {
 			getConnection();
 			pStatement = connection.prepareStatement("select * from Administrator where username = ?");
 			pStatement.setString(1, user.getUserName());
-			
-			resultSet = pStatement.executeQuery();
-			
-			if(resultSet.next()) {
+			rSet = pStatement.executeQuery();
+			if(rSet.next()) {
 				return true;
 			}
 		}catch (SQLException e) {
@@ -67,10 +67,11 @@ public class DatabaseWork {
 			pStatement = connection.prepareStatement("select * from Administrator where username = ? AND password = ?");
 			pStatement.setString(1, user.getUserName());
 			pStatement.setString(2, user.getUserPassword());
-			
-			resultSet = pStatement.executeQuery();
-			
-			if(resultSet.next()) {
+			System.out.println("username："+user.getUserName()+"  password："+user.getUserPassword());
+			rSet = pStatement.executeQuery();
+			//System.out.println("username："+rSet.getInt(1)+"  password："+rSet.getString(2));
+			//return true;
+			if(rSet.next()) {
 				return true;
 			}
 		}catch (SQLException e) {
@@ -87,9 +88,9 @@ public class DatabaseWork {
 			pStatement = connection.prepareStatement("select * from Student where username = ?");
 			pStatement.setString(1, user.getUserName());
 			
-			resultSet = pStatement.executeQuery();
+			rSet = pStatement.executeQuery();
 			
-			if(resultSet.next()) {
+			if(rSet.next()) {
 				return true;
 			}
 		}catch (SQLException e) {
@@ -107,9 +108,9 @@ public class DatabaseWork {
 			pStatement.setString(1, user.getUserName());
 			pStatement.setString(2, user.getUserPassword());
 			
-			resultSet = pStatement.executeQuery();
+			rSet = pStatement.executeQuery();
 			
-			if(resultSet.next()) {
+			if(rSet.next()) {
 				return true;
 			}
 		}catch (SQLException e) {
@@ -138,9 +139,9 @@ public class DatabaseWork {
 		}
 	}
 	public void closeAll() {
-		if (resultSet != null) {
+		if (rSet != null) {
 			try {
-				resultSet.close();
+				rSet.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
