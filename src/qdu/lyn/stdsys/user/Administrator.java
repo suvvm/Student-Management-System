@@ -20,7 +20,4 @@ public class Administrator {
 	public String getName() {
 		return name;
 	}
-	public void setName(String tName) {
-		name = tName;
-	}
 }
