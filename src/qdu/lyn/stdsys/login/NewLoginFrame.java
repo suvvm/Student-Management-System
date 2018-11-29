@@ -62,9 +62,9 @@ public class NewLoginFrame extends JFrame{
 				user.setUserName(userNameField.getText());
 				user.setUserPassword(new String(passwordField.getPassword()));
 				
-				JOptionPane.showMessageDialog(null, passwordField.getText(), "", JOptionPane.ERROR_MESSAGE);
+				//JOptionPane.showMessageDialog(null, passwordField.getPassword(), "", JOptionPane.ERROR_MESSAGE);
 				users.setUserName(userNameField.getText());
-				users.setUserPassword(new String(passwordField.getText()));
+				users.setUserPassword(new String(passwordField.getPassword()));
 				if(dbWork.confirmAdministrator(user)) {
 					new MainFrame().setVisible(true);
 					NewLoginFrame.this.dispose();
@@ -115,14 +115,14 @@ public class NewLoginFrame extends JFrame{
 		userNameField = new JTextField();
 		userNameField.setForeground(Color.WHITE);
 		userNameField.setBackground(Color.DARK_GRAY);
-		userNameField.setBounds(383, 420, 125, 24);
+		userNameField.setBounds(360, 420, 125, 24);
 		getContentPane().add(userNameField);
 		userNameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setForeground(Color.WHITE);
 		passwordField.setBackground(Color.DARK_GRAY);
-		passwordField.setBounds(642, 420, 125, 24);
+		passwordField.setBounds(662, 420, 125, 24);
 		
 		getContentPane().add(passwordField);
 		
@@ -131,7 +131,7 @@ public class NewLoginFrame extends JFrame{
 		getContentPane().add(label);
 		
 		JLabel bgLabel = new JLabel("");
-		bgLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/bg/nloginbg.png")));
+		bgLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/bg/nloginbg.jpg")));
 		bgLabel.setBounds(14, 13, 1280, 768);
 		getContentPane().add(bgLabel);
 		
