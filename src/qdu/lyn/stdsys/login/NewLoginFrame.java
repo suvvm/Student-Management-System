@@ -37,9 +37,17 @@ public class NewLoginFrame extends JFrame{
 		setSize(1280, 768);
 		getContentPane().setLayout(null);
 		
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = kit.getScreenSize(); 
+		int screenWidth = screenSize.width/2;
+		int screenHeight = screenSize.height/2; 
+		int height = this.getHeight();
+		int width = this.getWidth();
+		setLocation(screenWidth-width/2, screenHeight-height/2);
+		
 		JLabel loginButton = new JLabel("");
 		loginButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn.png")));
-		loginButton.setBounds(899, 295, 143, 44);
+		loginButton.setBounds(886, 284, 143, 44);
 		loginButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -84,7 +92,7 @@ public class NewLoginFrame extends JFrame{
 		
 		JLabel exitButton = new JLabel("");
 		exitButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Exitbut.png")));
-		exitButton.setBounds(899, 632, 143, 44);
+		exitButton.setBounds(886, 618, 143, 44);
 		exitButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -115,14 +123,14 @@ public class NewLoginFrame extends JFrame{
 		userNameField = new JTextField();
 		userNameField.setForeground(Color.WHITE);
 		userNameField.setBackground(Color.DARK_GRAY);
-		userNameField.setBounds(360, 420, 125, 24);
+		userNameField.setBounds(350, 407, 125, 24);
 		getContentPane().add(userNameField);
 		userNameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setForeground(Color.WHITE);
 		passwordField.setBackground(Color.DARK_GRAY);
-		passwordField.setBounds(662, 420, 125, 24);
+		passwordField.setBounds(647, 407, 125, 24);
 		
 		getContentPane().add(passwordField);
 		
@@ -132,7 +140,7 @@ public class NewLoginFrame extends JFrame{
 		
 		JLabel bgLabel = new JLabel("");
 		bgLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/bg/nloginbg.jpg")));
-		bgLabel.setBounds(14, 13, 1280, 768);
+		bgLabel.setBounds(0, 0, 1280, 768);
 		getContentPane().add(bgLabel);
 		
 		
