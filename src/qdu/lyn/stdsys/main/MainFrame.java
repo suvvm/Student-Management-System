@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import qdu.lyn.stdsys.login.NewLoginFrame;
+import qdu.lyn.stdsys.login.RegisterFrame;
 import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.Student;
 
@@ -48,7 +49,7 @@ public class MainFrame extends JFrame{
 		
 		JLabel loginLabel = new JLabel("");
 		loginLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/but/Loginbtn.png")));
-		loginLabel.setBounds(890, 290, 145, 38);
+		loginLabel.setBounds(885, 285, 145, 38);
 		loginLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -71,25 +72,45 @@ public class MainFrame extends JFrame{
 		});
 		contentPane.add(loginLabel);
 		
-		JLabel lblNewLabel_2 = new JLabel("注册");
-		lblNewLabel_2.setIcon(new ImageIcon(MainFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
-		lblNewLabel_2.setBounds(890, 330, 145, 44);
-		contentPane.add(lblNewLabel_2);
+		JLabel registerLabel = new JLabel("");
+		registerLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
+		registerLabel.setBounds(885, 323, 145, 44);
+		registerLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				registerLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn_c.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				registerLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				new RegisterFrame().setVisible(true);
+				MainFrame.this.dispose();
+			}
+		});
+		contentPane.add(registerLabel);
 		
 		
 		
 		JLabel lblNewLabel_3 = new JLabel("New label");
 		lblNewLabel_3.setIcon(new ImageIcon(MainFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
-		lblNewLabel_3.setBounds(890, 371, 145, 44);
+		lblNewLabel_3.setBounds(885, 368, 145, 44);
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("New label");
 		lblNewLabel_4.setIcon(new ImageIcon(MainFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
-		lblNewLabel_4.setBounds(891, 622, 145, 44);
+		lblNewLabel_4.setBounds(885, 620, 145, 44);
 		contentPane.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(5, 5, 1252, 768);
+		lblNewLabel.setBounds(0, 0, 1252, 768);
 		lblNewLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/bg/newmainmenubg.png")));
 		contentPane.add(lblNewLabel);
 	}
