@@ -124,12 +124,13 @@ public class DatabaseWork {
 	public void insertAdministrator(Administrator user) {
 		try {
 			getConnection();
-			String insertAdministrator = "insert into Administrator values(null, ?, ?, ?)";
+			String insertAdministrator = "insert into Administrator values(null, ?, ?, ?, ?)";
 			
 			pStatement = connection.prepareStatement(insertAdministrator);
 			pStatement.setString(1, user.getUserName());
 			pStatement.setString(2, user.getUserPassword());
 			pStatement.setString(3, user.getName());
+			pStatement.setString(4, user.getEmail());
 			
 			pStatement.executeUpdate();
 		} catch (SQLException e)
