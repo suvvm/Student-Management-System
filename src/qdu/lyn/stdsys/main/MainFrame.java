@@ -18,6 +18,7 @@ import qdu.lyn.stdsys.user.Student;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.JTabbedPane;
 
 
 public class MainFrame extends JFrame{
@@ -102,12 +103,37 @@ public class MainFrame extends JFrame{
 		JLabel lblNewLabel_3 = new JLabel("New label");
 		lblNewLabel_3.setIcon(new ImageIcon(MainFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
 		lblNewLabel_3.setBounds(885, 368, 145, 44);
+		lblNewLabel_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				lblNewLabel_3.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn_c.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				lblNewLabel_3.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				//tabbedPane.setVisible(true);
+				new ManagementFrame().setVisible(true);
+				MainFrame.this.dispose();
+			}
+		});
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("New label");
 		lblNewLabel_4.setIcon(new ImageIcon(MainFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
 		lblNewLabel_4.setBounds(885, 620, 145, 44);
 		contentPane.add(lblNewLabel_4);
+		
+		
+		
+		
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(0, 0, 1252, 768);
