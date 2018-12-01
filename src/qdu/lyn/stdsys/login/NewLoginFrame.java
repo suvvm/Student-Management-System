@@ -138,6 +138,32 @@ public class NewLoginFrame extends JFrame{
 		label.setBounds(257, 666, 74, 30);
 		getContentPane().add(label);
 		
+		JLabel backToMain = new JLabel("");
+		backToMain.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/backToMain.jpg")));
+		backToMain.setBounds(886, 581, 143, 38);
+		backToMain.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				backToMain.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/backToMain_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				backToMain.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/backToMain.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				new MainFrame().setVisible(true);
+				NewLoginFrame.this.dispose();
+			}
+		});
+		getContentPane().add(backToMain);
+		
 		JLabel bgLabel = new JLabel("");
 		bgLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/bg/nloginbg.jpg")));
 		bgLabel.setBounds(0, 0, 1280, 768);
