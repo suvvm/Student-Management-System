@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.Student;
+import qdu.lyn.stdsys.user.StudentInf;
 
 public class DatabaseWork {
 	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";
@@ -131,6 +132,48 @@ public class DatabaseWork {
 			pStatement.setString(2, user.getUserPassword());
 			pStatement.setString(3, user.getName());
 			pStatement.setString(4, user.getEmail());
+			
+			pStatement.executeUpdate();
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	public boolean checkStudentInf(StudentInf user) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from StudentInf where id = ?");
+			pStatement.setInt(1, user.getId());
+			
+			rSet = pStatement.executeQuery();
+			
+			if(rSet.next()) {
+				return true;
+			}
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return false;
+	}
+	public void insertStudnetInf(StudentInf user) {
+		try {
+			getConnection();
+			String insertStudnetInf = "insert into StudentInf values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			pStatement = connection.prepareStatement(insertStudnetInf);
+			pStatement.setInt(1, user.getId());
+			pStatement.setString(2, user.getName());
+			pStatement.setString(3, user.getHome());
+			pStatement.setString(4, user.getPhoneNumber());
+			pStatement.setString(5, user.getFileUrl());
+			pStatement.setString(6, user.getUserName());
+			pStatement.setString(7, user.getQqNumber());
+			pStatement.setString(8, user.getEmail());
+			pStatement.setString(9, user.getClassName());
 			
 			pStatement.executeUpdate();
 		} catch (SQLException e)

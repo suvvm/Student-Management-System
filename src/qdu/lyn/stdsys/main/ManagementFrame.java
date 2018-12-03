@@ -2,6 +2,8 @@ package qdu.lyn.stdsys.main;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -17,6 +19,10 @@ import java.io.File;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import propertymanagement.view.RegisterFrame;
+import qdu.lyn.stdsys.dbwork.DatabaseWork;
+import qdu.lyn.stdsys.user.StudentInf;
+
 
 public class ManagementFrame extends JFrame{
 	private JTextField nameField;
@@ -27,9 +33,10 @@ public class ManagementFrame extends JFrame{
 	private JTextField qqNumberField;
 	private JTable table;
 	private JTextField textField_6;
-	private JTextField textField;
-	private JTextField textField_1;
-	
+	private JTextField userNameField;
+	private JTextField eMailField;
+	private String fileUrl;
+	private DatabaseWork dbWork = new DatabaseWork();
 	
 	public ManagementFrame() {
 		setSize(1280, 768);
@@ -42,91 +49,69 @@ public class ManagementFrame extends JFrame{
 		tabbedPane.setVisible(true);
 		getContentPane().add(tabbedPane);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_2, null);
-		panel_2.setLayout(null);
+		JPanel insertPanel = new JPanel();
+		tabbedPane.addTab("插入学生", null, insertPanel, null);
+		insertPanel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("姓名");
-		lblNewLabel.setBounds(58, 35, 75, 18);
-		panel_2.add(lblNewLabel);
-		
-		JLabel lblId = new JLabel("ID");
-		lblId.setBounds(330, 35, 72, 18);
-		panel_2.add(lblId);
-		
-		JLabel label = new JLabel("班级");
-		label.setBounds(58, 91, 72, 18);
-		panel_2.add(label);
-		
-		JLabel label_1 = new JLabel("家乡");
-		label_1.setBounds(330, 91, 72, 18);
-		panel_2.add(label_1);
-		
-		JLabel label_2 = new JLabel("联系电话");
-		label_2.setBounds(58, 149, 72, 18);
-		panel_2.add(label_2);
-		
-		JLabel lblQq = new JLabel("QQ号");
-		lblQq.setBounds(330, 149, 72, 18);
-		panel_2.add(lblQq);
-		
+		JLabel nameLabel = new JLabel("姓名");
+		nameLabel.setBounds(58, 35, 75, 18);
+		insertPanel.add(nameLabel);
+		JLabel idLable = new JLabel("ID");
+		idLable.setBounds(330, 35, 72, 18);
+		insertPanel.add(idLable);
+		JLabel classLabel = new JLabel("班级");
+		classLabel.setBounds(58, 91, 72, 18);
+		insertPanel.add(classLabel);
+		JLabel homeLabel = new JLabel("家乡");
+		homeLabel.setBounds(330, 91, 72, 18);
+		insertPanel.add(homeLabel);
+		JLabel phoneNumberLabel = new JLabel("联系电话");
+		phoneNumberLabel.setBounds(58, 149, 72, 18);
+		insertPanel.add(phoneNumberLabel);
+		JLabel qqNumberLable = new JLabel("QQ号");
+		qqNumberLable.setBounds(330, 149, 72, 18);
+		insertPanel.add(qqNumberLable);
 		nameField = new JTextField();
 		nameField.setBounds(151, 32, 120, 24);
-		panel_2.add(nameField);
+		insertPanel.add(nameField);
 		nameField.setColumns(10);
-		
 		idField = new JTextField();
 		idField.setBounds(416, 32, 120, 24);
-		panel_2.add(idField);
+		insertPanel.add(idField);
 		idField.setColumns(10);
-		
 		classField = new JTextField();
 		classField.setBounds(151, 88, 120, 24);
-		panel_2.add(classField);
+		insertPanel.add(classField);
 		classField.setColumns(10);
-		
 		homeField = new JTextField();
 		homeField.setBounds(416, 88, 120, 24);
-		panel_2.add(homeField);
+		insertPanel.add(homeField);
 		homeField.setColumns(10);
-		
 		phoneNumberField = new JTextField();
 		phoneNumberField.setBounds(151, 146, 120, 24);
-		panel_2.add(phoneNumberField);
+		insertPanel.add(phoneNumberField);
 		phoneNumberField.setColumns(10);
-		
 		qqNumberField = new JTextField();
 		qqNumberField.setBounds(416, 146, 120, 24);
-		panel_2.add(qqNumberField);
+		insertPanel.add(qqNumberField);
 		qqNumberField.setColumns(10);
-		
-		JLabel insertlabel = new JLabel("");
-		insertlabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
-		insertlabel.setBounds(301, 382, 101, 32);
-		panel_2.add(insertlabel);
-		
-		JLabel label_3 = new JLabel("用户名");
-		label_3.setBounds(58, 212, 72, 18);
-		panel_2.add(label_3);
-		
-		textField = new JTextField();
-		textField.setBounds(151, 209, 120, 24);
-		panel_2.add(textField);
-		textField.setColumns(10);
-		
-		JLabel label_4 = new JLabel("电子邮箱");
-		label_4.setBounds(330, 212, 72, 18);
-		panel_2.add(label_4);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(416, 209, 120, 24);
-		panel_2.add(textField_1);
-		textField_1.setColumns(10);
-		
-		JLabel label_5 = new JLabel("图片");
-		label_5.setBounds(182, 281, 72, 18);
-		panel_2.add(label_5);
-		
+		JLabel userNameLabel = new JLabel("用户名");
+		userNameLabel.setBounds(58, 212, 72, 18);
+		insertPanel.add(userNameLabel);
+		userNameField = new JTextField();
+		userNameField.setBounds(151, 209, 120, 24);
+		insertPanel.add(userNameField);
+		userNameField.setColumns(10);
+		JLabel eMailLabel = new JLabel("电子邮箱");
+		eMailLabel.setBounds(330, 212, 72, 18);
+		insertPanel.add(eMailLabel);
+		eMailField = new JTextField();
+		eMailField.setBounds(416, 209, 120, 24);
+		insertPanel.add(eMailField);
+		eMailField.setColumns(10);
+		JLabel imglLabel = new JLabel("图片");
+		imglLabel.setBounds(182, 281, 72, 18);
+		insertPanel.add(imglLabel);
 		JLabel openFilelabel = new JLabel("");
 		openFilelabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/optionsActive.png")));
 		openFilelabel.setBounds(311, 281, 104, 32);
@@ -152,19 +137,45 @@ public class ManagementFrame extends JFrame{
 		        jfc.showDialog(new JLabel(), "选择");  
 		        File file=jfc.getSelectedFile();  
 		        if(file.isDirectory()){  
-		            System.out.println("文件夹:"+file.getAbsolutePath());  
+		        	JOptionPane.showMessageDialog(null,  "选择错误", "所选非文件", JOptionPane.ERROR_MESSAGE);
 		        }else if(file.isFile()){  
-		            System.out.println("文件:"+file.getAbsolutePath());  
+		        	fileUrl = file.getAbsolutePath(); 
 		        }  
-		        System.out.println(jfc.getSelectedFile().getName());
+		        //System.out.println(jfc.getSelectedFile().getName());
+			}
+		});
+		insertPanel.add(openFilelabel);
+		JLabel insertlabel = new JLabel("");
+		insertlabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
+		insertlabel.setBounds(301, 382, 101, 32);
+		insertlabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				StudentInf stdinf = new StudentInf();
+				stdinf.setId(Integer.parseInt(idField.getText()));
+				stdinf.setClassName(classField.getText());
+				stdinf.setEmail(eMailField.getText());
+				stdinf.setFileUrl(fileUrl);
+				stdinf.setHome(homeField.getText());
+				stdinf.setName(nameField.getText());
+				stdinf.setPhoneNumber(phoneNumberField.getText());
+				stdinf.setQqNumber(qqNumberField.getText());
+				stdinf.setUserName(userNameField.getText());
+				if(dbWork.checkStudentInf(stdinf)) {
+					JOptionPane.showMessageDialog(null,  "用户已存在", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					dbWork.insertStudnetInf(stdinf);
+				}
 				
 			}
 		});
-		panel_2.add(openFilelabel);
+		insertPanel.add(insertlabel);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
-		panel.setLayout(null);
+		JPanel showPanel = new JPanel();
+		tabbedPane.addTab("显示全部", null, showPanel, null);
+		showPanel.setLayout(null);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -184,28 +195,28 @@ public class ManagementFrame extends JFrame{
 		));
 		table.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		table.setBounds(37, 47, 546, 349);
-		panel.add(table);
+		showPanel.add(table);
 		
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("", new ImageIcon(ManagementFrame.class.getResource("/but/92pxbtn.png")), panel_3);
-		panel_3.setLayout(null);
+		JPanel export = new JPanel();
+		tabbedPane.addTab("导出数据", null, export, null);
+		
+		JPanel selectPanel = new JPanel();
+		tabbedPane.addTab("查询学生", null, selectPanel, null);
+		selectPanel.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("ID");
 		lblNewLabel_1.setBounds(72, 74, 72, 18);
-		panel_3.add(lblNewLabel_1);
+		selectPanel.add(lblNewLabel_1);
 		
 		textField_6 = new JTextField();
 		textField_6.setBounds(158, 71, 86, 24);
-		panel_3.add(textField_6);
+		selectPanel.add(textField_6);
 		textField_6.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		lblNewLabel_2.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
 		lblNewLabel_2.setBounds(110, 120, 72, 18);
-		panel_3.add(lblNewLabel_2);
-		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		selectPanel.add(lblNewLabel_2);
 		
 		JLabel backToMainLabel = new JLabel("");
 		backToMainLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.png")));
@@ -244,6 +255,30 @@ public class ManagementFrame extends JFrame{
 			}
 		});
 		getContentPane().add(exitLabel);
+		
+		JLabel A = new JLabel("AAAA");
+		A.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
+		A.setBounds(885, 274, 146, 42);
+
+		getContentPane().add(A);
+		
+		JLabel B = new JLabel("BBBBBBB");
+		B.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
+		B.setBounds(885, 318, 146, 42);
+	
+		getContentPane().add(B);
+		
+		JLabel C = new JLabel("DDDDDDD");
+		C.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
+		C.setBounds(885, 362, 146, 42);
+	
+		getContentPane().add(C);
+		
+		JLabel D = new JLabel("EEEEEE");
+		D.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
+		D.setBounds(885, 405, 153, 42);
+		
+		getContentPane().add(D);
 		
 		JLabel bgLabel = new JLabel("");
 		bgLabel.setBounds(0, 0, 1272, 750);
