@@ -19,7 +19,6 @@ import java.io.File;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import propertymanagement.view.RegisterFrame;
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
 import qdu.lyn.stdsys.user.StudentInf;
 
@@ -168,7 +167,6 @@ public class ManagementFrame extends JFrame{
 				}else {
 					dbWork.insertStudnetInf(stdinf);
 				}
-				
 			}
 		});
 		insertPanel.add(insertlabel);
