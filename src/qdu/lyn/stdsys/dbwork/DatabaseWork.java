@@ -182,6 +182,21 @@ public class DatabaseWork {
 			e.printStackTrace();
 		}
 	}
+	public boolean deleteStudentInf(StudentInf user) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("delete from StudentInf where id = ?");
+			pStatement.setInt(1, user.getId());
+			pStatement.executeUpdate();
+			return true;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return false;
+	}
 	public void closeAll() {
 		if (rSet != null) {
 			try {
