@@ -182,6 +182,75 @@ public class DatabaseWork {
 			e.printStackTrace();
 		}
 	}
+	public void updateStudnetInf(StudentInf user) {
+		try {
+			getConnection();
+			String insertStudnetInf = "update StudentInf set name = ?, home = ?, phoneNumber = ?, img = ?, username = ?, qqNUmber = ?, e_mail = ?, className = ? where id = ?";
+			//UPDATE 表名字 SET 列1=值1,列2=值2 WHERE 条件;
+			pStatement = connection.prepareStatement(insertStudnetInf);
+			pStatement.setString(1, user.getName());
+			pStatement.setString(2, user.getHome());
+			pStatement.setString(3, user.getPhoneNumber());
+			pStatement.setString(4, user.getFileUrl());
+			pStatement.setString(5, user.getUserName());
+			pStatement.setString(6, user.getQqNumber());
+			pStatement.setString(7, user.getEmail());
+			pStatement.setString(8, user.getClassName());
+			pStatement.setInt(9, user.getId());
+			
+			pStatement.executeUpdate();
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	public List<String> selectOneStudentInf(StudentInf stdinf) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from StudentInf where id = ?");
+			pStatement.setInt(1, stdinf.getId());
+			
+			rSet = pStatement.executeQuery();
+			List<String> list = new ArrayList<String>();
+			while(rSet.next()) {
+				list.add(rSet.getString("name"));
+				list.add(rSet.getString("home"));
+				list.add(rSet.getString("phoneNumber"));
+				list.add(rSet.getString("img"));
+				list.add(rSet.getString("username"));
+				list.add(rSet.getString("qqNumber"));
+				list.add(rSet.getString("e_mail"));
+				list.add(rSet.getString("className"));
+			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
+	}
+	public List<String[]> selectAllStudentInf() {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from StudentInf");
+			
+			rSet = pStatement.executeQuery();
+			List<String[]> list = new ArrayList<String[]>();
+			while(rSet.next()) {
+				list.add(new String[] {rSet.getString("id"), rSet.getString("name"), rSet.getString("home"), rSet.getString("phoneNumber"), rSet.getString("username"), rSet.getString("qqNumber"), rSet.getString("e_mail"), rSet.getString("className")});
+			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
+	}
 	public boolean deleteStudentInf(StudentInf user) {
 		try {
 			getConnection();
