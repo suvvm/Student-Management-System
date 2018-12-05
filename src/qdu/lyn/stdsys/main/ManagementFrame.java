@@ -9,15 +9,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
 import qdu.lyn.stdsys.user.StudentInf;
@@ -31,13 +34,17 @@ public class ManagementFrame extends JFrame{
 	private JTextField phoneNumberField;
 	private JTextField qqNumberField;
 	private JTable table;
-	private JTextField textField_6;
+	private JTextField selectEnterIdLabel;
 	private JTextField userNameField;
 	private JTextField eMailField;
 	private String fileUrl;
+	private String updateFileUrl;
 	private DatabaseWork dbWork = new DatabaseWork();
+	private List<String> listOne;
+	private List<String[]> listAll;
+	
 	private JTextField deleteIdField;
-	private JTextField textField;
+	private JTextField updateIdField;
 	private JTextField updateNameField;
 	private JTextField updateClassField;
 	private JTextField updateHomeField;
@@ -186,24 +193,54 @@ public class ManagementFrame extends JFrame{
 		showPanel.setLayout(null);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"\u59D3\u540D", "ID", "\u73ED\u7EA7", "\u8054\u7CFB\u7535\u8BDD", "QQ\u53F7", "\u7535\u5B50\u90AE\u4EF6"},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-			},
-			new String[] {
-				"\u59D3\u540D", "ID", "\u73ED\u7EA7", "\u8054\u7CFB\u7535\u8BDD", "QQ\u53F7", "\u7535\u5B50\u90AE\u4EF6"
-			}
-		));
+		String[] name = new String[] {
+				"ID", "\u59D3\u540D", "\u5BB6\u4E61", "\u8054\u7CFB\u7535\u8BDD", "\u7528\u6237\u540D", "QQ\u53F7", "\u7535\u5B50\u90AE\u4EF6", "\u73ED\u7EA7"
+			};
+		String[][] value = {};
+		DefaultTableModel dtm = new DefaultTableModel(value, name);
+		table.setModel(dtm);
 		table.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		table.setBounds(37, 47, 546, 349);
 		showPanel.add(table);
+		
+		JLabel selectAllButLabel = new JLabel("");
+		selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
+		selectAllButLabel.setBounds(251, 422, 93, 32);
+		selectAllButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameActive.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listAll = dbWork.selectAllStudentInf();
+				if (listAll == null) {
+					JOptionPane.showMessageDialog(null,  "学生信息没有", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listAll.size();
+					String[] name =  {
+							"ID", "\u59D3\u540D", "\u5BB6\u4E61", "\u8054\u7CFB\u7535\u8BDD", "\u7528\u6237\u540D", "QQ\u53F7", "\u7535\u5B50\u90AE\u4EF6", "\u73ED\u7EA7"
+						};
+					String[][] value = new String[size][8];
+					for(int i = 0; i < size; i++) {
+						value[i] = listAll.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					table.setModel(dtm);
+				}
+			}
+		});
+		showPanel.add(selectAllButLabel);
 		
 		JPanel updatePanel = new JPanel();
 		
@@ -258,18 +295,18 @@ public class ManagementFrame extends JFrame{
 		});
 		updatePanel.add(deleteButLabel);
 		
-		JLabel lblNewLabel = new JLabel("修改信息（根据学号选择学生）");
-		lblNewLabel.setBounds(53, 107, 226, 18);
-		updatePanel.add(lblNewLabel);
+		JLabel changeInfLabel = new JLabel("修改信息（根据学号选择学生）");
+		changeInfLabel.setBounds(53, 107, 226, 18);
+		updatePanel.add(changeInfLabel);
 		
-		JLabel label = new JLabel("学号");
-		label.setBounds(293, 107, 72, 18);
-		updatePanel.add(label);
+		JLabel idLabel = new JLabel("学号");
+		idLabel.setBounds(293, 107, 72, 18);
+		updatePanel.add(idLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(390, 104, 120, 24);
-		updatePanel.add(textField);
-		textField.setColumns(10);
+		updateIdField = new JTextField();
+		updateIdField.setBounds(390, 104, 120, 24);
+		updatePanel.add(updateIdField);
+		updateIdField.setColumns(10);
 		
 		JLabel enterInfLabel = new JLabel("输入新信息：");
 		enterInfLabel.setBounds(53, 146, 106, 18);
@@ -338,29 +375,205 @@ public class ManagementFrame extends JFrame{
 		updatePanel.add(updateEmailField);
 		updateEmailField.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
-		lblNewLabel_3.setBounds(463, 361, 101, 32);
-		updatePanel.add(lblNewLabel_3);
+		JLabel submitChangeButLabel = new JLabel("");
+		submitChangeButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		submitChangeButLabel.setBounds(277, 420, 101, 32);
+		submitChangeButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				submitChangeButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				submitChangeButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				StudentInf stdinf = new StudentInf();
+				stdinf.setId(Integer.parseInt(updateIdField.getText()));
+				stdinf.setClassName(updateClassField.getText());
+				stdinf.setEmail(updateEmailField.getText());
+				stdinf.setFileUrl(updateFileUrl);
+				stdinf.setHome(updateHomeField.getText());
+				stdinf.setName(updateNameField.getText());
+				stdinf.setPhoneNumber(updatePhoneNumberField.getText());
+				stdinf.setQqNumber(updateQqField.getText());
+				stdinf.setUserName(updateUserNameField.getText());
+				if(!dbWork.checkStudentInf(stdinf)) {
+					JOptionPane.showMessageDialog(null,  "学生信息不存在", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					dbWork.updateStudnetInf(stdinf);
+					JOptionPane.showMessageDialog(null,  "学生信息修改成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		updatePanel.add(submitChangeButLabel);
+		
+		JLabel updateChooseImglabel = new JLabel("图片");
+		updateChooseImglabel.setBounds(357, 361, 72, 18);
+		updatePanel.add(updateChooseImglabel);
+		
+		JLabel updateOpenFileButLabel = new JLabel("");
+		updateOpenFileButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/optionsInactive.png")));
+		updateOpenFileButLabel.setBounds(445, 358, 106, 32);
+		updateOpenFileButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				updateOpenFileButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/optionsActive.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				updateOpenFileButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/optionsInactive.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				JFileChooser jfc=new JFileChooser();  
+		        jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );  
+		        jfc.showDialog(new JLabel(), "选择");  
+		        File file=jfc.getSelectedFile();  
+		        if(file.isDirectory()){  
+		        	JOptionPane.showMessageDialog(null,  "选择错误", "所选非文件", JOptionPane.ERROR_MESSAGE);
+		        }else if(file.isFile()){  
+		        	updateFileUrl = file.getAbsolutePath(); 
+		        }  
+		        //System.out.println(jfc.getSelectedFile().getName());
+			}
+		});
+		updatePanel.add(updateOpenFileButLabel);
 		
 		JPanel selectPanel = new JPanel();
 		tabbedPane.addTab("查询学生", null, selectPanel, null);
 		selectPanel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("ID");
-		lblNewLabel_1.setBounds(72, 74, 72, 18);
-		selectPanel.add(lblNewLabel_1);
+		JLabel selectIdLabel = new JLabel("ID");
+		selectIdLabel.setBounds(132, 74, 72, 18);
+		selectPanel.add(selectIdLabel);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(158, 71, 86, 24);
-		selectPanel.add(textField_6);
-		textField_6.setColumns(10);
+		selectEnterIdLabel = new JTextField();
+		selectEnterIdLabel.setBounds(240, 71, 86, 24);
+		selectPanel.add(selectEnterIdLabel);
+		selectEnterIdLabel.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
-		lblNewLabel_2.setBounds(110, 120, 72, 18);
-		selectPanel.add(lblNewLabel_2);
 		
+		
+		JLabel selectImgLabel = new JLabel("图片：");
+		selectImgLabel.setBounds(25, 207, 52, 18);
+		selectPanel.add(selectImgLabel);
+		
+		JLabel selectNameLabel = new JLabel("姓名：");
+		selectNameLabel.setBounds(28, 134, 57, 18);
+		selectPanel.add(selectNameLabel);
+		
+		JLabel selectShowNameLabel = new JLabel("");
+		selectShowNameLabel.setBounds(95, 135, 72, 18);
+		selectPanel.add(selectShowNameLabel);
+		
+		JLabel selectShowImgLabel = new JLabel("");
+		selectShowImgLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/ico/NewPM.png")));
+		selectShowImgLabel.setBounds(90, 169, 144, 144);
+		selectPanel.add(selectShowImgLabel);
+		
+		JLabel selectClassLabel = new JLabel("班级：");
+		selectClassLabel.setBounds(322, 219, 55, 18);
+		selectPanel.add(selectClassLabel);
+		
+		JLabel selectShowClassLabel = new JLabel("");
+		selectShowClassLabel.setBounds(438, 218, 72, 18);
+		selectPanel.add(selectShowClassLabel);
+		
+		JLabel selectPhoneLabel = new JLabel("联系电话：");
+		selectPhoneLabel.setBounds(17, 355, 87, 18);
+		selectPanel.add(selectPhoneLabel);
+		
+		JLabel selectShowPhoneLabel = new JLabel("");
+		selectShowPhoneLabel.setBounds(142, 355, 72, 18);
+		selectPanel.add(selectShowPhoneLabel);
+		
+		JLabel selectQqLabel = new JLabel("qq号：");
+		selectQqLabel.setBounds(320, 355, 72, 18);
+		selectPanel.add(selectQqLabel);
+		
+		JLabel selectShowQqLabel = new JLabel("");
+		selectShowQqLabel.setBounds(423, 354, 72, 18);
+		selectPanel.add(selectShowQqLabel);
+		
+		JLabel selectHomeLabel = new JLabel("家乡：");
+		selectHomeLabel.setBounds(25, 447, 72, 18);
+		selectPanel.add(selectHomeLabel);
+		
+		JLabel selectShowHomeLable = new JLabel("");
+		selectShowHomeLable.setBounds(115, 446, 72, 18);
+		selectPanel.add(selectShowHomeLable);
+		
+		JLabel selectEmailLabel = new JLabel("电子邮件：");
+		selectEmailLabel.setBounds(287, 443, 91, 18);
+		selectPanel.add(selectEmailLabel);
+		
+		JLabel selectShowEmailLable = new JLabel("");
+		selectShowEmailLable.setBounds(404, 447, 72, 18);
+		selectPanel.add(selectShowEmailLable);
+		
+		JLabel selectUserNlabel = new JLabel("用户名：");
+		selectUserNlabel.setBounds(320, 134, 72, 18);
+		selectPanel.add(selectUserNlabel);
+		
+		JLabel selectShowUserNameLabel = new JLabel("");
+		selectShowUserNameLabel.setBounds(457, 133, 72, 18);
+		selectPanel.add(selectShowUserNameLabel);
+		
+		JLabel selectOneSubmitLabel = new JLabel("");
+		selectOneSubmitLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
+		selectOneSubmitLabel.setBounds(372, 71, 93, 32);
+		selectOneSubmitLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				selectOneSubmitLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameActive.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				selectOneSubmitLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				StudentInf stdinf = new StudentInf();
+				stdinf.setId(Integer.parseInt(selectEnterIdLabel.getText()));
+
+				if(!dbWork. checkStudentInf(stdinf)){
+					JOptionPane.showMessageDialog(null,  "学生信息不存在", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					
+					listOne = dbWork.selectOneStudentInf(stdinf);
+					selectShowNameLabel.setText(listOne.get(0));
+					selectShowHomeLable.setText(listOne.get(1));
+					selectShowPhoneLabel.setText(listOne.get(2));
+					selectShowImgLabel.setIcon(new ImageIcon(listOne.get(3).replace("\\", "\\\\")));
+					selectShowUserNameLabel.setText(listOne.get(4));
+					selectShowQqLabel.setText(listOne.get(5));
+					selectShowEmailLable.setText(listOne.get(6));
+					selectShowClassLabel.setText(listOne.get(7));
+					JOptionPane.showMessageDialog(null,  "学生信息查找成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		selectPanel.add(selectOneSubmitLabel);
 		JLabel backToMainLabel = new JLabel("");
 		backToMainLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.png")));
 		backToMainLabel.setBounds(885, 611, 146, 42);
