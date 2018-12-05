@@ -36,6 +36,15 @@ public class ManagementFrame extends JFrame{
 	private JTextField eMailField;
 	private String fileUrl;
 	private DatabaseWork dbWork = new DatabaseWork();
+	private JTextField deleteIdField;
+	private JTextField textField;
+	private JTextField updateNameField;
+	private JTextField updateClassField;
+	private JTextField updateHomeField;
+	private JTextField updatePhoneNumberField;
+	private JTextField updateQqField;
+	private JTextField updateUserNameField;
+	private JTextField updateEmailField;
 	
 	public ManagementFrame() {
 		setSize(1280, 768);
@@ -163,8 +172,9 @@ public class ManagementFrame extends JFrame{
 				stdinf.setQqNumber(qqNumberField.getText());
 				stdinf.setUserName(userNameField.getText());
 				if(dbWork.checkStudentInf(stdinf)) {
-					JOptionPane.showMessageDialog(null,  "用户已存在", "警告", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null,  "学生信息已存在", "警告", JOptionPane.WARNING_MESSAGE);
 				}else {
+					JOptionPane.showMessageDialog(null,  "学生信息插入成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 					dbWork.insertStudnetInf(stdinf);
 				}
 			}
@@ -195,8 +205,143 @@ public class ManagementFrame extends JFrame{
 		table.setBounds(37, 47, 546, 349);
 		showPanel.add(table);
 		
-		JPanel export = new JPanel();
-		tabbedPane.addTab("导出数据", null, export, null);
+		JPanel updatePanel = new JPanel();
+		
+		tabbedPane.addTab("更新数据", null, updatePanel, null);
+		updatePanel.setLayout(null);
+		
+		JLabel deleteLabel = new JLabel("删除数据");
+		deleteLabel.setBounds(53, 65, 72, 18);
+		updatePanel.add(deleteLabel);
+		
+		JLabel deleteIdLabel = new JLabel("学号");
+		deleteIdLabel.setBounds(159, 65, 72, 18);
+		updatePanel.add(deleteIdLabel);
+		
+		deleteIdField = new JTextField();
+		deleteIdField.setBounds(261, 62, 120, 24);
+		updatePanel.add(deleteIdField);
+		deleteIdField.setColumns(10);
+		
+		JLabel deleteButLabel = new JLabel("");
+		deleteButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
+		deleteButLabel.setBounds(432, 54, 101, 32);
+		
+		deleteButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				deleteButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/110pxbtn_c.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				deleteButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/110pxbtn.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				StudentInf stdinf = new StudentInf();
+				stdinf.setId(Integer.parseInt(deleteIdField.getText()));
+
+				if(!dbWork. checkStudentInf(stdinf)){
+					JOptionPane.showMessageDialog(null,  "学生信息不存在", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					dbWork.deleteStudentInf(stdinf);
+					JOptionPane.showMessageDialog(null,  "学生信息删除成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+					
+				}
+			}
+		});
+		updatePanel.add(deleteButLabel);
+		
+		JLabel lblNewLabel = new JLabel("修改信息（根据学号选择学生）");
+		lblNewLabel.setBounds(53, 107, 226, 18);
+		updatePanel.add(lblNewLabel);
+		
+		JLabel label = new JLabel("学号");
+		label.setBounds(293, 107, 72, 18);
+		updatePanel.add(label);
+		
+		textField = new JTextField();
+		textField.setBounds(390, 104, 120, 24);
+		updatePanel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel enterInfLabel = new JLabel("输入新信息：");
+		enterInfLabel.setBounds(53, 146, 106, 18);
+		updatePanel.add(enterInfLabel);
+		
+		JLabel updateNameLabel = new JLabel("姓名");
+		updateNameLabel.setBounds(95, 190, 72, 18);
+		updatePanel.add(updateNameLabel);
+		
+		updateNameField = new JTextField();
+		updateNameField.setBounds(192, 190, 120, 24);
+		updatePanel.add(updateNameField);
+		updateNameField.setColumns(10);
+		
+		JLabel upadtaClassLabel = new JLabel("班级");
+		upadtaClassLabel.setBounds(357, 190, 72, 18);
+		updatePanel.add(upadtaClassLabel);
+		
+		updateClassField = new JTextField();
+		updateClassField.setBounds(444, 190, 120, 24);
+		updatePanel.add(updateClassField);
+		updateClassField.setColumns(10);
+		
+		JLabel updateHomeLabel = new JLabel("家乡");
+		updateHomeLabel.setBounds(95, 245, 72, 18);
+		updatePanel.add(updateHomeLabel);
+		
+		updateHomeField = new JTextField();
+		updateHomeField.setBounds(192, 245, 120, 24);
+		updatePanel.add(updateHomeField);
+		updateHomeField.setColumns(10);
+		
+		JLabel updatePhoneNumberLabel = new JLabel("联系电话");
+		updatePhoneNumberLabel.setBounds(355, 247, 72, 18);
+		updatePanel.add(updatePhoneNumberLabel);
+		
+		updatePhoneNumberField = new JTextField();
+		updatePhoneNumberField.setBounds(444, 244, 120, 24);
+		updatePanel.add(updatePhoneNumberField);
+		updatePhoneNumberField.setColumns(10);
+		
+		JLabel updateQqLabel = new JLabel("QQ号");
+		updateQqLabel.setBounds(91, 301, 72, 18);
+		updatePanel.add(updateQqLabel);
+		
+		updateQqField = new JTextField();
+		updateQqField.setBounds(192, 298, 120, 24);
+		updatePanel.add(updateQqField);
+		updateQqField.setColumns(10);
+		
+		JLabel updateUserNameLabel = new JLabel("用户名");
+		updateUserNameLabel.setBounds(357, 301, 72, 18);
+		updatePanel.add(updateUserNameLabel);
+		
+		updateUserNameField = new JTextField();
+		updateUserNameField.setBounds(444, 298, 120, 24);
+		updatePanel.add(updateUserNameField);
+		updateUserNameField.setColumns(10);
+		
+		JLabel updateEmailLabel = new JLabel("电子邮箱");
+		updateEmailLabel.setBounds(87, 361, 72, 18);
+		updatePanel.add(updateEmailLabel);
+		
+		updateEmailField = new JTextField();
+		updateEmailField.setBounds(192, 358, 120, 24);
+		updatePanel.add(updateEmailField);
+		updateEmailField.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
+		lblNewLabel_3.setBounds(463, 361, 101, 32);
+		updatePanel.add(lblNewLabel_3);
 		
 		JPanel selectPanel = new JPanel();
 		tabbedPane.addTab("查询学生", null, selectPanel, null);
