@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -15,6 +16,8 @@ import javax.swing.JPanel;
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
 import qdu.lyn.stdsys.image.ImageUrl;
 import qdu.lyn.stdsys.main.MainFrame;
+import qdu.lyn.stdsys.main.ManagementFrame;
+import qdu.lyn.stdsys.main.StudentUseFrame;
 import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.Student;
 
@@ -73,11 +76,17 @@ public class NewLoginFrame extends JFrame{
 				//JOptionPane.showMessageDialog(null, passwordField.getPassword(), "", JOptionPane.ERROR_MESSAGE);
 				users.setUserName(userNameField.getText());
 				users.setUserPassword(new String(passwordField.getPassword()));
-				if(dbWork.confirmAdministrator(user)) {
-					new MainFrame().setVisible(true);
+				if(dbWork.confirmAdministrator(user)){
+					//user.setEmail();
+					
+					new ManagementFrame(user).setVisible(true);
 					NewLoginFrame.this.dispose();
 				}else if(dbWork.confirmStudent(users)){
-					new MainFrame().setVisible(true);
+					List<String> list = dbWork.getOneStudent(users);
+					users.setName(list.get(0));
+					users.setEmail(list.get(1));
+					users.setId(Integer.parseInt(list.get(3)));
+					new StudentUseFrame(users).setVisible(true);
 					NewLoginFrame.this.dispose();
 				}
 				else {
