@@ -100,7 +100,7 @@ public class MainFrame extends JFrame{
 		
 		
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
+		/*JLabel lblNewLabel_3 = new JLabel("New label");
 		lblNewLabel_3.setIcon(new ImageIcon(MainFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
 		lblNewLabel_3.setBounds(885, 368, 145, 44);
 		lblNewLabel_3.addMouseListener(new MouseAdapter() {
@@ -120,11 +120,11 @@ public class MainFrame extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				//tabbedPane.setVisible(true);
-				new ManagementFrame().setVisible(true);
-				MainFrame.this.dispose();
+				//new ManagementFrame().setVisible(true);
+				//MainFrame.this.dispose();
 			}
 		});
-		contentPane.add(lblNewLabel_3);
+		contentPane.add(lblNewLabel_3);*/
 		
 		JLabel lblNewLabel_4 = new JLabel("New label");
 		lblNewLabel_4.setIcon(new ImageIcon(MainFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
