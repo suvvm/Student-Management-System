@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
+import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.StudentInf;
 
 
@@ -37,11 +38,6 @@ public class ManagementFrame extends JFrame{
 	private JTextField selectEnterIdLabel;
 	private JTextField userNameField;
 	private JTextField eMailField;
-	private String fileUrl;
-	private String updateFileUrl;
-	private DatabaseWork dbWork = new DatabaseWork();
-	private List<String> listOne;
-	private List<String[]> listAll;
 	
 	private JTextField deleteIdField;
 	private JTextField updateIdField;
@@ -53,14 +49,19 @@ public class ManagementFrame extends JFrame{
 	private JTextField updateUserNameField;
 	private JTextField updateEmailField;
 	
-	public ManagementFrame() {
+	private String fileUrl;
+	private String updateFileUrl;
+	private DatabaseWork dbWork = new DatabaseWork();
+	private List<String> listOne;
+	private List<String[]> listAll;
+	public ManagementFrame(Administrator admin) {
 		setSize(1280, 768);
 		setVisible(true);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(241, 48, 630, 594);
+		tabbedPane.setBounds(241, 54, 630, 619);
 		tabbedPane.setVisible(true);
 		getContentPane().add(tabbedPane);
 		
@@ -225,15 +226,16 @@ public class ManagementFrame extends JFrame{
 				super.mouseClicked(e);
 				listAll = dbWork.selectAllStudentInf();
 				if (listAll == null) {
-					JOptionPane.showMessageDialog(null,  "学生信息没有", "警告", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null,  "没有学生信息", "警告", JOptionPane.WARNING_MESSAGE);
 				}else {
 					int size = listAll.size();
 					String[] name =  {
 							"ID", "\u59D3\u540D", "\u5BB6\u4E61", "\u8054\u7CFB\u7535\u8BDD", "\u7528\u6237\u540D", "QQ\u53F7", "\u7535\u5B50\u90AE\u4EF6", "\u73ED\u7EA7"
 						};
-					String[][] value = new String[size][8];
+					String[][] value = new String[size + 1][8];
+					value[0] = name;
 					for(int i = 0; i < size; i++) {
-						value[i] = listAll.get(i);
+						value[i + 1] = listAll.get(i);
 					}
 					DefaultTableModel dtm = new DefaultTableModel(value, name);
 					table.setModel(dtm);
@@ -574,67 +576,62 @@ public class ManagementFrame extends JFrame{
 			}
 		});
 		selectPanel.add(selectOneSubmitLabel);
+		JLabel exitButLabel = new JLabel("");
+		exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.png")));
+		exitButLabel.setBounds(885, 611, 146, 42);
+		exitButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut_c.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				System.exit(1);
+			}
+		});
+		getContentPane().add(exitButLabel);
+		
 		JLabel backToMainLabel = new JLabel("");
-		backToMainLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.png")));
-		backToMainLabel.setBounds(885, 611, 146, 42);
+		backToMainLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/backToMain.jpg")));
+		backToMainLabel.setBounds(885, 568, 146, 42);
 		backToMainLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				backToMainLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut_c.png")));
+				backToMainLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/backToMain_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				backToMainLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.png")));
+				backToMainLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/backToMain.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				new MainFrame().setVisible(true);
+				ManagementFrame.this.dispose();
 			}
 		});
 		getContentPane().add(backToMainLabel);
-		
-		JLabel exitLabel = new JLabel("");
-		exitLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/backToMain.jpg")));
-		exitLabel.setBounds(885, 568, 146, 42);
-		exitLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseEntered(e);
-				exitLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/backToMain_c.jpg")));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseExited(e);
-				exitLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/backToMain.jpg")));
-			}
-		});
-		getContentPane().add(exitLabel);
 		
 		JLabel A = new JLabel("AAAA");
 		A.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
 		A.setBounds(885, 274, 146, 42);
 
 		getContentPane().add(A);
-		
-		JLabel B = new JLabel("BBBBBBB");
-		B.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
-		B.setBounds(885, 318, 146, 42);
-	
-		getContentPane().add(B);
-		
-		JLabel C = new JLabel("DDDDDDD");
-		C.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
-		C.setBounds(885, 362, 146, 42);
-	
-		getContentPane().add(C);
-		
-		JLabel D = new JLabel("EEEEEE");
-		D.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
-		D.setBounds(885, 405, 153, 42);
-		
-		getContentPane().add(D);
 		
 		JLabel bgLabel = new JLabel("");
 		bgLabel.setBounds(0, 0, 1272, 750);
