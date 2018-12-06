@@ -26,28 +26,32 @@ public class RegisterFrame extends JFrame{
 	private JTextField passwordField;
 	private JTextField emailField;
 	private DatabaseWork dbWork = new DatabaseWork();
+	private JTextField IdField;
 	public RegisterFrame() {
+		
+		
+		
 		setTitle("注册");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1280, 768);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
-		JLabel loginLabel = new JLabel("");
-		loginLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Loginbtn.png")));
-		loginLabel.setBounds(885, 282, 145, 45);
-		loginLabel.addMouseListener(new MouseAdapter() {
+		JLabel registerLabel = new JLabel("");
+		registerLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Loginbtn.png")));
+		registerLabel.setBounds(885, 282, 145, 45);
+		registerLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				loginLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn_c.png")));
+				registerLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn_c.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				loginLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn.png")));
+				registerLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn.png")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -58,8 +62,6 @@ public class RegisterFrame extends JFrame{
                 	System.out.println(AdminRegister);
                 	if(AdminRegister.equals("111")) {
                 		JOptionPane.showMessageDialog(null, "欢迎你，管理员同志", "注册成功",JOptionPane.ERROR_MESSAGE); 
-                		new MainFrame().setVisible(true);
-                		RegisterFrame.this.dispose();
                 		Administrator administrator = new Administrator();
                         administrator.setUserName(userNameField.getText());
                         administrator.setUserPassword(passwordField.getText());
@@ -70,41 +72,116 @@ public class RegisterFrame extends JFrame{
     								JOptionPane.CLOSED_OPTION, JOptionPane.WARNING_MESSAGE);
                         }else {
                         	dbWork.insertAdministrator(administrator);
+                        	new MainFrame().setVisible(true);
+                    		RegisterFrame.this.dispose();
                         }
                 	}else {
                 		JOptionPane.showMessageDialog(null, "输错了？还是根本没有？只要去github寻找用户suvvm就可以获取密码╮(╯▽╰)╭", "密码错误",JOptionPane.ERROR_MESSAGE); 
                 	}
                     
-                }else{
-                	//Student student = new Student();
+                }else if(res==JOptionPane.NO_OPTION){
+                	Student student = new Student();
+                	student.setUserName(userNameField.getText());
+                	student.setUserPassword(passwordField.getText());
+                	student.setName(nameField.getText());
+                	student.setEmail(emailField.getText());
+                	student.setId(Integer.parseInt(IdField.getText()));
+                	
+                	if(dbWork.checkStudent(student)){
+                		JOptionPane.showConfirmDialog(RegisterFrame.this, "用户已存在！", "警告", 
+								JOptionPane.CLOSED_OPTION, JOptionPane.WARNING_MESSAGE);
+                	}else {
+                		dbWork.insertStudent(student);
+                    	new MainFrame().setVisible(true);
+                		RegisterFrame.this.dispose();
+                	}
                 }
 			}
 		});
-		getContentPane().add(loginLabel);
+		getContentPane().add(registerLabel);
 		
 		passwordField = new JTextField();
 		passwordField.setText("密码");
-		passwordField.setBounds(382, 353, 86, 24);
+		passwordField.setBounds(399, 375, 86, 24);
 		getContentPane().add(passwordField);
 		passwordField.setColumns(10);
 		
 		userNameField = new JTextField();
 		userNameField.setText("用户名");
-		userNameField.setBounds(382, 278, 86, 24);
+		userNameField.setBounds(399, 282, 86, 24);
 		getContentPane().add(userNameField);
 		userNameField.setColumns(10);
 		
 		nameField = new JTextField();
 		nameField.setText("姓名");
-		nameField.setBounds(536, 282, 86, 24);
+		nameField.setBounds(625, 282, 86, 24);
 		getContentPane().add(nameField);
 		nameField.setColumns(10);
 		
+		IdField = new JTextField();
+		IdField.setText("学号");
+		IdField.setBounds(399, 464, 86, 24);
+		getContentPane().add(IdField);
+		IdField.setColumns(10);
+		
 		emailField = new JTextField();
 		emailField.setText("邮箱");
-		emailField.setBounds(536, 353, 86, 24);
+		emailField.setBounds(625, 375, 86, 24);
 		getContentPane().add(emailField);
 		emailField.setColumns(10);
+		
+		JLabel exitLabel = new JLabel("");
+		exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut.png")));
+		exitLabel.setBounds(885, 620, 145, 42);
+		exitLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut_c.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				System.exit(1);
+			}
+		});
+		
+		
+		getContentPane().add(exitLabel);
+		
+		JLabel backToMainLabel = new JLabel("");
+		backToMainLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/backToMain.jpg")));
+		backToMainLabel.setBounds(885, 577, 145, 42);
+		backToMainLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				backToMainLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/backToMain_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				backToMainLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/backToMain.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				new MainFrame().setVisible(true);
+				RegisterFrame.this.dispose();
+			}
+		});
+		getContentPane().add(backToMainLabel);
 		
 		
 		JLabel bgLabel = new JLabel("");
