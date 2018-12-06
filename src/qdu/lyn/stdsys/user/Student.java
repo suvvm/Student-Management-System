@@ -5,6 +5,13 @@ public class Student{
 	private String password;
 	private String name;
 	private String email;
+	private int id;
+	public int getId() {
+		return id;
+	}
+	public void setId(int tId) {
+		id = tId;
+	}
 	public String getEmail() {
 		return email;
 	}
