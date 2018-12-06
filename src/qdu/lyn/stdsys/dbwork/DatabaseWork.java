@@ -140,6 +140,25 @@ public class DatabaseWork {
 			e.printStackTrace();
 		}
 	}
+	public void insertStudent(Student user) {
+		try {
+			getConnection();
+			String insertStudent = "insert into Student values(null, ?, ?, ?, ?, ?)";
+			
+			pStatement = connection.prepareStatement(insertStudent);
+			pStatement.setString(1, user.getUserName());
+			pStatement.setString(2, user.getUserPassword());
+			pStatement.setString(3, user.getName());
+			pStatement.setString(4, user.getEmail());
+			pStatement.setInt(5, user.getId());
+			
+			pStatement.executeUpdate();
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
 	public boolean checkStudentInf(StudentInf user) {
 		try {
 			getConnection();
@@ -223,6 +242,27 @@ public class DatabaseWork {
 				list.add(rSet.getString("e_mail"));
 				list.add(rSet.getString("className"));
 			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
+	}
+	public List<String> getOneStudent(Student std) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from Student where username = ? and password = ?");
+			pStatement.setString(1, std.getUserName());
+			pStatement.setString(2, std.getUserPassword());
+			
+			rSet = pStatement.executeQuery();
+			List<String> list = new ArrayList<String>();
+			list.add( rSet.getString("stuname"));
+			list.add( rSet.getString("e_mail"));
+			list.add( rSet.getString("id"));
 			return list;
 		}catch (SQLException e) {
 			// TODO: handle exception
