@@ -25,6 +25,7 @@ import javax.swing.text.StyledEditorKit.ForegroundAction;
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
 import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.StudentInf;
+import java.awt.Toolkit;
 
 
 public class ManagementFrame extends JFrame{
@@ -54,7 +55,9 @@ public class ManagementFrame extends JFrame{
 	private DatabaseWork dbWork = new DatabaseWork();
 	private List<String> listOne;
 	private List<String[]> listAll;
+	private JTable vacTable;
 	public ManagementFrame(Administrator admin) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ManagementFrame.class.getResource("/ico/NewPM.png")));
 		setSize(1280, 768);
 		setVisible(true);
 		setLocationRelativeTo(null);
@@ -129,20 +132,20 @@ public class ManagementFrame extends JFrame{
 		imglLabel.setBounds(182, 281, 72, 18);
 		insertPanel.add(imglLabel);
 		JLabel openFilelabel = new JLabel("");
-		openFilelabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/optionsActive.png")));
+		openFilelabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/ChooseImgBut.jpg")));
 		openFilelabel.setBounds(311, 281, 104, 32);
 		openFilelabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				openFilelabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/optionsInactive.png")));
+				openFilelabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/ChooseImgBut_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				openFilelabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/optionsActive.png")));
+				openFilelabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/ChooseImgBut.jpg")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -162,9 +165,21 @@ public class ManagementFrame extends JFrame{
 		});
 		insertPanel.add(openFilelabel);
 		JLabel insertlabel = new JLabel("");
-		insertlabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
+		insertlabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/IncsertBut.jpg")));
 		insertlabel.setBounds(301, 382, 101, 32);
 		insertlabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				insertlabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/IncsertBut_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				insertlabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/IncsertBut.jpg")));
+			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO 自动生成的方法存根
@@ -182,8 +197,9 @@ public class ManagementFrame extends JFrame{
 				if(dbWork.checkStudentInf(stdinf)) {
 					JOptionPane.showMessageDialog(null,  "学生信息已存在", "警告", JOptionPane.WARNING_MESSAGE);
 				}else {
-					JOptionPane.showMessageDialog(null,  "学生信息插入成功", "成功", JOptionPane.INFORMATION_MESSAGE);
 					dbWork.insertStudnetInf(stdinf);
+					JOptionPane.showMessageDialog(null,  "学生信息插入成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+					
 				}
 			}
 		});
@@ -205,20 +221,20 @@ public class ManagementFrame extends JFrame{
 		showPanel.add(table);
 		
 		JLabel selectAllButLabel = new JLabel("");
-		selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
+		selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/RefreshBut.jpg")));
 		selectAllButLabel.setBounds(251, 422, 93, 32);
 		selectAllButLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameActive.png")));
+				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/RefreshBut_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
+				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/RefreshBut.jpg")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -263,7 +279,7 @@ public class ManagementFrame extends JFrame{
 		deleteIdField.setColumns(10);
 		
 		JLabel deleteButLabel = new JLabel("");
-		deleteButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
+		deleteButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/DeleteBut.jpg")));
 		deleteButLabel.setBounds(432, 54, 101, 32);
 		
 		deleteButLabel.addMouseListener(new MouseAdapter() {
@@ -271,13 +287,13 @@ public class ManagementFrame extends JFrame{
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				deleteButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/110pxbtn_c.png")));
+				deleteButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/DeleteBut_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				deleteButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/110pxbtn.png")));
+				deleteButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/DeleteBut.jpg")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -378,7 +394,7 @@ public class ManagementFrame extends JFrame{
 		updateEmailField.setColumns(10);
 		
 		JLabel submitChangeButLabel = new JLabel("");
-		submitChangeButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		submitChangeButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/IncsertBut.jpg")));
 		submitChangeButLabel.setBounds(277, 420, 101, 32);
 		submitChangeButLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -422,7 +438,7 @@ public class ManagementFrame extends JFrame{
 		updatePanel.add(updateChooseImglabel);
 		
 		JLabel updateOpenFileButLabel = new JLabel("");
-		updateOpenFileButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/optionsInactive.png")));
+		updateOpenFileButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/ChooseImgBut.jpg")));
 		updateOpenFileButLabel.setBounds(445, 358, 106, 32);
 		updateOpenFileButLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -576,21 +592,51 @@ public class ManagementFrame extends JFrame{
 			}
 		});
 		selectPanel.add(selectOneSubmitLabel);
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("管理休假", null, panel, null);
+		panel.setLayout(null);
+		
+		vacTable = new JTable();
+		String[] vacName = new String[] {
+				"Number", "StudentId", "StudnetName", "BegainTime", "EndTime", "Destination"
+		};
+		String[][] vacValue = {};
+		DefaultTableModel vacDtm = new DefaultTableModel(value, name);
+		table.setModel(vacDtm);
+		table.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		vacTable.setBounds(55, 35, 535, 445);
+		panel.add(vacTable);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/RefreshBut.jpg")));
+		label.setBounds(95, 516, 93, 32);
+		panel.add(label);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		label_1.setBounds(261, 516, 101, 32);
+		panel.add(label_1);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		label_2.setBounds(435, 516, 101, 32);
+		panel.add(label_2);
 		JLabel exitButLabel = new JLabel("");
-		exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.png")));
+		exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.jpg")));
 		exitButLabel.setBounds(885, 611, 146, 42);
 		exitButLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut_c.png")));
+				exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.png")));
+				exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.jpg")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -603,7 +649,7 @@ public class ManagementFrame extends JFrame{
 		
 		JLabel backToMainLabel = new JLabel("");
 		backToMainLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/backToMain.jpg")));
-		backToMainLabel.setBounds(885, 568, 146, 42);
+		backToMainLabel.setBounds(885, 273, 146, 42);
 		backToMainLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -627,11 +673,6 @@ public class ManagementFrame extends JFrame{
 		});
 		getContentPane().add(backToMainLabel);
 		
-		JLabel A = new JLabel("AAAA");
-		A.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/mainbtn - 副本 - 副本.png")));
-		A.setBounds(885, 274, 146, 42);
-
-		getContentPane().add(A);
 		
 		JLabel bgLabel = new JLabel("");
 		bgLabel.setBounds(0, 0, 1272, 750);
