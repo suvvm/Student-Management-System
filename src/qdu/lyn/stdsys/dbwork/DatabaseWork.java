@@ -11,6 +11,7 @@ import java.util.List;
 import javax.sound.sampled.LineListener;
 import javax.swing.JOptionPane;
 
+import qdu.lyn.stdsys.inf.Vacation;
 import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.Student;
 import qdu.lyn.stdsys.user.StudentInf;
@@ -259,11 +260,14 @@ public class DatabaseWork {
 			pStatement.setString(2, std.getUserPassword());
 			
 			rSet = pStatement.executeQuery();
-			List<String> list = new ArrayList<String>();
-			list.add( rSet.getString("stuname"));
-			list.add( rSet.getString("e_mail"));
-			list.add( rSet.getString("id"));
-			return list;
+			if(rSet.next()) {
+				//System.out.println("@@@" + rSet.getString("stuname") + " " + rSet.getString("e_mail") + " " + rSet.getString("id"));
+				List<String> list = new ArrayList<String>();
+				list.add( rSet.getString("stuname"));
+				list.add( rSet.getString("e_mail"));
+				list.add( rSet.getString("id"));
+				return list;
+			}
 		}catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -305,6 +309,45 @@ public class DatabaseWork {
 			closeAll();
 		}
 		return false;
+	}
+	public void insertVacation(Vacation vac) {
+		try {
+			getConnection();
+			String insertVac = "insert into Vacation values(null, ?, ?, ?, ?, ?, ?)";
+			
+			pStatement = connection.prepareStatement(insertVac);
+			pStatement.setInt(1, vac.getStuid());
+			pStatement.setString(2, vac.getStuName());
+			pStatement.setString(3, vac.getBgTime());
+			pStatement.setString(4, vac.getEdTime());
+			pStatement.setString(5, vac.getReason());
+			pStatement.setString(6, vac.getVacDestination());
+			
+			pStatement.executeUpdate();
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	public List<String[]> selectAllVacation() {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from Vacation");
+			
+			rSet = pStatement.executeQuery();
+			List<String[]> list = new ArrayList<String[]>();
+			while(rSet.next()) {
+				list.add(new String[] {rSet.getString("stuid"), rSet.getString("stuName"), rSet.getString("beginTime"), rSet.getString("endTime"), rSet.getString("reason"), rSet.getString("destination")});
+			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
 	}
 	public void closeAll() {
 		if (rSet != null) {
