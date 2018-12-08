@@ -5,10 +5,12 @@ import javax.swing.JFrame;
 import qdu.lyn.stdsys.login.NewLoginFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class Loading extends JFrame{
 
 	public Loading() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Loading.class.getResource("/ico/NewPM.png")));
 		// TODO 自动生成的构造函数存根
 		setTitle("学生管理系统-正在启动");
 		setSize(1280, 768);

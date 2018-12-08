@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import java.awt.Toolkit;
 
 //import propertymanagement.view.RegisterFrame;
 
@@ -28,6 +29,7 @@ public class RegisterFrame extends JFrame{
 	private DatabaseWork dbWork = new DatabaseWork();
 	private JTextField IdField;
 	public RegisterFrame() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegisterFrame.class.getResource("/ico/NewPM.png")));
 		
 		
 		
@@ -38,7 +40,7 @@ public class RegisterFrame extends JFrame{
 		getContentPane().setLayout(null);
 		
 		JLabel registerLabel = new JLabel("");
-		registerLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Loginbtn.png")));
+		registerLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Register.jpg")));
 		registerLabel.setBounds(885, 282, 145, 45);
 		registerLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -131,7 +133,7 @@ public class RegisterFrame extends JFrame{
 		emailField.setColumns(10);
 		
 		JLabel exitLabel = new JLabel("");
-		exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut.png")));
+		exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut.jpg")));
 		exitLabel.setBounds(885, 620, 145, 42);
 		exitLabel.addMouseListener(new MouseAdapter() {
 			@Override

@@ -49,20 +49,20 @@ public class NewLoginFrame extends JFrame{
 		setLocation(screenWidth-width/2, screenHeight-height/2);
 		
 		JLabel loginButton = new JLabel("");
-		loginButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn.png")));
+		loginButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn.jpg")));
 		loginButton.setBounds(886, 284, 143, 44);
 		loginButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				loginButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn_c.png")));
+				loginButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				loginButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn.png")));
+				loginButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn.jpg")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -83,9 +83,11 @@ public class NewLoginFrame extends JFrame{
 					NewLoginFrame.this.dispose();
 				}else if(dbWork.confirmStudent(users)){
 					List<String> list = dbWork.getOneStudent(users);
+					//System.out.println(" " + list.get(0)+ " " + list.get(1) + " " + list.get(2));
 					users.setName(list.get(0));
 					users.setEmail(list.get(1));
-					users.setId(Integer.parseInt(list.get(3)));
+					users.setId(Integer.parseInt(list.get(2)));
+					
 					new StudentUseFrame(users).setVisible(true);
 					NewLoginFrame.this.dispose();
 				}
@@ -100,20 +102,20 @@ public class NewLoginFrame extends JFrame{
 		
 		
 		JLabel exitButton = new JLabel("");
-		exitButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Exitbut.png")));
+		exitButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Exitbut.jpg")));
 		exitButton.setBounds(886, 618, 143, 44);
 		exitButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				exitButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Exitbut_c.png")));
+				exitButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Exitbut_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				exitButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Exitbut.png")));
+				exitButton.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Exitbut.jpg")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -172,6 +174,32 @@ public class NewLoginFrame extends JFrame{
 			}
 		});
 		getContentPane().add(backToMain);
+		
+		JLabel RegisterLabel = new JLabel("");
+		RegisterLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Register.jpg")));
+		RegisterLabel.setBounds(886, 326, 143, 44);
+		RegisterLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				RegisterLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Register_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				RegisterLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Register.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				new RegisterFrame().setVisible(true);
+				NewLoginFrame.this.dispose();
+			}
+		});
+		getContentPane().add(RegisterLabel);
 		
 		JLabel bgLabel = new JLabel("");
 		bgLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/bg/nloginbg.jpg")));
