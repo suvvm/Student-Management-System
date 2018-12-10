@@ -147,9 +147,9 @@ public class DatabaseWork {
 			String insertStudent = "insert into Student values(null, ?, ?, ?, ?, ?)";
 			
 			pStatement = connection.prepareStatement(insertStudent);
-			pStatement.setString(1, user.getUserName());
-			pStatement.setString(2, user.getUserPassword());
-			pStatement.setString(3, user.getName());
+			pStatement.setString(1, user.getName());
+			pStatement.setString(2, user.getUserName());
+			pStatement.setString(3, user.getUserPassword());
 			pStatement.setString(4, user.getEmail());
 			pStatement.setInt(5, user.getId());
 			
