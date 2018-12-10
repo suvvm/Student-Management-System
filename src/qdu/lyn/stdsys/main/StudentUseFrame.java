@@ -31,8 +31,10 @@ import javax.swing.JTextArea;
 public class StudentUseFrame extends JFrame{
 	private JTable table;
 	private List<String[]> listAll;
+	private List<String> myInfList;
 	private DatabaseWork dbWork = new DatabaseWork();
 	private String myImgUrl;
+	
 	
 	private JTextField addMyHomeField;
 	private JTextField addMyQqField;
@@ -56,6 +58,370 @@ public class StudentUseFrame extends JFrame{
 		studentInf.setUserName(std.getUserName());
 		studentInf.setEmail(std.getEmail());
 		studentInf.setName(std.getName());
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		JLabel exitLabel = new JLabel("");
+		exitLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/Exitbut.jpg")));
+		exitLabel.setBounds(885, 620, 145, 42);
+		exitLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				System.exit(1);
+			}
+		});
+		
+		
+		getContentPane().add(exitLabel);
+		
+		JLabel backToMainLabel = new JLabel("");
+		backToMainLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/backToMain.jpg")));
+		backToMainLabel.setBounds(885, 283, 145, 42);
+		backToMainLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				backToMainLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/backToMain_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				backToMainLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/backToMain.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				new MainFrame().setVisible(true);
+				StudentUseFrame.this.dispose();
+			}
+		});
+		getContentPane().add(backToMainLabel);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(242, 62, 629, 588);
+		getContentPane().add(tabbedPane);
+		
+		JPanel selectStudentPanel = new JPanel();
+		tabbedPane.addTab("所有学生", null, selectStudentPanel, null);
+		selectStudentPanel.setLayout(null);
+		table = new JTable();
+		String[] name = new String[] {
+				"ID", "\u59D3\u540D", "\u5BB6\u4E61", "\u8054\u7CFB\u7535\u8BDD", "\u7528\u6237\u540D", "QQ\u53F7", "\u7535\u5B50\u90AE\u4EF6", "\u73ED\u7EA7"
+			};
+		String[][] value = {};
+		DefaultTableModel dtm = new DefaultTableModel(value, name);
+		table.setModel(dtm);
+		table.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		table.setBounds(12, 5, 600, 474);
+		table.setVisible(true);
+		
+		
+		selectStudentPanel.add(table);
+		
+		JLabel selectAllButLabel = new JLabel("");
+		selectAllButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut.jpg")));
+		selectAllButLabel.setBounds(270, 496, 93, 32);
+		selectAllButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameActive.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listAll = dbWork.selectAllStudentInf();
+				if (listAll == null) {
+					JOptionPane.showMessageDialog(null,  "没有学生信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listAll.size();
+					String[] name =  {
+							"ID", "\u59D3\u540D", "\u5BB6\u4E61", "\u8054\u7CFB\u7535\u8BDD", "\u7528\u6237\u540D", "QQ\u53F7", "\u7535\u5B50\u90AE\u4EF6", "\u73ED\u7EA7"
+						};
+					String[][] value = new String[size + 1][8];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listAll.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					table.setModel(dtm);
+				}
+			}
+		});
+		selectStudentPanel.add(selectAllButLabel);
+		
+		
+		JPanel myInfPanel = new JPanel();
+		tabbedPane.addTab("我的信息", null, myInfPanel, null);
+		myInfPanel.setLayout(null);
+		
+		JLabel myNameLabel = new JLabel("姓名");
+		myNameLabel.setBounds(41, 13, 72, 18);
+		myInfPanel.add(myNameLabel);
+		
+		JLabel myImgLabel = new JLabel("图片");
+		myImgLabel.setBounds(41, 126, 72, 18);
+		myInfPanel.add(myImgLabel);
+		
+		JLabel myClassLabel = new JLabel("班级");
+		myClassLabel.setBounds(347, 13, 72, 18);
+		myInfPanel.add(myClassLabel);
+		
+		JLabel myIDLable = new JLabel("ID");
+		myIDLable.setBounds(347, 63, 72, 18);
+		myInfPanel.add(myIDLable);
+		
+		JLabel myPhoneNumberLabel = new JLabel("联系电话");
+		myPhoneNumberLabel.setBounds(347, 126, 72, 18);
+		myInfPanel.add(myPhoneNumberLabel);
+		
+		JLabel myQqLable = new JLabel("QQ");
+		myQqLable.setBounds(347, 187, 72, 18);
+		myInfPanel.add(myQqLable);
+		
+		JLabel myEmsilLabel = new JLabel("电子邮箱");
+		myEmsilLabel.setBounds(347, 247, 72, 18);
+		myInfPanel.add(myEmsilLabel);
+		
+		JLabel showMyImgLabel = new JLabel("");
+		showMyImgLabel.setBounds(99, 126, 234, 244);
+		myInfPanel.add(showMyImgLabel);
+		
+		JLabel showMyNameLabel = new JLabel("");
+		showMyNameLabel.setBounds(99, 13, 110, 18);
+		myInfPanel.add(showMyNameLabel);
+		
+		JLabel showMyClassLabel = new JLabel("");
+		showMyClassLabel.setBounds(450, 13, 110, 18);
+		myInfPanel.add(showMyClassLabel);
+		
+		JLabel showMyIdLabel = new JLabel("");
+		showMyIdLabel.setBounds(450, 63, 110, 18);
+		myInfPanel.add(showMyIdLabel);
+		
+		JLabel showMyPhoneNumberLabel = new JLabel("");
+		showMyPhoneNumberLabel.setBounds(450, 126, 110, 18);
+		myInfPanel.add(showMyPhoneNumberLabel);
+		
+		JLabel showMyQqLabel = new JLabel("");
+		showMyQqLabel.setBounds(450, 187, 110, 18);
+		myInfPanel.add(showMyQqLabel);
+		
+		JLabel showMyEmailLabel = new JLabel("");
+		showMyEmailLabel.setBounds(450, 247, 110, 18);
+		myInfPanel.add(showMyEmailLabel);
+		
+		JLabel myHomeLabel = new JLabel("家乡");
+		myHomeLabel.setBounds(41, 63, 72, 18);
+		myInfPanel.add(myHomeLabel);
+		
+		JLabel showMyHomeLabel = new JLabel("");
+		showMyHomeLabel.setBounds(99, 63, 110, 18);
+		myInfPanel.add(showMyHomeLabel);
+		
+		JLabel myUserNameLabel = new JLabel("用户名");
+		myUserNameLabel.setBounds(347, 315, 72, 18);
+		myInfPanel.add(myUserNameLabel);
+		
+		JLabel showMyUserNameLabel = new JLabel("");
+		showMyUserNameLabel.setBounds(450, 315, 110, 18);
+		myInfPanel.add(showMyUserNameLabel);
+		
+		JLabel showSucLabel = new JLabel("显示成功");
+		showSucLabel.setBounds(393, 461, 72, 18);
+		showSucLabel.setVisible(false);
+		myInfPanel.add(showSucLabel);
+		
+		JLabel lookMyinfButLabel = new JLabel("");
+		lookMyinfButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut.jpg")));
+		lookMyinfButLabel.setBounds(249, 447, 93, 32);
+		lookMyinfButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				lookMyinfButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				lookMyinfButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				myInfList = dbWork.selectOneStudentInf(studentInf);
+				showMyNameLabel.setText(myInfList.get(0));
+				showMyHomeLabel.setText(myInfList.get(1));
+				showMyPhoneNumberLabel.setText(myInfList.get(2));
+				myImgUrl = myInfList.get(3).replace("//", "////");
+				showMyImgLabel.setIcon(new ImageIcon(myImgUrl));
+				showMyUserNameLabel.setText(myInfList.get(4));
+				showMyQqLabel.setText(myInfList.get(5));
+				showMyEmailLabel.setText(myInfList.get(6));
+				showMyClassLabel.setText(myInfList.get(7));
+				showMyIdLabel.setText(String.valueOf(studentInf.getId()));
+				showSucLabel.setVisible(true);
+				showSucLabel.getVisibleRect()
+			}
+		});
+		myInfPanel.add(lookMyinfButLabel);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("New tab", null, panel, null);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("12");
+		lblNewLabel.setBounds(75, 45, 66, 104);
+		panel.add(lblNewLabel);
+		
+		JLabel label_1 = new JLabel("34");
+		label_1.setBounds(75, 150, 66, 104);
+		panel.add(label_1);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(75, 262, 66, 29);
+		panel.add(lblNewLabel_1);
+		
+		JLabel label_2 = new JLabel("56");
+		label_2.setBounds(75, 304, 66, 104);
+		panel.add(label_2);
+		
+		JLabel lblNewLabel_2 = new JLabel("78");
+		lblNewLabel_2.setBounds(75, 409, 66, 103);
+		panel.add(lblNewLabel_2);
+		
+		JPanel AskingForVacationPanel = new JPanel();
+		tabbedPane.addTab("申请休假", null, AskingForVacationPanel, null);
+		AskingForVacationPanel.setLayout(null);
+		
+		JLabel vacTextLabel = new JLabel("申请休假");
+		vacTextLabel.setBounds(278, 13, 72, 18);
+		AskingForVacationPanel.add(vacTextLabel);
+		
+		JLabel vacBgTimeLabel = new JLabel("开始时间");
+		vacBgTimeLabel.setBounds(55, 70, 72, 18);
+		AskingForVacationPanel.add(vacBgTimeLabel);
+		
+		JLabel vacEndTimeLabel = new JLabel("结束时间");
+		vacEndTimeLabel.setBounds(55, 142, 72, 18);
+		AskingForVacationPanel.add(vacEndTimeLabel);
+		
+		vacBeginTimeField = new JTextField();
+		vacBeginTimeField.setBounds(141, 67, 120, 24);
+		AskingForVacationPanel.add(vacBeginTimeField);
+		vacBeginTimeField.setColumns(10);
+		
+		vacEndTimeField = new JTextField();
+		vacEndTimeField.setBounds(141, 139, 120, 24);
+		AskingForVacationPanel.add(vacEndTimeField);
+		vacEndTimeField.setColumns(10);
+		
+		JLabel vacReasonLabel = new JLabel("申请理由");
+		vacReasonLabel.setBounds(55, 216, 72, 18);
+		AskingForVacationPanel.add(vacReasonLabel);
+		
+		JTextArea vacReasonArea = new JTextArea();
+		vacReasonArea.setBounds(141, 214, 362, 186);
+		AskingForVacationPanel.add(vacReasonArea);
+		
+		JLabel vacDestinationLabel = new JLabel("目的地");
+		vacDestinationLabel.setBounds(297, 70, 72, 18);
+		AskingForVacationPanel.add(vacDestinationLabel);
+		
+		vacDestinationField = new JTextField();
+		vacDestinationField.setBounds(383, 67, 120, 24);
+		AskingForVacationPanel.add(vacDestinationField);
+		vacDestinationField.setColumns(10);
+		
+		JLabel askingForVacationButLabel = new JLabel("");
+		askingForVacationButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameInactive.png")));
+		askingForVacationButLabel.setBounds(268, 448, 101, 32);
+		askingForVacationButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				Vacation vac = new Vacation();
+				vac.setStuid(std.getId());
+				vac.setStuName(std.getName());
+				vac.setBgTime(vacBeginTimeField.getText());
+				vac.setEdTime(vacEndTimeField.getText());
+				vac.setReason(vacReasonArea.getText());
+				vac.setVacDestination(vacDestinationField.getText());
+				dbWork.insertVacation(vac);
+				JOptionPane.showMessageDialog(null, "休假申请已提交，请等待管理员审核", "成功", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		AskingForVacationPanel.add(askingForVacationButLabel);
+		
+		
+		
+		
 		
 		
 		
@@ -206,286 +572,6 @@ public class StudentUseFrame extends JFrame{
 		
 		
 		
-		
-		
-		
-		JLabel exitLabel = new JLabel("");
-		exitLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/Exitbut.jpg")));
-		exitLabel.setBounds(885, 620, 145, 42);
-		exitLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseEntered(e);
-				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut_c.jpg")));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseExited(e);
-				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut.jpg")));
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseClicked(e);
-				System.exit(1);
-			}
-		});
-		
-		
-		getContentPane().add(exitLabel);
-		
-		JLabel backToMainLabel = new JLabel("");
-		backToMainLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/backToMain.jpg")));
-		backToMainLabel.setBounds(885, 283, 145, 42);
-		backToMainLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseEntered(e);
-				backToMainLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/backToMain_c.jpg")));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseExited(e);
-				backToMainLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/backToMain.jpg")));
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseClicked(e);
-				new MainFrame().setVisible(true);
-				StudentUseFrame.this.dispose();
-			}
-		});
-		getContentPane().add(backToMainLabel);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(242, 62, 629, 588);
-		getContentPane().add(tabbedPane);
-		
-		JPanel selectStudentPanel = new JPanel();
-		tabbedPane.addTab("所有学生", null, selectStudentPanel, null);
-		selectStudentPanel.setLayout(null);
-		table = new JTable();
-		String[] name = new String[] {
-				"ID", "\u59D3\u540D", "\u5BB6\u4E61", "\u8054\u7CFB\u7535\u8BDD", "\u7528\u6237\u540D", "QQ\u53F7", "\u7535\u5B50\u90AE\u4EF6", "\u73ED\u7EA7"
-			};
-		String[][] value = {};
-		DefaultTableModel dtm = new DefaultTableModel(value, name);
-		table.setModel(dtm);
-		table.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		table.setBounds(12, 5, 600, 474);
-		table.setVisible(true);
-		
-		
-		selectStudentPanel.add(table);
-		
-		JLabel selectAllButLabel = new JLabel("");
-		selectAllButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut.jpg")));
-		selectAllButLabel.setBounds(270, 496, 93, 32);
-		selectAllButLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseEntered(e);
-				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameActive.png")));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseExited(e);
-				selectAllButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseClicked(e);
-				listAll = dbWork.selectAllStudentInf();
-				if (listAll == null) {
-					JOptionPane.showMessageDialog(null,  "没有学生信息", "警告", JOptionPane.WARNING_MESSAGE);
-				}else {
-					int size = listAll.size();
-					String[] name =  {
-							"ID", "\u59D3\u540D", "\u5BB6\u4E61", "\u8054\u7CFB\u7535\u8BDD", "\u7528\u6237\u540D", "QQ\u53F7", "\u7535\u5B50\u90AE\u4EF6", "\u73ED\u7EA7"
-						};
-					String[][] value = new String[size + 1][8];
-					value[0] = name;
-					for(int i = 0; i < size; i++) {
-						value[i + 1] = listAll.get(i);
-					}
-					DefaultTableModel dtm = new DefaultTableModel(value, name);
-					table.setModel(dtm);
-				}
-			}
-		});
-		selectStudentPanel.add(selectAllButLabel);
-		
-		
-		JPanel myInfPanel = new JPanel();
-		tabbedPane.addTab("我的信息", null, myInfPanel, null);
-		myInfPanel.setLayout(null);
-		
-		JLabel myNameLabel = new JLabel("姓名");
-		myNameLabel.setBounds(41, 13, 72, 18);
-		myInfPanel.add(myNameLabel);
-		
-		JLabel myImgLabel = new JLabel("图片");
-		myImgLabel.setBounds(41, 63, 72, 18);
-		myInfPanel.add(myImgLabel);
-		
-		JLabel myClassLabel = new JLabel("班级");
-		myClassLabel.setBounds(347, 13, 72, 18);
-		myInfPanel.add(myClassLabel);
-		
-		JLabel myIDLable = new JLabel("ID");
-		myIDLable.setBounds(347, 63, 72, 18);
-		myInfPanel.add(myIDLable);
-		
-		JLabel myPhoneNumberLabel = new JLabel("联系电话");
-		myPhoneNumberLabel.setBounds(347, 126, 72, 18);
-		myInfPanel.add(myPhoneNumberLabel);
-		
-		JLabel myQqLable = new JLabel("QQ");
-		myQqLable.setBounds(347, 204, 72, 18);
-		myInfPanel.add(myQqLable);
-		
-		JLabel myEmsilLabel = new JLabel("电子邮箱");
-		myEmsilLabel.setBounds(347, 272, 72, 18);
-		myInfPanel.add(myEmsilLabel);
-		
-		JLabel lookMyinfButLabel = new JLabel("");
-		lookMyinfButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut.jpg")));
-		lookMyinfButLabel.setBounds(249, 447, 93, 32);
-		myInfPanel.add(lookMyinfButLabel);
-		
-		JLabel showMyImgLabel = new JLabel("");
-		showMyImgLabel.setBounds(99, 71, 234, 244);
-		myInfPanel.add(showMyImgLabel);
-		
-		JLabel showMyNameLabel = new JLabel("");
-		showMyNameLabel.setBounds(99, 13, 110, 18);
-		myInfPanel.add(showMyNameLabel);
-		
-		JLabel showMyClassLabel = new JLabel("");
-		showMyClassLabel.setBounds(450, 13, 110, 18);
-		myInfPanel.add(showMyClassLabel);
-		
-		JLabel showMyIdLabel = new JLabel("");
-		showMyIdLabel.setBounds(450, 63, 110, 18);
-		myInfPanel.add(showMyIdLabel);
-		
-		JLabel showMyPhoneNumberLabel = new JLabel("");
-		showMyPhoneNumberLabel.setBounds(450, 126, 110, 18);
-		myInfPanel.add(showMyPhoneNumberLabel);
-		
-		JLabel showMyQqLabel = new JLabel("");
-		showMyQqLabel.setBounds(450, 204, 110, 18);
-		myInfPanel.add(showMyQqLabel);
-		
-		JLabel showMyEmailLabel = new JLabel("");
-		showMyEmailLabel.setBounds(450, 272, 110, 18);
-		myInfPanel.add(showMyEmailLabel);
-		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("12");
-		lblNewLabel.setBounds(75, 45, 66, 104);
-		panel.add(lblNewLabel);
-		
-		JLabel label_1 = new JLabel("34");
-		label_1.setBounds(75, 150, 66, 104);
-		panel.add(label_1);
-		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(75, 262, 66, 29);
-		panel.add(lblNewLabel_1);
-		
-		JLabel label_2 = new JLabel("56");
-		label_2.setBounds(75, 304, 66, 104);
-		panel.add(label_2);
-		
-		JLabel lblNewLabel_2 = new JLabel("78");
-		lblNewLabel_2.setBounds(75, 409, 66, 103);
-		panel.add(lblNewLabel_2);
-		
-		JPanel AskingForVacationPanel = new JPanel();
-		tabbedPane.addTab("申请休假", null, AskingForVacationPanel, null);
-		AskingForVacationPanel.setLayout(null);
-		
-		JLabel vacTextLabel = new JLabel("申请休假");
-		vacTextLabel.setBounds(278, 13, 72, 18);
-		AskingForVacationPanel.add(vacTextLabel);
-		
-		JLabel vacBgTimeLabel = new JLabel("开始时间");
-		vacBgTimeLabel.setBounds(55, 70, 72, 18);
-		AskingForVacationPanel.add(vacBgTimeLabel);
-		
-		JLabel vacEndTimeLabel = new JLabel("结束时间");
-		vacEndTimeLabel.setBounds(55, 142, 72, 18);
-		AskingForVacationPanel.add(vacEndTimeLabel);
-		
-		vacBeginTimeField = new JTextField();
-		vacBeginTimeField.setBounds(141, 67, 120, 24);
-		AskingForVacationPanel.add(vacBeginTimeField);
-		vacBeginTimeField.setColumns(10);
-		
-		vacEndTimeField = new JTextField();
-		vacEndTimeField.setBounds(141, 139, 120, 24);
-		AskingForVacationPanel.add(vacEndTimeField);
-		vacEndTimeField.setColumns(10);
-		
-		JLabel vacReasonLabel = new JLabel("申请理由");
-		vacReasonLabel.setBounds(55, 216, 72, 18);
-		AskingForVacationPanel.add(vacReasonLabel);
-		
-		JTextArea vacReasonArea = new JTextArea();
-		vacReasonArea.setBounds(141, 214, 362, 186);
-		AskingForVacationPanel.add(vacReasonArea);
-		
-		JLabel vacDestinationLabel = new JLabel("目的地");
-		vacDestinationLabel.setBounds(297, 70, 72, 18);
-		AskingForVacationPanel.add(vacDestinationLabel);
-		
-		vacDestinationField = new JTextField();
-		vacDestinationField.setBounds(383, 67, 120, 24);
-		AskingForVacationPanel.add(vacDestinationField);
-		vacDestinationField.setColumns(10);
-		
-		JLabel askingForVacationButLabel = new JLabel("");
-		askingForVacationButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameInactive.png")));
-		askingForVacationButLabel.setBounds(268, 448, 101, 32);
-		askingForVacationButLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseEntered(e);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseExited(e);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseClicked(e);
-				Vacation vac = new Vacation();
-				vac.setStuid(std.getId());
-				vac.setStuName(std.getName());
-				vac.setBgTime(vacBeginTimeField.getText());
-				vac.setEdTime(vacEndTimeField.getText());
-				vac.setReason(vacReasonArea.getText());
-				vac.setVacDestination(vacDestinationField.getText());
-				dbWork.insertVacation(vac);
-				JOptionPane.showMessageDialog(null, "休假申请已提交，请等待管理员审核", "成功", JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
-		AskingForVacationPanel.add(askingForVacationButLabel);
 		
 		
 		
