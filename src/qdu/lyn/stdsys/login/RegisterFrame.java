@@ -47,13 +47,13 @@ public class RegisterFrame extends JFrame{
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				registerLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn_c.png")));
+				registerLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Register_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				registerLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Loginbtn.png")));
+				registerLabel.setIcon(new ImageIcon(NewLoginFrame.class.getResource("/but/Register.jpg")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -140,13 +140,13 @@ public class RegisterFrame extends JFrame{
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut_c.png")));
+				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseExited(e);
-				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut.png")));
+				exitLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/but/Exitbut.jpg")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
