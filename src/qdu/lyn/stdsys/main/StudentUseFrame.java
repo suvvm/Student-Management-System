@@ -307,8 +307,8 @@ public class StudentUseFrame extends JFrame{
 				showMyEmailLabel.setText(myInfList.get(6));
 				showMyClassLabel.setText(myInfList.get(7));
 				showMyIdLabel.setText(String.valueOf(studentInf.getId()));
-				showSucLabel.setVisible(true);
-				showSucLabel.getVisibleRect()
+				//showSucLabel.setVisible(true);
+				//showSucLabel.getVisibleRect()
 			}
 		});
 		myInfPanel.add(lookMyinfButLabel);
