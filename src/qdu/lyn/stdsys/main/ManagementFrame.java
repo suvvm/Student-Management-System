@@ -55,6 +55,7 @@ public class ManagementFrame extends JFrame{
 	private DatabaseWork dbWork = new DatabaseWork();
 	private List<String> listOne;
 	private List<String[]> listAll;
+	private List<String[]> listAllVac;
 	private JTable vacTable;
 	public ManagementFrame(Administrator admin) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ManagementFrame.class.getResource("/ico/NewPM.png")));
@@ -593,9 +594,9 @@ public class ManagementFrame extends JFrame{
 		});
 		selectPanel.add(selectOneSubmitLabel);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("管理休假", null, panel, null);
-		panel.setLayout(null);
+		JPanel vacationPanel = new JPanel();
+		tabbedPane.addTab("管理休假", null, vacationPanel, null);
+		vacationPanel.setLayout(null);
 		
 		vacTable = new JTable();
 		String[] vacName = new String[] {
@@ -606,22 +607,338 @@ public class ManagementFrame extends JFrame{
 		table.setModel(vacDtm);
 		table.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		vacTable.setBounds(55, 35, 535, 445);
-		panel.add(vacTable);
+		vacationPanel.add(vacTable);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/RefreshBut.jpg")));
-		label.setBounds(95, 516, 93, 32);
-		panel.add(label);
+		JLabel refreshLabel = new JLabel("");
+		refreshLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/RefreshBut.jpg")));
+		refreshLabel.setBounds(95, 516, 93, 32);
+		refreshLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				refreshLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/RefreshBut_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				refreshLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/RefreshBut.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listAllVac = dbWork.selectAllVacation();
+				if (listAllVac == null) {
+					JOptionPane.showMessageDialog(null,  "没有请假信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listAllVac.size();
+					String[] name =  {
+							"序号", "学号", "姓名", "请假开始", "请假结束",  "请假原因", "请假去向", "是否批准"
+						};
+					String[][] value = new String[size + 1][8];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listAllVac.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					vacTable.setModel(dtm);
+					vacTable.setSelectionMode(0);
+					
+				}
+			}
+		});
+		vacationPanel.add(refreshLabel);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
-		label_1.setBounds(261, 516, 101, 32);
+		JLabel approvalLabel = new JLabel("");
+		approvalLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		approvalLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				approvalLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				approvalLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				int row = vacTable.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null,  "没有选择请假信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					String temp = vacTable.getValueAt(row, 0).toString();
+	                //System.out.println("$" + temp);
+	                int num = Integer.parseInt(temp);
+	                //System.out.println(num);
+	                //stdinf.setId(Integer.parseInt(idField.getText()));
+	                try {
+	                    if(dbWork.approvalVacation(num)) {
+	                    	listAllVac = dbWork.selectAllVacation();
+	        				if (listAllVac == null) {
+	        					JOptionPane.showMessageDialog(null,  "没有请假信息", "警告", JOptionPane.WARNING_MESSAGE);
+	        				}else {
+	        					int size = listAllVac.size();
+	        					String[] name =  {
+	        							"序号", "学号", "姓名", "请假开始", "请假结束",  "请假原因", "请假去向", "是否批准"
+	        						};
+	        					String[][] value = new String[size + 1][8];
+	        					value[0] = name;
+	        					for(int i = 0; i < size; i++) {
+	        						value[i + 1] = listAllVac.get(i);
+	        					}
+	        					DefaultTableModel dtm = new DefaultTableModel(value, name);
+	        					vacTable.setModel(dtm);
+	        					vacTable.setSelectionMode(0);
+	        				}
+	                    }
+	                } catch (Exception e1) {
+	                    e1.printStackTrace();
+	                }
+				}
+			}
+		});
+		approvalLabel.setBounds(261, 516, 101, 32);
+		
+		vacationPanel.add(approvalLabel);
+		
+		JLabel refuseLabel = new JLabel("");
+		refuseLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		refuseLabel.setBounds(435, 516, 101, 32);
+		refuseLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				refuseLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameActive.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				refuseLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				int row = vacTable.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null,  "没有选择请假信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					String temp = vacTable.getValueAt(row, 0).toString();
+	                //System.out.println("$" + temp);
+	                int num = Integer.parseInt(temp);
+	                //System.out.println(num);
+	                //stdinf.setId(Integer.parseInt(idField.getText()));
+	                try {
+	                    if(dbWork.refuseVacation(num)) {
+	                    	listAllVac = dbWork.selectAllVacation();
+	        				if (listAllVac == null) {
+	        					JOptionPane.showMessageDialog(null,  "没有请假信息", "警告", JOptionPane.WARNING_MESSAGE);
+	        				}else {
+	        					int size = listAllVac.size();
+	        					String[] name =  {
+	        							"序号", "学号", "姓名", "请假开始", "请假结束",  "请假原因", "请假去向", "是否批准"
+	        						};
+	        					String[][] value = new String[size + 1][8];
+	        					value[0] = name;
+	        					for(int i = 0; i < size; i++) {
+	        						value[i + 1] = listAllVac.get(i);
+	        					}
+	        					DefaultTableModel dtm = new DefaultTableModel(value, name);
+	        					vacTable.setModel(dtm);
+	        					vacTable.setSelectionMode(0);
+	        				}
+	                    }
+	                } catch (Exception e1) {
+	                    e1.printStackTrace();
+	                }
+				}
+			}
+		});
+		vacationPanel.add(refuseLabel);
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("课程表", null, panel, null);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("12");
+		lblNewLabel.setBounds(46, 45, 60, 80);
+		panel.add(lblNewLabel);
+		
+		JLabel label_1 = new JLabel("34");
+		label_1.setBounds(46, 138, 60, 80);
 		panel.add(label_1);
 		
-		JLabel label_2 = new JLabel("");
-		label_2.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
-		label_2.setBounds(435, 516, 101, 32);
+		JLabel label_2 = new JLabel("56");
+		label_2.setBounds(46, 231, 60, 80);
 		panel.add(label_2);
+		
+		JLabel lblNewLabel_2 = new JLabel("78");
+		lblNewLabel_2.setBounds(46, 324, 60, 80);
+		panel.add(lblNewLabel_2);
+		
+		JLabel label_3 = new JLabel("星期一");
+		label_3.setBounds(46, 14, 60, 18);
+		panel.add(label_3);
+		
+		JLabel label_4 = new JLabel("星期二");
+		label_4.setBounds(124, 14, 60, 18);
+		panel.add(label_4);
+		
+		JLabel label_5 = new JLabel("星期三");
+		label_5.setBounds(198, 14, 60, 18);
+		panel.add(label_5);
+		
+		JLabel label_6 = new JLabel("星期四");
+		label_6.setBounds(272, 14, 60, 18);
+		panel.add(label_6);
+		
+		JLabel label_7 = new JLabel("星期五");
+		label_7.setBounds(346, 14, 60, 18);
+		panel.add(label_7);
+		
+		JLabel label_8 = new JLabel("星期六");
+		label_8.setBounds(420, 14, 60, 18);
+		panel.add(label_8);
+		
+		JLabel label_9 = new JLabel("星期日");
+		label_9.setBounds(494, 14, 72, 18);
+		panel.add(label_9);
+		
+		JLabel lblNewLabel_1 = new JLabel("12");
+		lblNewLabel_1.setBounds(120, 45, 60, 80);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("34");
+		lblNewLabel_3.setBounds(124, 138, 60, 80);
+		panel.add(lblNewLabel_3);
+		
+		JLabel label_10 = new JLabel("56");
+		label_10.setBounds(124, 231, 60, 80);
+		panel.add(label_10);
+		
+		JLabel label_11 = new JLabel("78");
+		label_11.setBounds(124, 324, 60, 80);
+		panel.add(label_11);
+		
+		JLabel label_12 = new JLabel("78");
+		label_12.setBounds(198, 324, 60, 80);
+		panel.add(label_12);
+		
+		JLabel label_13 = new JLabel("78");
+		label_13.setBounds(272, 324, 60, 80);
+		panel.add(label_13);
+		
+		JLabel label_14 = new JLabel("78");
+		label_14.setBounds(346, 324, 60, 80);
+		panel.add(label_14);
+		
+		JLabel label_15 = new JLabel("78");
+		label_15.setBounds(420, 324, 60, 80);
+		panel.add(label_15);
+		
+		JLabel label_16 = new JLabel("78");
+		label_16.setBounds(494, 324, 60, 80);
+		panel.add(label_16);
+		
+		JLabel label_17 = new JLabel("56");
+		label_17.setBounds(198, 231, 60, 80);
+		panel.add(label_17);
+		
+		JLabel label_18 = new JLabel("56");
+		label_18.setBounds(272, 231, 60, 80);
+		panel.add(label_18);
+		
+		JLabel label_19 = new JLabel("56");
+		label_19.setBounds(346, 231, 60, 80);
+		panel.add(label_19);
+		
+		JLabel label_20 = new JLabel("56");
+		label_20.setBounds(420, 231, 60, 80);
+		panel.add(label_20);
+		
+		JLabel label_21 = new JLabel("56");
+		label_21.setBounds(494, 231, 60, 80);
+		panel.add(label_21);
+		
+		JLabel label_22 = new JLabel("34");
+		label_22.setBounds(198, 138, 60, 80);
+		panel.add(label_22);
+		
+		JLabel label_23 = new JLabel("34");
+		label_23.setBounds(272, 138, 60, 80);
+		panel.add(label_23);
+		
+		JLabel label_24 = new JLabel("34");
+		label_24.setBounds(346, 138, 60, 80);
+		panel.add(label_24);
+		
+		JLabel label_25 = new JLabel("34");
+		label_25.setBounds(420, 138, 60, 80);
+		panel.add(label_25);
+		
+		JLabel label_26 = new JLabel("34");
+		label_26.setBounds(494, 138, 60, 80);
+		panel.add(label_26);
+		
+		JLabel label_27 = new JLabel("12");
+		label_27.setBounds(198, 45, 60, 80);
+		panel.add(label_27);
+		
+		JLabel label_28 = new JLabel("12");
+		label_28.setBounds(272, 45, 60, 80);
+		panel.add(label_28);
+		
+		JLabel label_29 = new JLabel("12");
+		label_29.setBounds(346, 45, 60, 80);
+		panel.add(label_29);
+		
+		JLabel label_30 = new JLabel("12");
+		label_30.setBounds(420, 45, 60, 80);
+		panel.add(label_30);
+		
+		JLabel label_31 = new JLabel("12");
+		label_31.setBounds(494, 45, 60, 80);
+		panel.add(label_31);
+		
+		JLabel label_32 = new JLabel("910");
+		label_32.setBounds(46, 417, 60, 80);
+		panel.add(label_32);
+		
+		JLabel label_33 = new JLabel("910");
+		label_33.setBounds(124, 417, 60, 80);
+		panel.add(label_33);
+		
+		JLabel label_34 = new JLabel("910");
+		label_34.setBounds(198, 417, 60, 80);
+		panel.add(label_34);
+		
+		JLabel label_35 = new JLabel("910");
+		label_35.setBounds(272, 417, 60, 80);
+		panel.add(label_35);
+		
+		JLabel label_36 = new JLabel("910");
+		label_36.setBounds(346, 417, 60, 80);
+		panel.add(label_36);
+		
+		JLabel label_37 = new JLabel("910");
+		label_37.setBounds(420, 417, 60, 80);
+		panel.add(label_37);
+		
+		JLabel label_38 = new JLabel("910");
+		label_38.setBounds(494, 417, 60, 80);
+		panel.add(label_38);
+		
+		
 		JLabel exitButLabel = new JLabel("");
 		exitButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/Exitbut.jpg")));
 		exitButLabel.setBounds(885, 611, 146, 42);
