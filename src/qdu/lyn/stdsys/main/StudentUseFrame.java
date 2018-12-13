@@ -32,6 +32,7 @@ public class StudentUseFrame extends JFrame{
 	private JTable table;
 	private List<String[]> listAll;
 	private List<String> myInfList;
+	private List<String[]> listMyVac;
 	private DatabaseWork dbWork = new DatabaseWork();
 	private String myImgUrl;
 	
@@ -43,6 +44,7 @@ public class StudentUseFrame extends JFrame{
 	private JTextField vacBeginTimeField;
 	private JTextField vacEndTimeField;
 	private JTextField vacDestinationField;
+	private JTable myVacationTable;
 	
 	
 	
@@ -195,6 +197,186 @@ public class StudentUseFrame extends JFrame{
 		selectStudentPanel.add(selectAllButLabel);
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("课程表", null, panel, null);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("12");
+		lblNewLabel.setBounds(46, 45, 60, 80);
+		panel.add(lblNewLabel);
+		
+		JLabel label_1 = new JLabel("34");
+		label_1.setBounds(46, 138, 60, 80);
+		panel.add(label_1);
+		
+		JLabel label_2 = new JLabel("56");
+		label_2.setBounds(46, 231, 60, 80);
+		panel.add(label_2);
+		
+		JLabel lblNewLabel_2 = new JLabel("78");
+		lblNewLabel_2.setBounds(46, 324, 60, 80);
+		panel.add(lblNewLabel_2);
+		
+		JLabel label_3 = new JLabel("星期一");
+		label_3.setBounds(46, 14, 60, 18);
+		panel.add(label_3);
+		
+		JLabel label_4 = new JLabel("星期二");
+		label_4.setBounds(124, 14, 60, 18);
+		panel.add(label_4);
+		
+		JLabel label_5 = new JLabel("星期三");
+		label_5.setBounds(198, 14, 60, 18);
+		panel.add(label_5);
+		
+		JLabel label_6 = new JLabel("星期四");
+		label_6.setBounds(272, 14, 60, 18);
+		panel.add(label_6);
+		
+		JLabel label_7 = new JLabel("星期五");
+		label_7.setBounds(346, 14, 60, 18);
+		panel.add(label_7);
+		
+		JLabel label_8 = new JLabel("星期六");
+		label_8.setBounds(420, 14, 60, 18);
+		panel.add(label_8);
+		
+		JLabel label_9 = new JLabel("星期日");
+		label_9.setBounds(494, 14, 72, 18);
+		panel.add(label_9);
+		
+		JLabel lblNewLabel_1 = new JLabel("12");
+		lblNewLabel_1.setBounds(120, 45, 60, 80);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("34");
+		lblNewLabel_3.setBounds(124, 138, 60, 80);
+		panel.add(lblNewLabel_3);
+		
+		JLabel label_10 = new JLabel("56");
+		label_10.setBounds(124, 231, 60, 80);
+		panel.add(label_10);
+		
+		JLabel label_11 = new JLabel("78");
+		label_11.setBounds(124, 324, 60, 80);
+		panel.add(label_11);
+		
+		JLabel label_12 = new JLabel("78");
+		label_12.setBounds(198, 324, 60, 80);
+		panel.add(label_12);
+		
+		JLabel label_13 = new JLabel("78");
+		label_13.setBounds(272, 324, 60, 80);
+		panel.add(label_13);
+		
+		JLabel label_14 = new JLabel("78");
+		label_14.setBounds(346, 324, 60, 80);
+		panel.add(label_14);
+		
+		JLabel label_15 = new JLabel("78");
+		label_15.setBounds(420, 324, 60, 80);
+		panel.add(label_15);
+		
+		JLabel label_16 = new JLabel("78");
+		label_16.setBounds(494, 324, 60, 80);
+		panel.add(label_16);
+		
+		JLabel label_17 = new JLabel("56");
+		label_17.setBounds(198, 231, 60, 80);
+		panel.add(label_17);
+		
+		JLabel label_18 = new JLabel("56");
+		label_18.setBounds(272, 231, 60, 80);
+		panel.add(label_18);
+		
+		JLabel label_19 = new JLabel("56");
+		label_19.setBounds(346, 231, 60, 80);
+		panel.add(label_19);
+		
+		JLabel label_20 = new JLabel("56");
+		label_20.setBounds(420, 231, 60, 80);
+		panel.add(label_20);
+		
+		JLabel label_21 = new JLabel("56");
+		label_21.setBounds(494, 231, 60, 80);
+		panel.add(label_21);
+		
+		JLabel label_22 = new JLabel("34");
+		label_22.setBounds(198, 138, 60, 80);
+		panel.add(label_22);
+		
+		JLabel label_23 = new JLabel("34");
+		label_23.setBounds(272, 138, 60, 80);
+		panel.add(label_23);
+		
+		JLabel label_24 = new JLabel("34");
+		label_24.setBounds(346, 138, 60, 80);
+		panel.add(label_24);
+		
+		JLabel label_25 = new JLabel("34");
+		label_25.setBounds(420, 138, 60, 80);
+		panel.add(label_25);
+		
+		JLabel label_26 = new JLabel("34");
+		label_26.setBounds(494, 138, 60, 80);
+		panel.add(label_26);
+		
+		JLabel label_27 = new JLabel("12");
+		label_27.setBounds(198, 45, 60, 80);
+		panel.add(label_27);
+		
+		JLabel label_28 = new JLabel("12");
+		label_28.setBounds(272, 45, 60, 80);
+		panel.add(label_28);
+		
+		JLabel label_29 = new JLabel("12");
+		label_29.setBounds(346, 45, 60, 80);
+		panel.add(label_29);
+		
+		JLabel label_30 = new JLabel("12");
+		label_30.setBounds(420, 45, 60, 80);
+		panel.add(label_30);
+		
+		JLabel label_31 = new JLabel("12");
+		label_31.setBounds(494, 45, 60, 80);
+		panel.add(label_31);
+		
+		JLabel label_32 = new JLabel("910");
+		label_32.setBounds(46, 417, 60, 80);
+		panel.add(label_32);
+		
+		JLabel label_33 = new JLabel("910");
+		label_33.setBounds(124, 417, 60, 80);
+		panel.add(label_33);
+		
+		JLabel label_34 = new JLabel("910");
+		label_34.setBounds(198, 417, 60, 80);
+		panel.add(label_34);
+		
+		JLabel label_35 = new JLabel("910");
+		label_35.setBounds(272, 417, 60, 80);
+		panel.add(label_35);
+		
+		JLabel label_36 = new JLabel("910");
+		label_36.setBounds(346, 417, 60, 80);
+		panel.add(label_36);
+		
+		JLabel label_37 = new JLabel("910");
+		label_37.setBounds(420, 417, 60, 80);
+		panel.add(label_37);
+		
+		JLabel label_38 = new JLabel("910");
+		label_38.setBounds(494, 417, 60, 80);
+		panel.add(label_38);
+		
+		
 		JPanel myInfPanel = new JPanel();
 		tabbedPane.addTab("我的信息", null, myInfPanel, null);
 		myInfPanel.setLayout(null);
@@ -313,38 +495,6 @@ public class StudentUseFrame extends JFrame{
 		});
 		myInfPanel.add(lookMyinfButLabel);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("12");
-		lblNewLabel.setBounds(75, 45, 66, 104);
-		panel.add(lblNewLabel);
-		
-		JLabel label_1 = new JLabel("34");
-		label_1.setBounds(75, 150, 66, 104);
-		panel.add(label_1);
-		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(75, 262, 66, 29);
-		panel.add(lblNewLabel_1);
-		
-		JLabel label_2 = new JLabel("56");
-		label_2.setBounds(75, 304, 66, 104);
-		panel.add(label_2);
-		
-		JLabel lblNewLabel_2 = new JLabel("78");
-		lblNewLabel_2.setBounds(75, 409, 66, 103);
-		panel.add(lblNewLabel_2);
-		
 		JPanel AskingForVacationPanel = new JPanel();
 		tabbedPane.addTab("申请休假", null, AskingForVacationPanel, null);
 		AskingForVacationPanel.setLayout(null);
@@ -418,6 +568,59 @@ public class StudentUseFrame extends JFrame{
 			}
 		});
 		AskingForVacationPanel.add(askingForVacationButLabel);
+		
+		JPanel lookMyVacationPanel = new JPanel();
+		tabbedPane.addTab("查看申请状态", null, lookMyVacationPanel, null);
+		lookMyVacationPanel.setLayout(null);
+		
+		myVacationTable = new JTable();
+		String[] lookMyVacName = new String[] {
+				"序号", "请假开始", "请假结束", "请假原因", "请假去向", "是否批准"
+		};
+		String[][] myVacValue = {};
+		DefaultTableModel myVacdtm = new DefaultTableModel(myVacValue, name);
+		myVacationTable.setModel(myVacdtm);
+		myVacationTable.setBounds(61, 38, 524, 388);
+		lookMyVacationPanel.add(myVacationTable);
+		
+		JLabel lookVacRefreshLabel = new JLabel("");
+		lookVacRefreshLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut.jpg")));
+		lookVacRefreshLabel.setBounds(172, 461, 93, 32);
+		lookVacRefreshLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listMyVac = dbWork.selectOneVacation(std.getId());
+				if (listMyVac == null) {
+					JOptionPane.showMessageDialog(null,  "没有请假信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listMyVac.size();
+					String[] name =  {
+							"序号", "请假开始", "请假结束", "请假原因", "请假去向", "是否批准"
+						};
+					String[][] value = new String[size + 1][6];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listMyVac.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					myVacationTable.setModel(dtm);
+					myVacationTable.setSelectionMode(0);					
+				}
+			}
+		});
+		lookMyVacationPanel.add(lookVacRefreshLabel);
 		
 		
 		
