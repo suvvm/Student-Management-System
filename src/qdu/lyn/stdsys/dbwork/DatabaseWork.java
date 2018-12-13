@@ -313,7 +313,7 @@ public class DatabaseWork {
 	public void insertVacation(Vacation vac) {
 		try {
 			getConnection();
-			String insertVac = "insert into Vacation values(null, ?, ?, ?, ?, ?, ?)";
+			String insertVac = "insert into Vacation values(null, ?, ?, ?, ?, ?, ?, 0)";
 			
 			pStatement = connection.prepareStatement(insertVac);
 			pStatement.setInt(1, vac.getStuid());
@@ -338,7 +338,7 @@ public class DatabaseWork {
 			rSet = pStatement.executeQuery();
 			List<String[]> list = new ArrayList<String[]>();
 			while(rSet.next()) {
-				list.add(new String[] {rSet.getString("stuid"), rSet.getString("stuName"), rSet.getString("beginTime"), rSet.getString("endTime"), rSet.getString("reason"), rSet.getString("destination")});
+				list.add(new String[] {rSet.getString("num"), rSet.getString("stuid"), rSet.getString("stuName"), rSet.getString("beginTime"), rSet.getString("endTime"), rSet.getString("reason"), rSet.getString("destination"), rSet.getString("approval")});
 			}
 			return list;
 		}catch (SQLException e) {
@@ -348,6 +348,75 @@ public class DatabaseWork {
 			closeAll();
 		}
 		return null;
+	}
+	public List<String[]> selectOneVacation(int id) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from Vacation where stuid = ?");
+			pStatement.setInt(1, id);
+			rSet = pStatement.executeQuery();
+			List<String[]> list = new ArrayList<String[]>();
+			while(rSet.next()) {
+				list.add(new String[] {rSet.getString("num"), rSet.getString("beginTime"), rSet.getString("endTime"), rSet.getString("reason"), rSet.getString("destination"), rSet.getString("approval")});
+			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
+	}
+	public boolean approvalVacation(int num) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("update Vacation set approval = 1 where num = ?");
+			pStatement.setInt(1, num);
+			pStatement.executeUpdate();
+			return true;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return false;
+	}
+	public boolean refuseVacation(int num) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("update Vacation set approval = 2 where num = ?");
+			pStatement.setInt(1, num);
+			pStatement.executeUpdate();
+			return true;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return false;
+	}
+	public void insertMonday(Vacation vac) {
+		try {
+			getConnection();
+			String insertVac = "insert into Vacation values(null, ?, ?, ?, ?, ?, ?, 0)";
+			
+			pStatement = connection.prepareStatement(insertVac);
+			pStatement.setInt(1, vac.getStuid());
+			pStatement.setString(2, vac.getStuName());
+			pStatement.setString(3, vac.getBgTime());
+			pStatement.setString(4, vac.getEdTime());
+			pStatement.setString(5, vac.getReason());
+			pStatement.setString(6, vac.getVacDestination());
+			
+			pStatement.executeUpdate();
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 	public void closeAll() {
 		if (rSet != null) {
