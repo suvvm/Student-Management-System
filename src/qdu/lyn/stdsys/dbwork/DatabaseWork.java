@@ -11,6 +11,7 @@ import java.util.List;
 import javax.sound.sampled.LineListener;
 import javax.swing.JOptionPane;
 
+import qdu.lyn.stdsys.inf.Schedule;
 import qdu.lyn.stdsys.inf.Vacation;
 import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.Student;
@@ -417,6 +418,72 @@ public class DatabaseWork {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
+	}
+	public void insertSchedule(Schedule sch, int day) {
+		try {
+			getConnection();
+			String insertSchedule = "insert into ? value(null, temp, ?, ?, ? ,? ,?)";
+			switch (day) {
+			case 1:
+				pStatement.setString(1, sch.getMonday().getCourse_12());
+				pStatement.setString(2, sch.getMonday().getCourse_34());
+				pStatement.setString(3, sch.getMonday().getCourse_56());
+				pStatement.setString(4, sch.getMonday().getCourse_78());
+				pStatement.setString(5, sch.getMonday().getCourse_910());
+				break;
+			case 2:
+				pStatement.setString(1, sch.getTuesday().getCourse_12());
+				pStatement.setString(2, sch.getTuesday().getCourse_34());
+				pStatement.setString(3, sch.getTuesday().getCourse_56());
+				pStatement.setString(4, sch.getTuesday().getCourse_78());
+				pStatement.setString(5, sch.getTuesday().getCourse_910());
+				break;
+			case 3:
+				pStatement.setString(1, sch.getWednesday().getCourse_12());
+				pStatement.setString(2, sch.getWednesday().getCourse_34());
+				pStatement.setString(3, sch.getWednesday().getCourse_56());
+				pStatement.setString(4, sch.getWednesday().getCourse_78());
+				pStatement.setString(5, sch.getWednesday().getCourse_910());
+				break;
+			case 4:
+				pStatement.setString(1, sch.getThursday().getCourse_12());
+				pStatement.setString(2, sch.getThursday().getCourse_34());
+				pStatement.setString(3, sch.getThursday().getCourse_56());
+				pStatement.setString(4, sch.getThursday().getCourse_78());
+				pStatement.setString(5, sch.getThursday().getCourse_910());
+				break;
+			case 5:
+				pStatement.setString(1, sch.getFriday().getCourse_12());
+				pStatement.setString(2, sch.getFriday().getCourse_34());
+				pStatement.setString(3, sch.getFriday().getCourse_56());
+				pStatement.setString(4, sch.getFriday().getCourse_78());
+				pStatement.setString(5, sch.getFriday().getCourse_910());
+				break;
+			case 6:
+				pStatement.setString(1, sch.getStaurday().getCourse_12());
+				pStatement.setString(2, sch.getStaurday().getCourse_34());
+				pStatement.setString(3, sch.getStaurday().getCourse_56());
+				pStatement.setString(4, sch.getStaurday().getCourse_78());
+				pStatement.setString(5, sch.getStaurday().getCourse_910());
+				break;
+			case 7:
+				pStatement.setString(1, sch.getSunday().getCourse_12());
+				pStatement.setString(2, sch.getSunday().getCourse_34());
+				pStatement.setString(3, sch.getSunday().getCourse_56());
+				pStatement.setString(4, sch.getSunday().getCourse_78());
+				pStatement.setString(5, sch.getSunday().getCourse_910());
+				break;
+			default:
+				break;
+			}
+			pStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		
+
 	}
 	public void closeAll() {
 		if (rSet != null) {
