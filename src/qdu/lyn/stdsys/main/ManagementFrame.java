@@ -771,172 +771,207 @@ public class ManagementFrame extends JFrame{
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("12");
-		lblNewLabel.setBounds(46, 45, 60, 80);
+		lblNewLabel.setBounds(17, 45, 72, 80);
 		panel.add(lblNewLabel);
 		
 		JLabel label_1 = new JLabel("34");
-		label_1.setBounds(46, 138, 60, 80);
+		label_1.setBounds(17, 138, 72, 80);
 		panel.add(label_1);
 		
 		JLabel label_2 = new JLabel("56");
-		label_2.setBounds(46, 231, 60, 80);
+		label_2.setBounds(17, 231, 72, 80);
 		panel.add(label_2);
 		
 		JLabel lblNewLabel_2 = new JLabel("78");
-		lblNewLabel_2.setBounds(46, 324, 60, 80);
+		lblNewLabel_2.setBounds(17, 324, 72, 80);
 		panel.add(lblNewLabel_2);
 		
 		JLabel label_3 = new JLabel("星期一");
-		label_3.setBounds(46, 14, 60, 18);
+		label_3.setBounds(17, 14, 72, 18);
 		panel.add(label_3);
 		
 		JLabel label_4 = new JLabel("星期二");
-		label_4.setBounds(124, 14, 60, 18);
+		label_4.setBounds(103, 14, 72, 18);
 		panel.add(label_4);
 		
 		JLabel label_5 = new JLabel("星期三");
-		label_5.setBounds(198, 14, 60, 18);
+		label_5.setBounds(198, 14, 70, 18);
 		panel.add(label_5);
 		
 		JLabel label_6 = new JLabel("星期四");
-		label_6.setBounds(272, 14, 60, 18);
+		label_6.setBounds(282, 14, 73, 18);
 		panel.add(label_6);
 		
 		JLabel label_7 = new JLabel("星期五");
-		label_7.setBounds(346, 14, 60, 18);
+		label_7.setBounds(369, 14, 72, 18);
 		panel.add(label_7);
 		
 		JLabel label_8 = new JLabel("星期六");
-		label_8.setBounds(420, 14, 60, 18);
+		label_8.setBounds(455, 14, 75, 18);
 		panel.add(label_8);
 		
 		JLabel label_9 = new JLabel("星期日");
-		label_9.setBounds(494, 14, 72, 18);
+		label_9.setBounds(544, 14, 72, 18);
 		panel.add(label_9);
 		
 		JLabel lblNewLabel_1 = new JLabel("12");
-		lblNewLabel_1.setBounds(120, 45, 60, 80);
+		lblNewLabel_1.setBounds(103, 45, 72, 80);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("34");
-		lblNewLabel_3.setBounds(124, 138, 60, 80);
+		lblNewLabel_3.setBounds(103, 138, 72, 80);
 		panel.add(lblNewLabel_3);
 		
 		JLabel label_10 = new JLabel("56");
-		label_10.setBounds(124, 231, 60, 80);
+		label_10.setBounds(103, 231, 72, 80);
 		panel.add(label_10);
 		
 		JLabel label_11 = new JLabel("78");
-		label_11.setBounds(124, 324, 60, 80);
+		label_11.setBounds(103, 324, 72, 80);
 		panel.add(label_11);
 		
 		JLabel label_12 = new JLabel("78");
-		label_12.setBounds(198, 324, 60, 80);
+		label_12.setBounds(198, 324, 70, 80);
 		panel.add(label_12);
 		
 		JLabel label_13 = new JLabel("78");
-		label_13.setBounds(272, 324, 60, 80);
+		label_13.setBounds(282, 324, 73, 80);
 		panel.add(label_13);
 		
 		JLabel label_14 = new JLabel("78");
-		label_14.setBounds(346, 324, 60, 80);
+		label_14.setBounds(369, 324, 72, 80);
 		panel.add(label_14);
 		
 		JLabel label_15 = new JLabel("78");
-		label_15.setBounds(420, 324, 60, 80);
+		label_15.setBounds(455, 324, 75, 80);
 		panel.add(label_15);
 		
 		JLabel label_16 = new JLabel("78");
-		label_16.setBounds(494, 324, 60, 80);
+		label_16.setBounds(544, 324, 72, 80);
 		panel.add(label_16);
 		
 		JLabel label_17 = new JLabel("56");
-		label_17.setBounds(198, 231, 60, 80);
+		label_17.setBounds(198, 231, 70, 80);
 		panel.add(label_17);
 		
 		JLabel label_18 = new JLabel("56");
-		label_18.setBounds(272, 231, 60, 80);
+		label_18.setBounds(282, 231, 73, 80);
 		panel.add(label_18);
 		
 		JLabel label_19 = new JLabel("56");
-		label_19.setBounds(346, 231, 60, 80);
+		label_19.setBounds(369, 231, 72, 80);
 		panel.add(label_19);
 		
 		JLabel label_20 = new JLabel("56");
-		label_20.setBounds(420, 231, 60, 80);
+		label_20.setBounds(455, 231, 75, 80);
 		panel.add(label_20);
 		
 		JLabel label_21 = new JLabel("56");
-		label_21.setBounds(494, 231, 60, 80);
+		label_21.setBounds(544, 231, 72, 80);
 		panel.add(label_21);
 		
 		JLabel label_22 = new JLabel("34");
-		label_22.setBounds(198, 138, 60, 80);
+		label_22.setBounds(198, 138, 70, 80);
 		panel.add(label_22);
 		
 		JLabel label_23 = new JLabel("34");
-		label_23.setBounds(272, 138, 60, 80);
+		label_23.setBounds(282, 138, 73, 80);
 		panel.add(label_23);
 		
 		JLabel label_24 = new JLabel("34");
-		label_24.setBounds(346, 138, 60, 80);
+		label_24.setBounds(369, 138, 72, 80);
 		panel.add(label_24);
 		
 		JLabel label_25 = new JLabel("34");
-		label_25.setBounds(420, 138, 60, 80);
+		label_25.setBounds(455, 138, 75, 80);
 		panel.add(label_25);
 		
 		JLabel label_26 = new JLabel("34");
-		label_26.setBounds(494, 138, 60, 80);
+		label_26.setBounds(544, 138, 72, 80);
 		panel.add(label_26);
 		
 		JLabel label_27 = new JLabel("12");
-		label_27.setBounds(198, 45, 60, 80);
+		label_27.setBounds(198, 45, 70, 80);
 		panel.add(label_27);
 		
 		JLabel label_28 = new JLabel("12");
-		label_28.setBounds(272, 45, 60, 80);
+		label_28.setBounds(282, 45, 73, 80);
 		panel.add(label_28);
 		
 		JLabel label_29 = new JLabel("12");
-		label_29.setBounds(346, 45, 60, 80);
+		label_29.setBounds(369, 45, 72, 80);
 		panel.add(label_29);
 		
 		JLabel label_30 = new JLabel("12");
-		label_30.setBounds(420, 45, 60, 80);
+		label_30.setBounds(455, 45, 75, 80);
 		panel.add(label_30);
 		
 		JLabel label_31 = new JLabel("12");
-		label_31.setBounds(494, 45, 60, 80);
+		label_31.setBounds(544, 45, 72, 80);
 		panel.add(label_31);
 		
 		JLabel label_32 = new JLabel("910");
-		label_32.setBounds(46, 417, 60, 80);
+		label_32.setBounds(17, 417, 72, 80);
 		panel.add(label_32);
 		
 		JLabel label_33 = new JLabel("910");
-		label_33.setBounds(124, 417, 60, 80);
+		label_33.setBounds(103, 417, 72, 80);
 		panel.add(label_33);
 		
 		JLabel label_34 = new JLabel("910");
-		label_34.setBounds(198, 417, 60, 80);
+		label_34.setBounds(198, 417, 69, 80);
 		panel.add(label_34);
 		
 		JLabel label_35 = new JLabel("910");
-		label_35.setBounds(272, 417, 60, 80);
+		label_35.setBounds(369, 417, 72, 80);
 		panel.add(label_35);
 		
 		JLabel label_36 = new JLabel("910");
-		label_36.setBounds(346, 417, 60, 80);
+		label_36.setBounds(282, 417, 71, 80);
 		panel.add(label_36);
 		
 		JLabel label_37 = new JLabel("910");
-		label_37.setBounds(420, 417, 60, 80);
+		label_37.setBounds(455, 417, 75, 80);
 		panel.add(label_37);
 		
 		JLabel label_38 = new JLabel("910");
-		label_38.setBounds(494, 417, 60, 80);
+		label_38.setBounds(544, 417, 75, 80);
 		panel.add(label_38);
+		
+		JLabel label = new JLabel("更新");
+		label.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		label.setBounds(14, 510, 75, 18);
+		panel.add(label);
+		
+		JLabel label_39 = new JLabel("");
+		label_39.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		label_39.setBounds(103, 510, 75, 18);
+		panel.add(label_39);
+		
+		JLabel label_40 = new JLabel("");
+		label_40.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		label_40.setBounds(192, 510, 75, 18);
+		panel.add(label_40);
+		
+		JLabel label_41 = new JLabel("");
+		label_41.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		label_41.setBounds(281, 510, 75, 18);
+		panel.add(label_41);
+		
+		JLabel label_42 = new JLabel("");
+		label_42.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		label_42.setBounds(366, 510, 75, 18);
+		panel.add(label_42);
+		
+		JLabel label_43 = new JLabel("");
+		label_43.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		label_43.setBounds(455, 510, 75, 18);
+		panel.add(label_43);
+		
+		JLabel label_44 = new JLabel("");
+		label_44.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		label_44.setBounds(544, 510, 75, 18);
+		panel.add(label_44);
 		
 		
 		JLabel exitButLabel = new JLabel("");
