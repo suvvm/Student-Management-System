@@ -399,39 +399,22 @@ public class DatabaseWork {
 		}
 		return false;
 	}
-	public void insertMonday(Vacation vac) {
+	public void updateSchedule(Schedule sch, int day) {
 		try {
 			getConnection();
-			String insertVac = "insert into Vacation values(null, ?, ?, ?, ?, ?, ?, 0)";
-			
-			pStatement = connection.prepareStatement(insertVac);
-			pStatement.setInt(1, vac.getStuid());
-			pStatement.setString(2, vac.getStuName());
-			pStatement.setString(3, vac.getBgTime());
-			pStatement.setString(4, vac.getEdTime());
-			pStatement.setString(5, vac.getReason());
-			pStatement.setString(6, vac.getVacDestination());
-			
-			pStatement.executeUpdate();
-		} catch (SQLException e)
-		{
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-	}
-	public void insertSchedule(Schedule sch, int day) {
-		try {
-			getConnection();
-			String insertSchedule = "insert into ? value(null, temp, ?, ?, ? ,? ,?)";
 			switch (day) {
 			case 1:
+				pStatement = connection.prepareStatement("update monday set course_12 = ?, course_34 = ?, course_56 = ?, course_78 = ?, course_910 = ? where num = 1");
 				pStatement.setString(1, sch.getMonday().getCourse_12());
 				pStatement.setString(2, sch.getMonday().getCourse_34());
 				pStatement.setString(3, sch.getMonday().getCourse_56());
 				pStatement.setString(4, sch.getMonday().getCourse_78());
 				pStatement.setString(5, sch.getMonday().getCourse_910());
+				//pStatement.executeUpdate();
 				break;
 			case 2:
+				
+				pStatement = connection.prepareStatement("update tuesday set course_12 = ?,  course_34 = ?,  course_56 = ?,  course_78 = ?, course_910 = ? where num = 1");
 				pStatement.setString(1, sch.getTuesday().getCourse_12());
 				pStatement.setString(2, sch.getTuesday().getCourse_34());
 				pStatement.setString(3, sch.getTuesday().getCourse_56());
@@ -439,6 +422,7 @@ public class DatabaseWork {
 				pStatement.setString(5, sch.getTuesday().getCourse_910());
 				break;
 			case 3:
+				pStatement = connection.prepareStatement("update wednesday set course_12 = ?,  course_34 = ?,  course_56 = ?,  course_78 = ?, course_910 = ? where num = 1");
 				pStatement.setString(1, sch.getWednesday().getCourse_12());
 				pStatement.setString(2, sch.getWednesday().getCourse_34());
 				pStatement.setString(3, sch.getWednesday().getCourse_56());
@@ -446,6 +430,7 @@ public class DatabaseWork {
 				pStatement.setString(5, sch.getWednesday().getCourse_910());
 				break;
 			case 4:
+				pStatement = connection.prepareStatement("update thursday set course_12 = ?,  course_34 = ?,  course_56 = ?,  course_78 = ?, course_910 = ? where num = 1");
 				pStatement.setString(1, sch.getThursday().getCourse_12());
 				pStatement.setString(2, sch.getThursday().getCourse_34());
 				pStatement.setString(3, sch.getThursday().getCourse_56());
@@ -453,6 +438,7 @@ public class DatabaseWork {
 				pStatement.setString(5, sch.getThursday().getCourse_910());
 				break;
 			case 5:
+				pStatement = connection.prepareStatement("update friday set course_12 = ?,  course_34 = ?,  course_56 = ?,  course_78 = ?, course_910 = ? where num = 1");
 				pStatement.setString(1, sch.getFriday().getCourse_12());
 				pStatement.setString(2, sch.getFriday().getCourse_34());
 				pStatement.setString(3, sch.getFriday().getCourse_56());
@@ -460,6 +446,7 @@ public class DatabaseWork {
 				pStatement.setString(5, sch.getFriday().getCourse_910());
 				break;
 			case 6:
+				pStatement = connection.prepareStatement("update saturday set course_12 = ?,  course_34 = ?,  course_56 = ?,  course_78 = ?, course_910 = ? where num = 1");
 				pStatement.setString(1, sch.getStaurday().getCourse_12());
 				pStatement.setString(2, sch.getStaurday().getCourse_34());
 				pStatement.setString(3, sch.getStaurday().getCourse_56());
@@ -467,6 +454,7 @@ public class DatabaseWork {
 				pStatement.setString(5, sch.getStaurday().getCourse_910());
 				break;
 			case 7:
+				pStatement = connection.prepareStatement("update sunday set course_12 = ?,  course_34 = ?,  course_56 = ?,  course_78 = ?, course_910 = ? where num = 1");
 				pStatement.setString(1, sch.getSunday().getCourse_12());
 				pStatement.setString(2, sch.getSunday().getCourse_34());
 				pStatement.setString(3, sch.getSunday().getCourse_56());
