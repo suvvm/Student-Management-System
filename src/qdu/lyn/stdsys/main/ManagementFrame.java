@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
+import qdu.lyn.stdsys.inf.Schedule;
 import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.StudentInf;
 import java.awt.Toolkit;
@@ -770,208 +771,838 @@ public class ManagementFrame extends JFrame{
 		tabbedPane.addTab("课程表", null, panel, null);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("12");
-		lblNewLabel.setBounds(17, 45, 72, 80);
-		panel.add(lblNewLabel);
+		JLabel monday_12Label = new JLabel("12");
+		monday_12Label.setBounds(17, 45, 72, 80);
+		monday_12Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = monday_12Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					monday_12Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(monday_12Label);
 		
-		JLabel label_1 = new JLabel("34");
-		label_1.setBounds(17, 138, 72, 80);
-		panel.add(label_1);
+		JLabel monday_34Label = new JLabel("34");
+		monday_34Label.setBounds(17, 138, 72, 80);
+		monday_34Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = monday_34Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					monday_34Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(monday_34Label);
 		
-		JLabel label_2 = new JLabel("56");
-		label_2.setBounds(17, 231, 72, 80);
-		panel.add(label_2);
+		JLabel monday_56Label = new JLabel("56");
+		monday_56Label.setBounds(17, 231, 72, 80);
+		monday_56Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = monday_56Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					monday_56Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(monday_56Label);
 		
-		JLabel lblNewLabel_2 = new JLabel("78");
-		lblNewLabel_2.setBounds(17, 324, 72, 80);
-		panel.add(lblNewLabel_2);
+		JLabel monday_78Label = new JLabel("78");
+		monday_78Label.setBounds(17, 324, 72, 80);
+		monday_78Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = monday_78Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					monday_78Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(monday_78Label);
 		
-		JLabel label_3 = new JLabel("星期一");
-		label_3.setBounds(17, 14, 72, 18);
-		panel.add(label_3);
+		JLabel mondayTagLabel = new JLabel("星期一");
+		mondayTagLabel.setBounds(17, 14, 72, 18);
+		panel.add(mondayTagLabel);
 		
-		JLabel label_4 = new JLabel("星期二");
-		label_4.setBounds(103, 14, 72, 18);
-		panel.add(label_4);
+		JLabel tuesdayTagLabel = new JLabel("星期二");
+		tuesdayTagLabel.setBounds(103, 14, 72, 18);
+		panel.add(tuesdayTagLabel);
 		
-		JLabel label_5 = new JLabel("星期三");
-		label_5.setBounds(198, 14, 70, 18);
-		panel.add(label_5);
+		JLabel wednesdayTagLabel = new JLabel("星期三");
+		wednesdayTagLabel.setBounds(198, 14, 70, 18);
+		panel.add(wednesdayTagLabel);
 		
-		JLabel label_6 = new JLabel("星期四");
-		label_6.setBounds(282, 14, 73, 18);
-		panel.add(label_6);
+		JLabel thursdayTagLabel = new JLabel("星期四");
+		thursdayTagLabel.setBounds(282, 14, 73, 18);
+		panel.add(thursdayTagLabel);
 		
-		JLabel label_7 = new JLabel("星期五");
-		label_7.setBounds(369, 14, 72, 18);
-		panel.add(label_7);
+		JLabel fridayTagLabel = new JLabel("星期五");
+		fridayTagLabel.setBounds(369, 14, 72, 18);
+		panel.add(fridayTagLabel);
 		
-		JLabel label_8 = new JLabel("星期六");
-		label_8.setBounds(455, 14, 75, 18);
-		panel.add(label_8);
+		JLabel staurdayTagLabel = new JLabel("星期六");
+		staurdayTagLabel.setBounds(455, 14, 75, 18);
+		panel.add(staurdayTagLabel);
 		
-		JLabel label_9 = new JLabel("星期日");
-		label_9.setBounds(544, 14, 72, 18);
-		panel.add(label_9);
+		JLabel sundayTagLabel = new JLabel("星期日");
+		sundayTagLabel.setBounds(544, 14, 72, 18);
+		panel.add(sundayTagLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("12");
-		lblNewLabel_1.setBounds(103, 45, 72, 80);
-		panel.add(lblNewLabel_1);
+		JLabel tuesday_12Label = new JLabel("12");
+		tuesday_12Label.setBounds(103, 45, 72, 80);
+		tuesday_12Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = tuesday_12Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					tuesday_12Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(tuesday_12Label);
 		
-		JLabel lblNewLabel_3 = new JLabel("34");
-		lblNewLabel_3.setBounds(103, 138, 72, 80);
-		panel.add(lblNewLabel_3);
+		JLabel tuesday_34Label = new JLabel("34");
+		tuesday_34Label.setBounds(103, 138, 72, 80);
+		tuesday_34Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = tuesday_34Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					tuesday_34Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(tuesday_34Label);
 		
-		JLabel label_10 = new JLabel("56");
-		label_10.setBounds(103, 231, 72, 80);
-		panel.add(label_10);
+		JLabel tuesday_56Label = new JLabel("56");
+		tuesday_56Label.setBounds(103, 231, 72, 80);
+		tuesday_56Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = tuesday_56Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					tuesday_56Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(tuesday_56Label);
 		
-		JLabel label_11 = new JLabel("78");
-		label_11.setBounds(103, 324, 72, 80);
-		panel.add(label_11);
+		JLabel tuesday_78Label = new JLabel("78");
+		tuesday_78Label.setBounds(103, 324, 72, 80);
+		tuesday_78Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = tuesday_78Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					tuesday_78Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(tuesday_78Label);
 		
-		JLabel label_12 = new JLabel("78");
-		label_12.setBounds(198, 324, 70, 80);
-		panel.add(label_12);
+		JLabel wednesday_78Label = new JLabel("78");
+		wednesday_78Label.setBounds(198, 324, 70, 80);
+		wednesday_78Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = wednesday_78Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					wednesday_78Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(wednesday_78Label);
 		
-		JLabel label_13 = new JLabel("78");
-		label_13.setBounds(282, 324, 73, 80);
-		panel.add(label_13);
+		JLabel thursday_78Label = new JLabel("78");
+		thursday_78Label.setBounds(282, 324, 73, 80);
+		thursday_78Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = thursday_78Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					thursday_78Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(thursday_78Label);
 		
-		JLabel label_14 = new JLabel("78");
-		label_14.setBounds(369, 324, 72, 80);
-		panel.add(label_14);
+		JLabel friday_78Label = new JLabel("78");
+		friday_78Label.setBounds(369, 324, 72, 80);
+		friday_78Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = friday_78Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					friday_78Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(friday_78Label);
 		
-		JLabel label_15 = new JLabel("78");
-		label_15.setBounds(455, 324, 75, 80);
-		panel.add(label_15);
+		JLabel staurday_78Label = new JLabel("78");
+		staurday_78Label.setBounds(455, 324, 75, 80);
+		staurday_78Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = staurday_78Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					staurday_78Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(staurday_78Label);
 		
-		JLabel label_16 = new JLabel("78");
-		label_16.setBounds(544, 324, 72, 80);
-		panel.add(label_16);
+		JLabel sunday_78Label = new JLabel("78");
+		sunday_78Label.setBounds(544, 324, 72, 80);
+		sunday_78Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = sunday_78Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					sunday_78Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(sunday_78Label);
 		
-		JLabel label_17 = new JLabel("56");
-		label_17.setBounds(198, 231, 70, 80);
-		panel.add(label_17);
+		JLabel wednesday_56Label = new JLabel("56");
+		wednesday_56Label.setBounds(198, 231, 70, 80);
+		wednesday_56Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = wednesday_56Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					wednesday_56Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(wednesday_56Label);
 		
-		JLabel label_18 = new JLabel("56");
-		label_18.setBounds(282, 231, 73, 80);
-		panel.add(label_18);
+		JLabel thursday_56Label = new JLabel("56");
+		thursday_56Label.setBounds(282, 231, 73, 80);
+		thursday_56Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = thursday_56Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					thursday_56Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(thursday_56Label);
 		
-		JLabel label_19 = new JLabel("56");
-		label_19.setBounds(369, 231, 72, 80);
-		panel.add(label_19);
+		JLabel friday_56Label = new JLabel("56");
+		friday_56Label.setBounds(369, 231, 72, 80);
+		friday_56Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = friday_56Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					friday_56Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(friday_56Label);
 		
-		JLabel label_20 = new JLabel("56");
-		label_20.setBounds(455, 231, 75, 80);
-		panel.add(label_20);
+		JLabel staurday_56Label = new JLabel("56");
+		staurday_56Label.setBounds(455, 231, 75, 80);
+		staurday_56Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = staurday_56Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					staurday_56Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(staurday_56Label);
 		
-		JLabel label_21 = new JLabel("56");
-		label_21.setBounds(544, 231, 72, 80);
-		panel.add(label_21);
+		JLabel sunday_56Label = new JLabel("56");
+		sunday_56Label.setBounds(544, 231, 72, 80);
+		sunday_56Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = sunday_56Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					sunday_56Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(sunday_56Label);
 		
-		JLabel label_22 = new JLabel("34");
-		label_22.setBounds(198, 138, 70, 80);
-		panel.add(label_22);
+		JLabel wednesday_34Label = new JLabel("34");
+		wednesday_34Label.setBounds(198, 138, 70, 80);
+		wednesday_34Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = wednesday_34Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					wednesday_34Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(wednesday_34Label);
 		
-		JLabel label_23 = new JLabel("34");
-		label_23.setBounds(282, 138, 73, 80);
-		panel.add(label_23);
+		JLabel thursday_34Label = new JLabel("34");
+		thursday_34Label.setBounds(282, 138, 73, 80);
+		thursday_34Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = thursday_34Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					thursday_34Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(thursday_34Label);
 		
-		JLabel label_24 = new JLabel("34");
-		label_24.setBounds(369, 138, 72, 80);
-		panel.add(label_24);
+		JLabel friday_34Label = new JLabel("34");
+		friday_34Label.setBounds(369, 138, 72, 80);
+		friday_34Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = friday_34Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					friday_34Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(friday_34Label);
 		
-		JLabel label_25 = new JLabel("34");
-		label_25.setBounds(455, 138, 75, 80);
-		panel.add(label_25);
+		JLabel staurday_34Label = new JLabel("34");
+		staurday_34Label.setBounds(455, 138, 75, 80);
+		staurday_34Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = staurday_34Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					staurday_34Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(staurday_34Label);
 		
-		JLabel label_26 = new JLabel("34");
-		label_26.setBounds(544, 138, 72, 80);
-		panel.add(label_26);
+		JLabel sunday_34Label = new JLabel("34");
+		sunday_34Label.setBounds(544, 138, 72, 80);
+		sunday_34Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = sunday_34Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					sunday_34Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(sunday_34Label);
 		
-		JLabel label_27 = new JLabel("12");
-		label_27.setBounds(198, 45, 70, 80);
-		panel.add(label_27);
+		JLabel wednesday_12Label = new JLabel("12");
+		wednesday_12Label.setBounds(198, 45, 70, 80);
+		wednesday_12Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = wednesday_12Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					wednesday_12Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(wednesday_12Label);
 		
-		JLabel label_28 = new JLabel("12");
-		label_28.setBounds(282, 45, 73, 80);
-		panel.add(label_28);
+		JLabel thursday_12Label = new JLabel("12");
+		thursday_12Label.setBounds(282, 45, 73, 80);
+		thursday_12Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = thursday_12Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					thursday_12Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(thursday_12Label);
 		
-		JLabel label_29 = new JLabel("12");
-		label_29.setBounds(369, 45, 72, 80);
-		panel.add(label_29);
+		JLabel friday_12Label = new JLabel("12");
+		friday_12Label.setBounds(369, 45, 72, 80);
+		friday_12Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = friday_12Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					friday_12Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(friday_12Label);
 		
-		JLabel label_30 = new JLabel("12");
-		label_30.setBounds(455, 45, 75, 80);
-		panel.add(label_30);
+		JLabel staurday_12Label = new JLabel("12");
+		staurday_12Label.setBounds(455, 45, 75, 80);
+		staurday_12Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = staurday_12Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					staurday_12Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(staurday_12Label);
 		
-		JLabel label_31 = new JLabel("12");
-		label_31.setBounds(544, 45, 72, 80);
-		panel.add(label_31);
+		JLabel sunday_12Label = new JLabel("12");
+		sunday_12Label.setBounds(544, 45, 72, 80);
+		sunday_12Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = sunday_12Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					sunday_12Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(sunday_12Label);
 		
-		JLabel label_32 = new JLabel("910");
-		label_32.setBounds(17, 417, 72, 80);
-		panel.add(label_32);
+		JLabel monday_910Label = new JLabel("910");
+		monday_910Label.setBounds(17, 417, 72, 80);
+		monday_910Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = monday_910Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					monday_910Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(monday_910Label);
 		
-		JLabel label_33 = new JLabel("910");
-		label_33.setBounds(103, 417, 72, 80);
-		panel.add(label_33);
+		JLabel tuesday_910Label = new JLabel("910");
+		tuesday_910Label.setBounds(103, 417, 72, 80);
+		tuesday_910Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = tuesday_910Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					tuesday_910Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(tuesday_910Label);
 		
-		JLabel label_34 = new JLabel("910");
-		label_34.setBounds(198, 417, 69, 80);
-		panel.add(label_34);
+		JLabel wednesday_910Label = new JLabel("910");
+		wednesday_910Label.setBounds(198, 417, 69, 80);
+		wednesday_910Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = wednesday_910Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					wednesday_910Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(wednesday_910Label);
 		
-		JLabel label_35 = new JLabel("910");
-		label_35.setBounds(369, 417, 72, 80);
-		panel.add(label_35);
+		JLabel friday_910Label = new JLabel("910");
+		friday_910Label.setBounds(369, 417, 72, 80);
+		friday_910Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = friday_910Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					friday_910Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(friday_910Label);
 		
-		JLabel label_36 = new JLabel("910");
-		label_36.setBounds(282, 417, 71, 80);
-		panel.add(label_36);
+		JLabel thursday_910Label = new JLabel("910");
+		thursday_910Label.setBounds(282, 417, 71, 80);
+		thursday_910Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = thursday_910Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					thursday_910Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(thursday_910Label);
 		
-		JLabel label_37 = new JLabel("910");
-		label_37.setBounds(455, 417, 75, 80);
-		panel.add(label_37);
+		JLabel staurday_910Label = new JLabel("910");
+		staurday_910Label.setBounds(455, 417, 75, 80);
+		staurday_910Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = staurday_910Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					staurday_910Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(staurday_910Label);
 		
-		JLabel label_38 = new JLabel("910");
-		label_38.setBounds(544, 417, 75, 80);
-		panel.add(label_38);
+		JLabel sunday_910Label = new JLabel("910");
+		sunday_910Label.setBounds(544, 417, 75, 80);
+		sunday_910Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				if(e.getClickCount() == 2) {
+					String preCourse = sunday_910Label.getText();
+					String newCourse = JOptionPane.showInputDialog("请输入新课程：\n", preCourse);
+					if(newCourse== null || newCourse.equals("")) {
+						newCourse = preCourse;
+					}
+					sunday_910Label.setText(newCourse);
+				}
+			}
+		});
+		panel.add(sunday_910Label);
 		
-		JLabel label = new JLabel("更新");
-		label.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
-		label.setBounds(14, 510, 75, 18);
-		panel.add(label);
+		JLabel mondayUpdateLabel = new JLabel("更新");
+		mondayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		mondayUpdateLabel.setBounds(14, 510, 75, 18);
+		mondayUpdateLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(arg0);
+				Schedule schedule = new Schedule();
+				schedule.getMonday().setCourse_12(monday_12Label.getText());
+				schedule.getMonday().setCourse_34(monday_34Label.getText());
+				schedule.getMonday().setCourse_56(monday_56Label.getText());
+				schedule.getMonday().setCourse_78(monday_78Label.getText());
+				schedule.getMonday().setCourse_910(monday_910Label.getText());
+				int day = 1;
+				dbWork.updateSchedule(schedule, day);
+			}
+		});
+		panel.add(mondayUpdateLabel);
 		
-		JLabel label_39 = new JLabel("");
-		label_39.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
-		label_39.setBounds(103, 510, 75, 18);
-		panel.add(label_39);
+		JLabel tuesdayUpdateLabel = new JLabel("");
+		tuesdayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		tuesdayUpdateLabel.setBounds(103, 510, 75, 18);
+		tuesdayUpdateLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(arg0);
+				Schedule schedule = new Schedule();
+				schedule.getTuesday().setCourse_12(tuesday_12Label.getText());
+				schedule.getTuesday().setCourse_34(tuesday_34Label.getText());
+				schedule.getTuesday().setCourse_56(tuesday_56Label.getText());
+				schedule.getTuesday().setCourse_78(tuesday_78Label.getText());
+				schedule.getTuesday().setCourse_910(tuesday_910Label.getText());
+				int day = 2;
+				dbWork.updateSchedule(schedule, day);
+			}
+		});
+		panel.add(tuesdayUpdateLabel);
 		
-		JLabel label_40 = new JLabel("");
-		label_40.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
-		label_40.setBounds(192, 510, 75, 18);
-		panel.add(label_40);
+		JLabel wednesdayUpdateLabel = new JLabel("");
+		wednesdayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		wednesdayUpdateLabel.setBounds(192, 510, 75, 18);
+		wednesdayUpdateLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(arg0);
+				Schedule schedule = new Schedule();
+				schedule.getWednesday().setCourse_12(wednesday_12Label.getText());
+				schedule.getWednesday().setCourse_34(wednesday_34Label.getText());
+				schedule.getWednesday().setCourse_56(wednesday_56Label.getText());
+				schedule.getWednesday().setCourse_78(wednesday_78Label.getText());
+				schedule.getWednesday().setCourse_910(wednesday_910Label.getText());
+				int day = 3;
+				dbWork.updateSchedule(schedule, day);
+			}
+		});
+		panel.add(wednesdayUpdateLabel);
 		
-		JLabel label_41 = new JLabel("");
-		label_41.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
-		label_41.setBounds(281, 510, 75, 18);
-		panel.add(label_41);
+		JLabel thursdayUpdateLabel = new JLabel("");
+		thursdayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		thursdayUpdateLabel.setBounds(281, 510, 75, 18);
+		thursdayUpdateLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(arg0);
+				Schedule schedule = new Schedule();
+				schedule.getThursday().setCourse_12(thursday_12Label.getText());
+				schedule.getThursday().setCourse_34(thursday_34Label.getText());
+				schedule.getThursday().setCourse_56(thursday_56Label.getText());
+				schedule.getThursday().setCourse_78(thursday_78Label.getText());
+				schedule.getThursday().setCourse_910(thursday_910Label.getText());
+				int day = 4;
+				dbWork.updateSchedule(schedule, day);
+			}
+		});
+		panel.add(thursdayUpdateLabel);
 		
-		JLabel label_42 = new JLabel("");
-		label_42.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
-		label_42.setBounds(366, 510, 75, 18);
-		panel.add(label_42);
+		JLabel fridayUpdateLabel = new JLabel("");
+		fridayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		fridayUpdateLabel.setBounds(366, 510, 75, 18);
+		fridayUpdateLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(arg0);
+				Schedule schedule = new Schedule();
+				schedule.getFriday().setCourse_12(friday_12Label.getText());
+				schedule.getFriday().setCourse_34(friday_34Label.getText());
+				schedule.getFriday().setCourse_56(friday_56Label.getText());
+				schedule.getFriday().setCourse_78(friday_78Label.getText());
+				schedule.getFriday().setCourse_910(friday_910Label.getText());
+				int day = 5;
+				dbWork.updateSchedule(schedule, day);
+			}
+		});
+		panel.add(fridayUpdateLabel);
 		
-		JLabel label_43 = new JLabel("");
-		label_43.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
-		label_43.setBounds(455, 510, 75, 18);
-		panel.add(label_43);
+		JLabel staurdayUpdateLabel = new JLabel("");
+		staurdayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		staurdayUpdateLabel.setBounds(455, 510, 75, 18);
+		staurdayUpdateLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(arg0);
+				Schedule schedule = new Schedule();
+				schedule.getStaurday().setCourse_12(staurday_12Label.getText());
+				schedule.getFriday().setCourse_34(staurday_34Label.getText());
+				schedule.getFriday().setCourse_56(staurday_56Label.getText());
+				schedule.getFriday().setCourse_78(staurday_78Label.getText());
+				schedule.getFriday().setCourse_910(staurday_910Label.getText());
+				int day = 6;
+				dbWork.updateSchedule(schedule, day);
+			}
+		});
+		panel.add(staurdayUpdateLabel);
 		
-		JLabel label_44 = new JLabel("");
-		label_44.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
-		label_44.setBounds(544, 510, 75, 18);
-		panel.add(label_44);
+		JLabel sundayUpdateLabel = new JLabel("");
+		sundayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
+		sundayUpdateLabel.setBounds(544, 510, 75, 18);
+		sundayUpdateLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(arg0);
+				Schedule schedule = new Schedule();
+				schedule.getSunday().setCourse_12(sunday_12Label.getText());
+				schedule.getSunday().setCourse_34(sunday_34Label.getText());
+				schedule.getSunday().setCourse_56(sunday_56Label.getText());
+				schedule.getSunday().setCourse_78(sunday_78Label.getText());
+				schedule.getSunday().setCourse_910(sunday_910Label.getText());
+				int day = 7;
+				dbWork.updateSchedule(schedule, day);
+			}
+		});
+		panel.add(sundayUpdateLabel);
 		
 		
 		JLabel exitButLabel = new JLabel("");
