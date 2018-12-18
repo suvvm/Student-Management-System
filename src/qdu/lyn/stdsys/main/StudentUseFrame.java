@@ -240,9 +240,9 @@ public class StudentUseFrame extends JFrame{
 		label_6.setBounds(272, 14, 60, 18);
 		panel.add(label_6);
 		
-		JLabel label_7 = new JLabel("星期五");
-		label_7.setBounds(346, 14, 60, 18);
-		panel.add(label_7);
+		JLabel fridayTagLabel = new JLabel("星期五");
+		fridayTagLabel.setBounds(346, 14, 60, 18);
+		panel.add(fridayTagLabel);
 		
 		JLabel label_8 = new JLabel("星期六");
 		label_8.setBounds(420, 14, 60, 18);
