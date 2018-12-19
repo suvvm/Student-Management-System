@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageTypeSpecifier;
@@ -30,9 +33,12 @@ import javax.swing.JTextArea;
 
 public class StudentUseFrame extends JFrame{
 	private JTable table;
+	private JTable atdTable;
 	private List<String[]> listAll;
 	private List<String> myInfList;
 	private List<String[]> listMyVac;
+	private List<String[]> listSchedule;
+	private List<String[]> listMyAtd;
 	private DatabaseWork dbWork = new DatabaseWork();
 	private String myImgUrl;
 	
@@ -45,8 +51,6 @@ public class StudentUseFrame extends JFrame{
 	private JTextField vacEndTimeField;
 	private JTextField vacDestinationField;
 	private JTable myVacationTable;
-	
-	
 	
 	public StudentUseFrame(Student std) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(StudentUseFrame.class.getResource("/ico/NewPM.png")));
@@ -196,6 +200,8 @@ public class StudentUseFrame extends JFrame{
 		});
 		selectStudentPanel.add(selectAllButLabel);
 		
+
+		
 		
 		
 		
@@ -208,173 +214,229 @@ public class StudentUseFrame extends JFrame{
 		tabbedPane.addTab("课程表", null, panel, null);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("12");
-		lblNewLabel.setBounds(46, 45, 60, 80);
-		panel.add(lblNewLabel);
+		JLabel monday_12Label = new JLabel("12");
+		monday_12Label.setBounds(46, 45, 60, 80);
+		panel.add(monday_12Label);
 		
-		JLabel label_1 = new JLabel("34");
-		label_1.setBounds(46, 138, 60, 80);
-		panel.add(label_1);
+		JLabel monday_34Label = new JLabel("34");
+		monday_34Label.setBounds(46, 138, 60, 80);
+		panel.add(monday_34Label);
 		
-		JLabel label_2 = new JLabel("56");
-		label_2.setBounds(46, 231, 60, 80);
-		panel.add(label_2);
+		JLabel monday_56Label = new JLabel("56");
+		monday_56Label.setBounds(46, 231, 60, 80);
+		panel.add(monday_56Label);
 		
-		JLabel lblNewLabel_2 = new JLabel("78");
-		lblNewLabel_2.setBounds(46, 324, 60, 80);
-		panel.add(lblNewLabel_2);
+		JLabel monday_78Label = new JLabel("78");
+		monday_78Label.setBounds(46, 324, 60, 80);
+		panel.add(monday_78Label);
 		
-		JLabel label_3 = new JLabel("星期一");
-		label_3.setBounds(46, 14, 60, 18);
-		panel.add(label_3);
+		JLabel mondayTagLabel = new JLabel("星期一");
+		mondayTagLabel.setBounds(46, 14, 60, 18);
+		panel.add(mondayTagLabel);
 		
-		JLabel label_4 = new JLabel("星期二");
-		label_4.setBounds(124, 14, 60, 18);
-		panel.add(label_4);
+		JLabel tuesdayTagLabel = new JLabel("星期二");
+		tuesdayTagLabel.setBounds(124, 14, 60, 18);
+		panel.add(tuesdayTagLabel);
 		
-		JLabel label_5 = new JLabel("星期三");
-		label_5.setBounds(198, 14, 60, 18);
-		panel.add(label_5);
+		JLabel wednesdayTagLabel = new JLabel("星期三");
+		wednesdayTagLabel.setBounds(198, 14, 60, 18);
+		panel.add(wednesdayTagLabel);
 		
-		JLabel label_6 = new JLabel("星期四");
-		label_6.setBounds(272, 14, 60, 18);
-		panel.add(label_6);
+		JLabel thursdayTagLabel = new JLabel("星期四");
+		thursdayTagLabel.setBounds(272, 14, 60, 18);
+		panel.add(thursdayTagLabel);
 		
 		JLabel fridayTagLabel = new JLabel("星期五");
 		fridayTagLabel.setBounds(346, 14, 60, 18);
 		panel.add(fridayTagLabel);
 		
-		JLabel label_8 = new JLabel("星期六");
-		label_8.setBounds(420, 14, 60, 18);
-		panel.add(label_8);
+		JLabel staurdayTagLabel = new JLabel("星期六");
+		staurdayTagLabel.setBounds(420, 14, 60, 18);
+		panel.add(staurdayTagLabel);
 		
-		JLabel label_9 = new JLabel("星期日");
-		label_9.setBounds(494, 14, 72, 18);
-		panel.add(label_9);
+		JLabel sundayTagLabel = new JLabel("星期日");
+		sundayTagLabel.setBounds(494, 14, 72, 18);
+		panel.add(sundayTagLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("12");
-		lblNewLabel_1.setBounds(120, 45, 60, 80);
-		panel.add(lblNewLabel_1);
+		JLabel tuesday_12Label = new JLabel("12");
+		tuesday_12Label.setBounds(120, 45, 60, 80);
+		panel.add(tuesday_12Label);
 		
-		JLabel lblNewLabel_3 = new JLabel("34");
-		lblNewLabel_3.setBounds(124, 138, 60, 80);
-		panel.add(lblNewLabel_3);
+		JLabel tuesday_34Label = new JLabel("34");
+		tuesday_34Label.setBounds(124, 138, 60, 80);
+		panel.add(tuesday_34Label);
 		
-		JLabel label_10 = new JLabel("56");
-		label_10.setBounds(124, 231, 60, 80);
-		panel.add(label_10);
+		JLabel tuesday_56Label = new JLabel("56");
+		tuesday_56Label.setBounds(124, 231, 60, 80);
+		panel.add(tuesday_56Label);
 		
-		JLabel label_11 = new JLabel("78");
-		label_11.setBounds(124, 324, 60, 80);
-		panel.add(label_11);
+		JLabel tuesday_78Label = new JLabel("78");
+		tuesday_78Label.setBounds(124, 324, 60, 80);
+		panel.add(tuesday_78Label);
 		
-		JLabel label_12 = new JLabel("78");
-		label_12.setBounds(198, 324, 60, 80);
-		panel.add(label_12);
+		JLabel wednesday_78Label = new JLabel("78");
+		wednesday_78Label.setBounds(198, 324, 60, 80);
+		panel.add(wednesday_78Label);
 		
-		JLabel label_13 = new JLabel("78");
-		label_13.setBounds(272, 324, 60, 80);
-		panel.add(label_13);
+		JLabel thursday_78Label = new JLabel("78");
+		thursday_78Label.setBounds(272, 324, 60, 80);
+		panel.add(thursday_78Label);
 		
-		JLabel label_14 = new JLabel("78");
-		label_14.setBounds(346, 324, 60, 80);
-		panel.add(label_14);
+		JLabel friday_78Label = new JLabel("78");
+		friday_78Label.setBounds(346, 324, 60, 80);
+		panel.add(friday_78Label);
 		
-		JLabel label_15 = new JLabel("78");
-		label_15.setBounds(420, 324, 60, 80);
-		panel.add(label_15);
+		JLabel staurday_78Label = new JLabel("78");
+		staurday_78Label.setBounds(420, 324, 60, 80);
+		panel.add(staurday_78Label);
 		
-		JLabel label_16 = new JLabel("78");
-		label_16.setBounds(494, 324, 60, 80);
-		panel.add(label_16);
+		JLabel sunday_78Label = new JLabel("78");
+		sunday_78Label.setBounds(494, 324, 60, 80);
+		panel.add(sunday_78Label);
 		
-		JLabel label_17 = new JLabel("56");
-		label_17.setBounds(198, 231, 60, 80);
-		panel.add(label_17);
+		JLabel wednesday_56Label = new JLabel("56");
+		wednesday_56Label.setBounds(198, 231, 60, 80);
+		panel.add(wednesday_56Label);
 		
-		JLabel label_18 = new JLabel("56");
-		label_18.setBounds(272, 231, 60, 80);
-		panel.add(label_18);
+		JLabel thursday_56Label = new JLabel("56");
+		thursday_56Label.setBounds(272, 231, 60, 80);
+		panel.add(thursday_56Label);
 		
-		JLabel label_19 = new JLabel("56");
-		label_19.setBounds(346, 231, 60, 80);
-		panel.add(label_19);
+		JLabel friday_56Label = new JLabel("56");
+		friday_56Label.setBounds(346, 231, 60, 80);
+		panel.add(friday_56Label);
 		
-		JLabel label_20 = new JLabel("56");
-		label_20.setBounds(420, 231, 60, 80);
-		panel.add(label_20);
+		JLabel staurday_56Label = new JLabel("56");
+		staurday_56Label.setBounds(420, 231, 60, 80);
+		panel.add(staurday_56Label);
 		
-		JLabel label_21 = new JLabel("56");
-		label_21.setBounds(494, 231, 60, 80);
-		panel.add(label_21);
+		JLabel sunday_56Label = new JLabel("56");
+		sunday_56Label.setBounds(494, 231, 60, 80);
+		panel.add(sunday_56Label);
 		
-		JLabel label_22 = new JLabel("34");
-		label_22.setBounds(198, 138, 60, 80);
-		panel.add(label_22);
+		JLabel wednesday_34Label = new JLabel("34");
+		wednesday_34Label.setBounds(198, 138, 60, 80);
+		panel.add(wednesday_34Label);
 		
-		JLabel label_23 = new JLabel("34");
-		label_23.setBounds(272, 138, 60, 80);
-		panel.add(label_23);
+		JLabel thursday_34Label = new JLabel("34");
+		thursday_34Label.setBounds(272, 138, 60, 80);
+		panel.add(thursday_34Label);
 		
-		JLabel label_24 = new JLabel("34");
-		label_24.setBounds(346, 138, 60, 80);
-		panel.add(label_24);
+		JLabel friday_34Label = new JLabel("34");
+		friday_34Label.setBounds(346, 138, 60, 80);
+		panel.add(friday_34Label);
 		
-		JLabel label_25 = new JLabel("34");
-		label_25.setBounds(420, 138, 60, 80);
-		panel.add(label_25);
+		JLabel staurday_34Label = new JLabel("34");
+		staurday_34Label.setBounds(420, 138, 60, 80);
+		panel.add(staurday_34Label);
 		
-		JLabel label_26 = new JLabel("34");
-		label_26.setBounds(494, 138, 60, 80);
-		panel.add(label_26);
+		JLabel sunday_34Label = new JLabel("34");
+		sunday_34Label.setBounds(494, 138, 60, 80);
+		panel.add(sunday_34Label);
 		
-		JLabel label_27 = new JLabel("12");
-		label_27.setBounds(198, 45, 60, 80);
-		panel.add(label_27);
+		JLabel wednesday_12Label = new JLabel("12");
+		wednesday_12Label.setBounds(198, 45, 60, 80);
+		panel.add(wednesday_12Label);
 		
-		JLabel label_28 = new JLabel("12");
-		label_28.setBounds(272, 45, 60, 80);
-		panel.add(label_28);
+		JLabel thursday_12Label = new JLabel("12");
+		thursday_12Label.setBounds(272, 45, 60, 80);
+		panel.add(thursday_12Label);
 		
-		JLabel label_29 = new JLabel("12");
-		label_29.setBounds(346, 45, 60, 80);
-		panel.add(label_29);
+		JLabel friday_12Label = new JLabel("12");
+		friday_12Label.setBounds(346, 45, 60, 80);
+		panel.add(friday_12Label);
 		
-		JLabel label_30 = new JLabel("12");
-		label_30.setBounds(420, 45, 60, 80);
-		panel.add(label_30);
+		JLabel staurday_12Label = new JLabel("12");
+		staurday_12Label.setBounds(420, 45, 60, 80);
+		panel.add(staurday_12Label);
 		
-		JLabel label_31 = new JLabel("12");
-		label_31.setBounds(494, 45, 60, 80);
-		panel.add(label_31);
+		JLabel sunday_12Label = new JLabel("12");
+		sunday_12Label.setBounds(494, 45, 60, 80);
+		panel.add(sunday_12Label);
 		
-		JLabel label_32 = new JLabel("910");
-		label_32.setBounds(46, 417, 60, 80);
-		panel.add(label_32);
+		JLabel monday_910Label = new JLabel("910");
+		monday_910Label.setBounds(46, 417, 60, 80);
+		panel.add(monday_910Label);
 		
-		JLabel label_33 = new JLabel("910");
-		label_33.setBounds(124, 417, 60, 80);
-		panel.add(label_33);
+		JLabel tuesday_910Label = new JLabel("910");
+		tuesday_910Label.setBounds(124, 417, 60, 80);
+		panel.add(tuesday_910Label);
 		
-		JLabel label_34 = new JLabel("910");
-		label_34.setBounds(198, 417, 60, 80);
-		panel.add(label_34);
+		JLabel wednesday_910Label = new JLabel("910");
+		wednesday_910Label.setBounds(198, 417, 60, 80);
+		panel.add(wednesday_910Label);
 		
-		JLabel label_35 = new JLabel("910");
-		label_35.setBounds(272, 417, 60, 80);
-		panel.add(label_35);
+		JLabel thursday_910Label = new JLabel("910");
+		thursday_910Label.setBounds(272, 417, 60, 80);
+		panel.add(thursday_910Label);
 		
-		JLabel label_36 = new JLabel("910");
-		label_36.setBounds(346, 417, 60, 80);
-		panel.add(label_36);
+		JLabel friday_910Label = new JLabel("910");
+		friday_910Label.setBounds(346, 417, 60, 80);
+		panel.add(friday_910Label);
 		
-		JLabel label_37 = new JLabel("910");
-		label_37.setBounds(420, 417, 60, 80);
-		panel.add(label_37);
+		JLabel staurday_910Label = new JLabel("910");
+		staurday_910Label.setBounds(420, 417, 60, 80);
+		panel.add(staurday_910Label);
 		
-		JLabel label_38 = new JLabel("910");
-		label_38.setBounds(494, 417, 60, 80);
-		panel.add(label_38);
+		JLabel sunday_910Label = new JLabel("910");
+		sunday_910Label.setBounds(494, 417, 60, 80);
+		panel.add(sunday_910Label);
+		
+		JLabel scheduleRefreshLabel = new JLabel("");
+		scheduleRefreshLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut.jpg")));
+		scheduleRefreshLabel.setBounds(257, 511, 93, 32);
+		scheduleRefreshLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listSchedule = dbWork.selectSchedule();
+				monday_12Label.setText(listSchedule.get(0)[0]);
+				monday_34Label.setText(listSchedule.get(0)[1]);
+				monday_56Label.setText(listSchedule.get(0)[2]);
+				monday_78Label.setText(listSchedule.get(0)[3]);
+				monday_910Label.setText(listSchedule.get(0)[4]);
+				
+				tuesday_12Label.setText(listSchedule.get(1)[0]);
+				tuesday_34Label.setText(listSchedule.get(1)[1]);
+				tuesday_56Label.setText(listSchedule.get(1)[2]);
+				tuesday_78Label.setText(listSchedule.get(1)[3]);
+				tuesday_910Label.setText(listSchedule.get(1)[4]);
+				
+				wednesday_12Label.setText(listSchedule.get(2)[0]);
+				wednesday_34Label.setText(listSchedule.get(2)[1]);
+				wednesday_56Label.setText(listSchedule.get(2)[2]);
+				wednesday_78Label.setText(listSchedule.get(2)[3]);
+				wednesday_910Label.setText(listSchedule.get(2)[4]);
+				
+				thursday_12Label.setText(listSchedule.get(3)[0]);
+				thursday_34Label.setText(listSchedule.get(3)[0]);
+				thursday_56Label.setText(listSchedule.get(3)[0]);
+				thursday_78Label.setText(listSchedule.get(3)[0]);
+				thursday_910Label.setText(listSchedule.get(3)[0]);
+				
+				friday_12Label.setText(listSchedule.get(4)[0]);
+				friday_34Label.setText(listSchedule.get(4)[1]);
+				friday_56Label.setText(listSchedule.get(4)[2]);
+				friday_78Label.setText(listSchedule.get(4)[3]);
+				friday_910Label.setText(listSchedule.get(4)[4]);
+				
+				staurday_12Label.setText(listSchedule.get(5)[0]);
+				staurday_34Label.setText(listSchedule.get(5)[1]);
+				staurday_56Label.setText(listSchedule.get(5)[2]);
+				staurday_78Label.setText(listSchedule.get(5)[3]);
+				staurday_910Label.setText(listSchedule.get(5)[4]);
+				
+				sunday_12Label.setText(listSchedule.get(6)[0]);
+				sunday_34Label.setText(listSchedule.get(6)[1]);
+				sunday_56Label.setText(listSchedule.get(6)[2]);
+				sunday_78Label.setText(listSchedule.get(6)[3]);
+				sunday_910Label.setText(listSchedule.get(6)[4]);
+				
+			}
+			
+		});
+		panel.add(scheduleRefreshLabel);
 		
 		
 		JPanel myInfPanel = new JPanel();
@@ -621,6 +683,110 @@ public class StudentUseFrame extends JFrame{
 			}
 		});
 		lookMyVacationPanel.add(lookVacRefreshLabel);
+		
+		JPanel myAttendancePanel = new JPanel();
+		tabbedPane.addTab("签到", null, myAttendancePanel, null);
+		myAttendancePanel.setLayout(null);
+		atdTable = new JTable();
+		String[] atdname = new String[] {
+				"编号", "签到名称", "开始时间", "持续时长", "出席状态"
+			};
+		String[][] atdvalue = {};
+		DefaultTableModel atdDtm = new DefaultTableModel(atdvalue, atdname);
+		atdTable.setModel(atdDtm);
+		atdTable.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		atdTable.setBounds(12, 5, 600, 474);
+		atdTable.setVisible(true);
+		myAttendancePanel.add(atdTable);
+		
+		JLabel refuseAttendanceLabel = new JLabel("");
+		refuseAttendanceLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut.jpg")));
+		refuseAttendanceLabel.setBounds(254, 498, 93, 32);
+		refuseAttendanceLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				refuseAttendanceLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				refuseAttendanceLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/RefreshBut.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listMyAtd = dbWork.selectOneStudentAttendance(studentInf.getName());
+				if (listMyAtd == null) {
+					JOptionPane.showMessageDialog(null,  "没有签到信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listMyAtd.size();
+					String[] name =  {
+							"编号", "签到名称", "开始时间", "持续时长", "出席状态"
+						};
+					String[][] value = new String[size + 1][5];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listMyAtd.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					atdTable.setModel(dtm);
+					atdTable.setSelectionMode(0);
+				}
+			}
+		});
+		myAttendancePanel.add(refuseAttendanceLabel);
+		
+		JLabel attendanceSubmitLabel = new JLabel("");
+		attendanceSubmitLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameInactive.png")));
+		attendanceSubmitLabel.setBounds(384, 498, 101, 32);
+		attendanceSubmitLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				int row = atdTable.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null,  "没有选择请假信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					String temp = atdTable.getValueAt(row, 0).toString();
+	                //System.out.println("$" + temp);
+	                int num = Integer.parseInt(temp);
+	                //System.out.println(num);
+	                //stdinf.setId(Integer.parseInt(idField.getText()));
+	                try {
+	                	System.out.println(num + " " + studentInf.getName());
+	                	Timestamp timestamp =  new Timestamp(System.currentTimeMillis());
+	                    if(dbWork.studentAttendanceSubmit(num, studentInf.getName(), timestamp)) {
+	                    	listMyAtd = dbWork.selectOneStudentAttendance(studentInf.getName());
+	        				if (listMyAtd == null) {
+	        					JOptionPane.showMessageDialog(null,  "没有签到信息", "警告", JOptionPane.WARNING_MESSAGE);
+	        				}else {
+	        					int size = listMyAtd.size();
+	        					String[] name =  {
+	        							"编号", "签到名称", "开始时间", "持续时长", "出席状态"
+	        						};
+	        					String[][] value = new String[size + 1][5];
+	        					value[0] = name;
+	        					for(int i = 0; i < size; i++) {
+	        						value[i + 1] = listMyAtd.get(i);
+	        					}
+	        					DefaultTableModel dtm = new DefaultTableModel(value, name);
+	        					atdTable.setModel(dtm);
+	        					atdTable.setSelectionMode(0);
+	        				}
+	                    }
+	                } catch (Exception e1) {
+	                    e1.printStackTrace();
+	                }
+				}
+			}
+		});
+		myAttendancePanel.add(attendanceSubmitLabel);
+		
 		
 		
 		
