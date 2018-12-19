@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.swing.border.LineBorder;
@@ -23,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
+import qdu.lyn.stdsys.inf.Attendance;
 import qdu.lyn.stdsys.inf.Schedule;
 import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.StudentInf;
@@ -57,7 +59,14 @@ public class ManagementFrame extends JFrame{
 	private List<String> listOne;
 	private List<String[]> listAll;
 	private List<String[]> listAllVac;
+	private List<String[]> listOneAtd;
+	private List<String[]> listAllAtd;
 	private JTable vacTable;
+	private JTable atdTable;
+	private JTextField startAttendanceNameField;
+	private JTextField startAttendanceLongField;
+	private JTextField startAttendanceCourseField;
+	private JTextField selectAtdNameField;
 	public ManagementFrame(Administrator admin) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ManagementFrame.class.getResource("/ico/NewPM.png")));
 		setSize(1280, 768);
@@ -767,9 +776,9 @@ public class ManagementFrame extends JFrame{
 		});
 		vacationPanel.add(refuseLabel);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("课程表", null, panel, null);
-		panel.setLayout(null);
+		JPanel schedulePanel = new JPanel();
+		tabbedPane.addTab("课程表", null, schedulePanel, null);
+		schedulePanel.setLayout(null);
 		
 		JLabel monday_12Label = new JLabel("12");
 		monday_12Label.setBounds(17, 45, 72, 80);
@@ -788,7 +797,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(monday_12Label);
+		schedulePanel.add(monday_12Label);
 		
 		JLabel monday_34Label = new JLabel("34");
 		monday_34Label.setBounds(17, 138, 72, 80);
@@ -807,7 +816,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(monday_34Label);
+		schedulePanel.add(monday_34Label);
 		
 		JLabel monday_56Label = new JLabel("56");
 		monday_56Label.setBounds(17, 231, 72, 80);
@@ -826,7 +835,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(monday_56Label);
+		schedulePanel.add(monday_56Label);
 		
 		JLabel monday_78Label = new JLabel("78");
 		monday_78Label.setBounds(17, 324, 72, 80);
@@ -845,35 +854,35 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(monday_78Label);
+		schedulePanel.add(monday_78Label);
 		
 		JLabel mondayTagLabel = new JLabel("星期一");
 		mondayTagLabel.setBounds(17, 14, 72, 18);
-		panel.add(mondayTagLabel);
+		schedulePanel.add(mondayTagLabel);
 		
 		JLabel tuesdayTagLabel = new JLabel("星期二");
 		tuesdayTagLabel.setBounds(103, 14, 72, 18);
-		panel.add(tuesdayTagLabel);
+		schedulePanel.add(tuesdayTagLabel);
 		
 		JLabel wednesdayTagLabel = new JLabel("星期三");
 		wednesdayTagLabel.setBounds(198, 14, 70, 18);
-		panel.add(wednesdayTagLabel);
+		schedulePanel.add(wednesdayTagLabel);
 		
 		JLabel thursdayTagLabel = new JLabel("星期四");
 		thursdayTagLabel.setBounds(282, 14, 73, 18);
-		panel.add(thursdayTagLabel);
+		schedulePanel.add(thursdayTagLabel);
 		
 		JLabel fridayTagLabel = new JLabel("星期五");
 		fridayTagLabel.setBounds(369, 14, 72, 18);
-		panel.add(fridayTagLabel);
+		schedulePanel.add(fridayTagLabel);
 		
 		JLabel staurdayTagLabel = new JLabel("星期六");
 		staurdayTagLabel.setBounds(455, 14, 75, 18);
-		panel.add(staurdayTagLabel);
+		schedulePanel.add(staurdayTagLabel);
 		
 		JLabel sundayTagLabel = new JLabel("星期日");
 		sundayTagLabel.setBounds(544, 14, 72, 18);
-		panel.add(sundayTagLabel);
+		schedulePanel.add(sundayTagLabel);
 		
 		JLabel tuesday_12Label = new JLabel("12");
 		tuesday_12Label.setBounds(103, 45, 72, 80);
@@ -892,7 +901,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(tuesday_12Label);
+		schedulePanel.add(tuesday_12Label);
 		
 		JLabel tuesday_34Label = new JLabel("34");
 		tuesday_34Label.setBounds(103, 138, 72, 80);
@@ -911,7 +920,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(tuesday_34Label);
+		schedulePanel.add(tuesday_34Label);
 		
 		JLabel tuesday_56Label = new JLabel("56");
 		tuesday_56Label.setBounds(103, 231, 72, 80);
@@ -930,7 +939,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(tuesday_56Label);
+		schedulePanel.add(tuesday_56Label);
 		
 		JLabel tuesday_78Label = new JLabel("78");
 		tuesday_78Label.setBounds(103, 324, 72, 80);
@@ -949,7 +958,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(tuesday_78Label);
+		schedulePanel.add(tuesday_78Label);
 		
 		JLabel wednesday_78Label = new JLabel("78");
 		wednesday_78Label.setBounds(198, 324, 70, 80);
@@ -968,7 +977,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(wednesday_78Label);
+		schedulePanel.add(wednesday_78Label);
 		
 		JLabel thursday_78Label = new JLabel("78");
 		thursday_78Label.setBounds(282, 324, 73, 80);
@@ -987,7 +996,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(thursday_78Label);
+		schedulePanel.add(thursday_78Label);
 		
 		JLabel friday_78Label = new JLabel("78");
 		friday_78Label.setBounds(369, 324, 72, 80);
@@ -1006,7 +1015,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(friday_78Label);
+		schedulePanel.add(friday_78Label);
 		
 		JLabel staurday_78Label = new JLabel("78");
 		staurday_78Label.setBounds(455, 324, 75, 80);
@@ -1025,7 +1034,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(staurday_78Label);
+		schedulePanel.add(staurday_78Label);
 		
 		JLabel sunday_78Label = new JLabel("78");
 		sunday_78Label.setBounds(544, 324, 72, 80);
@@ -1044,7 +1053,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(sunday_78Label);
+		schedulePanel.add(sunday_78Label);
 		
 		JLabel wednesday_56Label = new JLabel("56");
 		wednesday_56Label.setBounds(198, 231, 70, 80);
@@ -1063,7 +1072,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(wednesday_56Label);
+		schedulePanel.add(wednesday_56Label);
 		
 		JLabel thursday_56Label = new JLabel("56");
 		thursday_56Label.setBounds(282, 231, 73, 80);
@@ -1082,7 +1091,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(thursday_56Label);
+		schedulePanel.add(thursday_56Label);
 		
 		JLabel friday_56Label = new JLabel("56");
 		friday_56Label.setBounds(369, 231, 72, 80);
@@ -1101,7 +1110,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(friday_56Label);
+		schedulePanel.add(friday_56Label);
 		
 		JLabel staurday_56Label = new JLabel("56");
 		staurday_56Label.setBounds(455, 231, 75, 80);
@@ -1120,7 +1129,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(staurday_56Label);
+		schedulePanel.add(staurday_56Label);
 		
 		JLabel sunday_56Label = new JLabel("56");
 		sunday_56Label.setBounds(544, 231, 72, 80);
@@ -1139,7 +1148,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(sunday_56Label);
+		schedulePanel.add(sunday_56Label);
 		
 		JLabel wednesday_34Label = new JLabel("34");
 		wednesday_34Label.setBounds(198, 138, 70, 80);
@@ -1158,7 +1167,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(wednesday_34Label);
+		schedulePanel.add(wednesday_34Label);
 		
 		JLabel thursday_34Label = new JLabel("34");
 		thursday_34Label.setBounds(282, 138, 73, 80);
@@ -1177,7 +1186,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(thursday_34Label);
+		schedulePanel.add(thursday_34Label);
 		
 		JLabel friday_34Label = new JLabel("34");
 		friday_34Label.setBounds(369, 138, 72, 80);
@@ -1196,7 +1205,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(friday_34Label);
+		schedulePanel.add(friday_34Label);
 		
 		JLabel staurday_34Label = new JLabel("34");
 		staurday_34Label.setBounds(455, 138, 75, 80);
@@ -1215,7 +1224,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(staurday_34Label);
+		schedulePanel.add(staurday_34Label);
 		
 		JLabel sunday_34Label = new JLabel("34");
 		sunday_34Label.setBounds(544, 138, 72, 80);
@@ -1234,7 +1243,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(sunday_34Label);
+		schedulePanel.add(sunday_34Label);
 		
 		JLabel wednesday_12Label = new JLabel("12");
 		wednesday_12Label.setBounds(198, 45, 70, 80);
@@ -1253,7 +1262,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(wednesday_12Label);
+		schedulePanel.add(wednesday_12Label);
 		
 		JLabel thursday_12Label = new JLabel("12");
 		thursday_12Label.setBounds(282, 45, 73, 80);
@@ -1272,7 +1281,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(thursday_12Label);
+		schedulePanel.add(thursday_12Label);
 		
 		JLabel friday_12Label = new JLabel("12");
 		friday_12Label.setBounds(369, 45, 72, 80);
@@ -1291,7 +1300,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(friday_12Label);
+		schedulePanel.add(friday_12Label);
 		
 		JLabel staurday_12Label = new JLabel("12");
 		staurday_12Label.setBounds(455, 45, 75, 80);
@@ -1310,7 +1319,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(staurday_12Label);
+		schedulePanel.add(staurday_12Label);
 		
 		JLabel sunday_12Label = new JLabel("12");
 		sunday_12Label.setBounds(544, 45, 72, 80);
@@ -1329,7 +1338,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(sunday_12Label);
+		schedulePanel.add(sunday_12Label);
 		
 		JLabel monday_910Label = new JLabel("910");
 		monday_910Label.setBounds(17, 417, 72, 80);
@@ -1348,7 +1357,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(monday_910Label);
+		schedulePanel.add(monday_910Label);
 		
 		JLabel tuesday_910Label = new JLabel("910");
 		tuesday_910Label.setBounds(103, 417, 72, 80);
@@ -1367,7 +1376,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(tuesday_910Label);
+		schedulePanel.add(tuesday_910Label);
 		
 		JLabel wednesday_910Label = new JLabel("910");
 		wednesday_910Label.setBounds(198, 417, 69, 80);
@@ -1386,7 +1395,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(wednesday_910Label);
+		schedulePanel.add(wednesday_910Label);
 		
 		JLabel friday_910Label = new JLabel("910");
 		friday_910Label.setBounds(369, 417, 72, 80);
@@ -1405,7 +1414,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(friday_910Label);
+		schedulePanel.add(friday_910Label);
 		
 		JLabel thursday_910Label = new JLabel("910");
 		thursday_910Label.setBounds(282, 417, 71, 80);
@@ -1424,7 +1433,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(thursday_910Label);
+		schedulePanel.add(thursday_910Label);
 		
 		JLabel staurday_910Label = new JLabel("910");
 		staurday_910Label.setBounds(455, 417, 75, 80);
@@ -1443,7 +1452,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(staurday_910Label);
+		schedulePanel.add(staurday_910Label);
 		
 		JLabel sunday_910Label = new JLabel("910");
 		sunday_910Label.setBounds(544, 417, 75, 80);
@@ -1462,7 +1471,7 @@ public class ManagementFrame extends JFrame{
 				}
 			}
 		});
-		panel.add(sunday_910Label);
+		schedulePanel.add(sunday_910Label);
 		
 		JLabel mondayUpdateLabel = new JLabel("更新");
 		mondayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
@@ -1482,7 +1491,7 @@ public class ManagementFrame extends JFrame{
 				dbWork.updateSchedule(schedule, day);
 			}
 		});
-		panel.add(mondayUpdateLabel);
+		schedulePanel.add(mondayUpdateLabel);
 		
 		JLabel tuesdayUpdateLabel = new JLabel("");
 		tuesdayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
@@ -1502,7 +1511,7 @@ public class ManagementFrame extends JFrame{
 				dbWork.updateSchedule(schedule, day);
 			}
 		});
-		panel.add(tuesdayUpdateLabel);
+		schedulePanel.add(tuesdayUpdateLabel);
 		
 		JLabel wednesdayUpdateLabel = new JLabel("");
 		wednesdayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
@@ -1522,7 +1531,7 @@ public class ManagementFrame extends JFrame{
 				dbWork.updateSchedule(schedule, day);
 			}
 		});
-		panel.add(wednesdayUpdateLabel);
+		schedulePanel.add(wednesdayUpdateLabel);
 		
 		JLabel thursdayUpdateLabel = new JLabel("");
 		thursdayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
@@ -1542,7 +1551,7 @@ public class ManagementFrame extends JFrame{
 				dbWork.updateSchedule(schedule, day);
 			}
 		});
-		panel.add(thursdayUpdateLabel);
+		schedulePanel.add(thursdayUpdateLabel);
 		
 		JLabel fridayUpdateLabel = new JLabel("");
 		fridayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
@@ -1562,7 +1571,7 @@ public class ManagementFrame extends JFrame{
 				dbWork.updateSchedule(schedule, day);
 			}
 		});
-		panel.add(fridayUpdateLabel);
+		schedulePanel.add(fridayUpdateLabel);
 		
 		JLabel staurdayUpdateLabel = new JLabel("");
 		staurdayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
@@ -1582,7 +1591,7 @@ public class ManagementFrame extends JFrame{
 				dbWork.updateSchedule(schedule, day);
 			}
 		});
-		panel.add(staurdayUpdateLabel);
+		schedulePanel.add(staurdayUpdateLabel);
 		
 		JLabel sundayUpdateLabel = new JLabel("");
 		sundayUpdateLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/75pxbtn.png")));
@@ -1602,7 +1611,177 @@ public class ManagementFrame extends JFrame{
 				dbWork.updateSchedule(schedule, day);
 			}
 		});
-		panel.add(sundayUpdateLabel);
+		schedulePanel.add(sundayUpdateLabel);
+		
+		JPanel newAttendancePanel = new JPanel();
+		tabbedPane.addTab("新建签到", null, newAttendancePanel, null);
+		newAttendancePanel.setLayout(null);
+		
+		startAttendanceNameField = new JTextField();
+		startAttendanceNameField.setBounds(318, 88, 130, 24);
+		newAttendancePanel.add(startAttendanceNameField);
+		startAttendanceNameField.setColumns(10);
+		
+		JLabel startAttendanceNameLabel = new JLabel("签到名");
+		startAttendanceNameLabel.setBounds(195, 91, 72, 18);
+		newAttendancePanel.add(startAttendanceNameLabel);
+		
+		JLabel startAttendanceLongLabel = new JLabel("签到时长(分钟)");
+		startAttendanceLongLabel.setBounds(195, 236, 109, 18);
+		newAttendancePanel.add(startAttendanceLongLabel);
+		
+		startAttendanceLongField = new JTextField();
+		startAttendanceLongField.setBounds(318, 233, 130, 24);
+		newAttendancePanel.add(startAttendanceLongField);
+		startAttendanceLongField.setColumns(10);
+		
+		JLabel startAttendanceCourseLabel = new JLabel("签到课程");
+		startAttendanceCourseLabel.setBounds(195, 159, 72, 18);
+		newAttendancePanel.add(startAttendanceCourseLabel);
+		
+		startAttendanceCourseField = new JTextField();
+		startAttendanceCourseField.setBounds(318, 156, 130, 24);
+		newAttendancePanel.add(startAttendanceCourseField);
+		startAttendanceCourseField.setColumns(10);
+		
+		JLabel startAttendanceSubmitLabel = new JLabel("");
+		startAttendanceSubmitLabel.setBounds(265, 324, 142, 24);
+		startAttendanceSubmitLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/142pxbtn.png")));
+		startAttendanceSubmitLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(arg0);
+				startAttendanceSubmitLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/142pxbtn_c.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(arg0);
+				startAttendanceSubmitLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/142pxbtn.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listAll = dbWork.selectAllStudentInf();
+				if (listAll == null) {
+					JOptionPane.showMessageDialog(null,  "没有学生信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+					//System.out.println(timestamp);
+					Attendance atd = new Attendance();
+					atd.setName(startAttendanceNameField.getText());
+					atd.setAttendInf("缺勤");
+					atd.setBgtime(timestamp);
+					atd.setDuration(Integer.parseInt(startAttendanceLongField.getText()));
+					int size = listAll.size();
+					for(int i = 0; i < size; i++) {
+						//listAll.get(i)[1];
+						atd.setStudentName(listAll.get(i)[1]);
+						dbWork.insertAttendance(atd);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					table.setModel(dtm);
+				}
+			}
+		});
+		newAttendancePanel.add(startAttendanceSubmitLabel);
+		
+		JPanel selectAttendancePanel = new JPanel();
+		tabbedPane.addTab("查询签到", null, selectAttendancePanel, null);
+		selectAttendancePanel.setLayout(null);
+		atdTable = new JTable();
+		String[] atdname = new String[] {
+				"编号", "开始时间", "持续时长", "学生姓名", "出席状态"
+			};
+		String[][] atdvalue = {};
+		DefaultTableModel atdDtm = new DefaultTableModel(atdvalue, atdname);
+		atdTable.setModel(atdDtm);
+		atdTable.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		atdTable.setBounds(12, 5, 600, 474);
+		atdTable.setVisible(true);
+		
+		
+		selectAttendancePanel.add(atdTable);
+		
+		selectAtdNameField = new JTextField();
+		selectAtdNameField.setBounds(202, 492, 130, 24);
+		selectAttendancePanel.add(selectAtdNameField);
+		selectAtdNameField.setColumns(10);
+		
+		JLabel selectAtdNameLabel = new JLabel("请输入签到名称");
+		selectAtdNameLabel.setBounds(60, 492, 124, 18);
+		selectAttendancePanel.add(selectAtdNameLabel);
+		
+		JLabel selectAtdNameButLabel = new JLabel("");
+		selectAtdNameButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/SearchBut.jpg")));
+		selectAtdNameButLabel.setBounds(379, 492, 101, 32);
+		selectAtdNameButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				selectAtdNameButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/SearchBut_c.jpg")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				selectAtdNameButLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/SearchBut.jpg")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				String atdName = selectAtdNameField.getText();
+				listOneAtd = dbWork.selectOneAttendance(atdName);
+				if (listOneAtd == null) {
+					JOptionPane.showMessageDialog(null,  "没有签到信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listOneAtd.size();
+					String[] name =  {
+							"编号", "开始时间", "持续时间", "学生姓名", "出席情况"
+						};
+					String[][] value = new String[size + 1][5];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listOneAtd.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					atdTable.setModel(dtm);
+				}
+			}
+		});
+		selectAttendancePanel.add(selectAtdNameButLabel);
+		
+		JLabel selectAtdAllLabel = new JLabel("");
+		selectAtdAllLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		selectAtdAllLabel.setBounds(231, 542, 101, 32);
+		selectAtdAllLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listAllAtd = dbWork.selectAllAttendance();
+				if (listAllAtd == null) {
+					JOptionPane.showMessageDialog(null,  "没有学生信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listAllAtd.size();
+					String[] name =  {
+							"编号", "签到名称", "开始时间", "持续时间", "学生姓名", "出席情况"
+						};
+					String[][] value = new String[size + 1][6];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listAllAtd.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					atdTable.setModel(dtm);
+				}
+			}
+		});
+		selectAttendancePanel.add(selectAtdAllLabel);
 		
 		
 		JLabel exitButLabel = new JLabel("");
