@@ -78,7 +78,7 @@ public class RegisterFrame extends JFrame{
                     		RegisterFrame.this.dispose();
                         }
                 	}else {
-                		JOptionPane.showMessageDialog(null, "输错了？还是根本没有？只要去github寻找用户suvvm就可以获取密码╮(╯▽╰)╭", "密码错误",JOptionPane.ERROR_MESSAGE); 
+                		JOptionPane.showMessageDialog(null, "输错了？还是根本没有？只要去github寻找用户suvvm找到本项目readme就可以获取密码╮(╯▽╰)╭", "密码错误",JOptionPane.ERROR_MESSAGE); 
                 	}
                     
                 }else if(res==JOptionPane.NO_OPTION){
