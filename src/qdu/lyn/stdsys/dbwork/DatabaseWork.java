@@ -5,12 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sound.sampled.LineListener;
 import javax.swing.JOptionPane;
 
+import qdu.lyn.stdsys.inf.Attendance;
 import qdu.lyn.stdsys.inf.Schedule;
 import qdu.lyn.stdsys.inf.Vacation;
 import qdu.lyn.stdsys.user.Administrator;
@@ -470,8 +472,143 @@ public class DatabaseWork {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		
-
+	}
+	public List<String[]> selectSchedule() {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from monday, tuesday, wednesday, thursday, friday, saturday, sunday");
+			rSet = pStatement.executeQuery();
+			List<String[]> listSchedule = new ArrayList<String[]>();
+			while(rSet.next()) {
+				//System.out.println(rSet.getString(3) + "$" + rSet.getString(4) + "$" + rSet.getString(5) + "$" + rSet.getString(6) + "$" + rSet.getString(7) + "$" + rSet.getString(10) + "$" + rSet.getString(11) + "$" + rSet.getString(12) + "$" + rSet.getString(13) + "$" + rSet.getString(14));
+				listSchedule.add(new String[] {rSet.getString(3), rSet.getString(4), rSet.getString(5), rSet.getString(6), rSet.getString(7)});
+				listSchedule.add(new String[] {rSet.getString(10), rSet.getString(11), rSet.getString(12), rSet.getString(13), rSet.getString(14)});
+				listSchedule.add(new String[] {rSet.getString(17), rSet.getString(18), rSet.getString(19), rSet.getString(20), rSet.getString(21)});
+				listSchedule.add(new String[] {rSet.getString(24), rSet.getString(25), rSet.getString(26), rSet.getString(27), rSet.getString(28)});
+				listSchedule.add(new String[] {rSet.getString(31), rSet.getString(32), rSet.getString(33), rSet.getString(34), rSet.getString(35)});
+				listSchedule.add(new String[] {rSet.getString(38), rSet.getString(39), rSet.getString(40), rSet.getString(41), rSet.getString(42)});
+				listSchedule.add(new String[] {rSet.getString(45), rSet.getString(46), rSet.getString(47), rSet.getString(48), rSet.getString(49)});
+						
+			}
+			return listSchedule;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
+	}
+	public void insertAttendance(Attendance atd) {
+		try {
+			getConnection();
+			String insertAtd = "insert into attendance values(null, ?, ?, ?, ?, ?)";
+			
+			pStatement = connection.prepareStatement(insertAtd);
+			pStatement.setString(1, atd.getName());
+			pStatement.setTimestamp(2, atd.getBgtime());
+			pStatement.setInt(3, atd.getDuration());
+			pStatement.setString(4, atd.getStudentName());
+			pStatement.setString(5, atd.getAttendInf());
+			
+			pStatement.executeUpdate();
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	public List<String[]> selectAllAttendance() {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from attendance");
+			
+			rSet = pStatement.executeQuery();
+			List<String[]> list = new ArrayList<String[]>();
+			while(rSet.next()) {
+				list.add(new String[] {rSet.getString("num"), rSet.getString("name"), rSet.getString("bgtime"), rSet.getString("duration"), rSet.getString("studentName"), rSet.getString("attendInf")});
+			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
+	}
+	public List<String[]> selectOneAttendance(String atdName) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from attendance where name = ?");
+			pStatement.setString(1, atdName);
+			rSet = pStatement.executeQuery();
+			List<String[]> list = new ArrayList<String[]>();
+			while(rSet.next()) {
+				list.add(new String[] {rSet.getString("num"), rSet.getString("bgtime"), rSet.getString("duration"), rSet.getString("studentName"), rSet.getString("attendInf")});
+			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
+	}
+	public List<String[]> selectOneStudentAttendance(String stdName) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from attendance where studentName = ?");
+			pStatement.setString(1, stdName);
+			rSet = pStatement.executeQuery();
+			List<String[]> list = new ArrayList<String[]>();
+			while(rSet.next()) {
+				list.add(new String[] {rSet.getString("num"), rSet.getString("name"), rSet.getString("bgtime"), rSet.getString("duration"), rSet.getString("attendInf")});
+			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
+	}
+	public boolean studentAttendanceSubmit(int num, String stdname, Timestamp timeNow) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from attendance where studentName = ? and num = ?");
+			pStatement.setString(1, stdname);
+			pStatement.setInt(2, num);
+			rSet = pStatement.executeQuery();
+			long duration = 0;
+			Timestamp bgtime = new Timestamp(System.currentTimeMillis());
+			while(rSet.next()) {
+//				System.out.println(rSet.getString("num") + rSet.getString("name"));
+				bgtime = rSet.getTimestamp("bgtime");
+				duration = rSet.getLong("duration");
+			}
+			long flag = (timeNow.getTime() - bgtime.getTime())/(1000*60);
+			String atdinf;
+		if (duration < flag) {
+				atdinf = "迟到";
+			}else {
+				atdinf = "出勤";
+			}
+			pStatement = connection.prepareStatement("update attendance set attendInf = ? where num = ? and studentName = ?");
+			pStatement.setString(1, atdinf);
+			pStatement.setInt(2, num);
+			pStatement.setString(3, stdname);
+			pStatement.executeUpdate();
+			return true;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return false;
 	}
 	public void closeAll() {
 		if (rSet != null) {
