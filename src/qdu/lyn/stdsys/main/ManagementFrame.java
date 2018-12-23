@@ -23,12 +23,17 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import com.mysql.cj.Messages;
+
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
 import qdu.lyn.stdsys.inf.Attendance;
+import qdu.lyn.stdsys.inf.MessagesInf;
 import qdu.lyn.stdsys.inf.Schedule;
 import qdu.lyn.stdsys.user.Administrator;
+import qdu.lyn.stdsys.user.Student;
 import qdu.lyn.stdsys.user.StudentInf;
 import java.awt.Toolkit;
+import javax.swing.JTextArea;
 
 
 public class ManagementFrame extends JFrame{
@@ -61,12 +66,18 @@ public class ManagementFrame extends JFrame{
 	private List<String[]> listAllVac;
 	private List<String[]> listOneAtd;
 	private List<String[]> listAllAtd;
+	private List<String[]> listAllMes;
+	private List<String[]> listNotMes;
 	private JTable vacTable;
 	private JTable atdTable;
 	private JTextField startAttendanceNameField;
 	private JTextField startAttendanceLongField;
 	private JTextField startAttendanceCourseField;
 	private JTextField selectAtdNameField;
+	private JTextField toUserField;
+	private JTextField themeNameField;
+	private JTable messagesTable;
+	private JTextField reThemeNameField;
 	public ManagementFrame(Administrator admin) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ManagementFrame.class.getResource("/ico/NewPM.png")));
 		setSize(1280, 768);
@@ -74,8 +85,8 @@ public class ManagementFrame extends JFrame{
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(241, 54, 630, 619);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
+		tabbedPane.setBounds(229, 54, 645, 619);
 		tabbedPane.setVisible(true);
 		getContentPane().add(tabbedPane);
 		
@@ -1782,6 +1793,197 @@ public class ManagementFrame extends JFrame{
 			}
 		});
 		selectAttendancePanel.add(selectAtdAllLabel);
+		
+		JPanel messagesPanel = new JPanel();
+		tabbedPane.addTab("消息管理", null, messagesPanel, null);
+		messagesPanel.setLayout(null);
+		
+		toUserField = new JTextField();
+		toUserField.setBounds(88, 13, 140, 24);
+		messagesPanel.add(toUserField);
+		toUserField.setColumns(10);
+		
+		JLabel toUserLabel = new JLabel("收信人");
+		toUserLabel.setBounds(14, 16, 56, 18);
+		messagesPanel.add(toUserLabel);
+		
+		JLabel themeNameLabel = new JLabel("主题");
+		themeNameLabel.setBounds(282, 16, 56, 18);
+		messagesPanel.add(themeNameLabel);
+		
+		themeNameField = new JTextField();
+		themeNameField.setBounds(356, 13, 140, 24);
+		messagesPanel.add(themeNameField);
+		themeNameField.setColumns(10);
+		
+		JLabel contentLabel = new JLabel("正文");
+		contentLabel.setBounds(14, 52, 50, 18);
+		messagesPanel.add(contentLabel);
+		
+		JTextArea contentArea = new JTextArea();
+		contentArea.setBounds(88, 50, 411, 106);
+		messagesPanel.add(contentArea);
+		
+		JLabel broadcastLabel = new JLabel("");
+		broadcastLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		broadcastLabel.setBounds(513, 124, 101, 32);
+		broadcastLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				MessagesInf ms = new MessagesInf();
+				ms.setName(themeNameField.getText());
+				ms.setIsRead("未读");
+				ms.setSendUser(admin.getUserName());
+				ms.setContent(contentArea.getText());
+				dbWork.insertBroadcast(ms);
+				JOptionPane.showMessageDialog(null, "广播成功", "所有学生已经收到消息", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		messagesPanel.add(broadcastLabel);
+		
+		JLabel sendLabel = new JLabel("");
+		sendLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		sendLabel.setBounds(513, 67, 101, 32);
+		sendLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				MessagesInf ms = new MessagesInf();
+				ms.setName(themeNameField.getText());
+				ms.setIsRead("未读");
+				ms.setSendUser(admin.getUserName());
+				ms.setToUser(toUserField.getText());
+				ms.setContent(contentArea.getText());
+				Administrator ad = new Administrator();
+				ad.setUserName(toUserField.getText());
+				Student sd = new Student();
+				sd.setUserName(toUserField.getText());
+				if(!dbWork.checkAdministrator(ad) && !dbWork.checkStudent(sd)) {
+					JOptionPane.showMessageDialog(null, "发送失败", "用户名不存在", JOptionPane.ERROR_MESSAGE);
+				}else {
+					dbWork.insertMessages(ms);
+					JOptionPane.showMessageDialog(null, "发送成功", "目标学生已经收到消息", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		messagesPanel.add(sendLabel);
+		
+		messagesTable = new JTable();
+		messagesTable.setBounds(88, 181, 411, 210);
+		messagesPanel.add(messagesTable);
+		
+		JLabel refreshNotReadLabel = new JLabel("");
+		refreshNotReadLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
+		refreshNotReadLabel.setBounds(513, 359, 93, 32);
+		refreshNotReadLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listNotMes = dbWork.selectNotReadMessage(admin.getUserName());
+				if (listNotMes == null) {
+					JOptionPane.showMessageDialog(null,  "没有消息", "提示", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listNotMes.size();
+					System.out.println(size);
+					String[] name =  {
+							"编号", "主题", "是否已读", "发送者", "内容"
+						};
+					String[][] value = new String[size + 1][5];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listNotMes.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					messagesTable.setModel(dtm);
+					messagesTable.setSelectionMode(0);
+				}
+			}
+		});
+		messagesPanel.add(refreshNotReadLabel);
+		
+		JLabel selectMessagesLabel = new JLabel("查看消息");
+		selectMessagesLabel.setBounds(14, 181, 72, 18);
+		messagesPanel.add(selectMessagesLabel);
+		
+		JLabel refreshAllLabel = new JLabel("");
+		refreshAllLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/joinGameInactive.png")));
+		refreshAllLabel.setBounds(513, 296, 93, 32);
+		refreshAllLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listAllMes = dbWork.selectAllMessage(admin.getUserName());
+				if (listAllMes == null) {
+					JOptionPane.showMessageDialog(null,  "没有消息", "提示", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listAllMes.size();
+					System.out.println(size);
+					String[] name =  {
+							"编号", "主题", "是否已读", "发送者", "内容"
+						};
+					String[][] value = new String[size + 1][5];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listAllMes.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					messagesTable.setModel(dtm);
+					messagesTable.setSelectionMode(0);
+				}
+			}
+		});
+		messagesPanel.add(refreshAllLabel);
+		
+		JLabel reThemeNameLabel = new JLabel("回复主题");
+		reThemeNameLabel.setBounds(9, 410, 77, 18);
+		messagesPanel.add(reThemeNameLabel);
+		
+		reThemeNameField = new JTextField();
+		reThemeNameField.setBounds(88, 407, 140, 24);
+		messagesPanel.add(reThemeNameField);
+		reThemeNameField.setColumns(10);
+		
+		JTextArea reContentArea = new JTextArea();
+		reContentArea.setBounds(88, 444, 411, 100);
+		messagesPanel.add(reContentArea);
+		
+		JLabel reContentLabel = new JLabel("回复内容");
+		reContentLabel.setBounds(9, 443, 72, 18);
+		messagesPanel.add(reContentLabel);
+		
+		JLabel reSendLabel = new JLabel("");
+		reSendLabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/leaveGameInactive.png")));
+		reSendLabel.setBounds(513, 510, 101, 32);
+		reSendLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				MessagesInf ms = new MessagesInf();
+				ms.setName(reThemeNameField.getText());
+				ms.setIsRead("未读");
+				ms.setSendUser(admin.getUserName());
+				int row = messagesTable.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null,  "没有选择需要回复的信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					String temp = messagesTable.getValueAt(row, 3).toString();
+	                //System.out.println("$" + temp);
+	                //int num = Integer.parseInt(temp);
+	                ms.setToUser(temp);
+	                ms.setContent(reContentArea.getText());
+	                dbWork.insertMessages(ms);
+	                JOptionPane.showMessageDialog(null, "发送成功", "目标用户已收到信息", JOptionPane.INFORMATION_MESSAGE);
+	           
+				}
+			}
+		});
+		messagesPanel.add(reSendLabel);
 		
 		
 		JLabel exitButLabel = new JLabel("");

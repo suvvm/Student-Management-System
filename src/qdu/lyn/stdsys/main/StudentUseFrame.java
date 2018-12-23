@@ -17,8 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import qdu.lyn.stdsys.dbwork.DatabaseWork;
+import qdu.lyn.stdsys.inf.MessagesInf;
 import qdu.lyn.stdsys.inf.Vacation;
 import qdu.lyn.stdsys.login.RegisterFrame;
+import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.Student;
 import qdu.lyn.stdsys.user.StudentInf;
 
@@ -26,6 +28,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import jxl.biff.drawing.MsoDrawingGroupRecord;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
@@ -39,6 +44,9 @@ public class StudentUseFrame extends JFrame{
 	private List<String[]> listMyVac;
 	private List<String[]> listSchedule;
 	private List<String[]> listMyAtd;
+	private List<String[]> listAllMes;
+	private List<String[]> listNotMes;
+	
 	private DatabaseWork dbWork = new DatabaseWork();
 	private String myImgUrl;
 	
@@ -51,6 +59,9 @@ public class StudentUseFrame extends JFrame{
 	private JTextField vacEndTimeField;
 	private JTextField vacDestinationField;
 	private JTable myVacationTable;
+	private JTable myMessagesTable;
+	private JTextField toUserNameField;
+	private JTextField themeNameField;
 	
 	public StudentUseFrame(Student std) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(StudentUseFrame.class.getResource("/ico/NewPM.png")));
@@ -142,7 +153,6 @@ public class StudentUseFrame extends JFrame{
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(242, 62, 629, 588);
 		getContentPane().add(tabbedPane);
-		
 		JPanel selectStudentPanel = new JPanel();
 		tabbedPane.addTab("所有学生", null, selectStudentPanel, null);
 		selectStudentPanel.setLayout(null);
@@ -787,13 +797,163 @@ public class StudentUseFrame extends JFrame{
 		});
 		myAttendancePanel.add(attendanceSubmitLabel);
 		
+		JPanel myMessagesPanel = new JPanel();
+		tabbedPane.addTab("我的消息", null, myMessagesPanel, null);
+		myMessagesPanel.setLayout(null);
 		
+		myMessagesTable = new JTable();
+		myMessagesTable.setBounds(45, 44, 445, 245);
+		myMessagesPanel.add(myMessagesTable);
 		
+		JLabel myMessagesLabel = new JLabel("我的消息");
+		myMessagesLabel.setBounds(14, 13, 72, 18);
+		myMessagesPanel.add(myMessagesLabel);
 		
+		JLabel refuseAllLabel = new JLabel("");
+		refuseAllLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/joinGameInactive.png")));
+		refuseAllLabel.setBounds(504, 107, 93, 32);
+		refuseAllLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				super.mouseClicked(e);
+				listAllMes = dbWork.selectAllMessage(std.getUserName());
+				if (listAllMes == null) {
+					JOptionPane.showMessageDialog(null,  "没有消息", "提示", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listAllMes.size();
+					System.out.println(size);
+					String[] name =  {
+							"编号", "主题", "是否已读", "发送者", "内容"
+						};
+					String[][] value = new String[size + 1][5];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listAllMes.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					myMessagesTable.setModel(dtm);
+					myMessagesTable.setSelectionMode(0);
+				}
+				
+			}
+		});
+		myMessagesPanel.add(refuseAllLabel);
 		
+		JLabel refreshNotReadLabel = new JLabel("");
+		refreshNotReadLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/joinGameInactive.png")));
+		refreshNotReadLabel.setBounds(504, 201, 93, 32);
+		refreshNotReadLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				listNotMes = dbWork.selectNotReadMessage(std.getUserName());
+				if (listNotMes == null) {
+					JOptionPane.showMessageDialog(null,  "没有消息", "提示", JOptionPane.WARNING_MESSAGE);
+				}else {
+					int size = listNotMes.size();
+					System.out.println(size);
+					String[] name =  {
+							"编号", "主题", "是否已读", "发送者", "内容"
+						};
+					String[][] value = new String[size + 1][4];
+					value[0] = name;
+					for(int i = 0; i < size; i++) {
+						value[i + 1] = listNotMes.get(i);
+					}
+					DefaultTableModel dtm = new DefaultTableModel(value, name);
+					myMessagesTable.setModel(dtm);
+					myMessagesTable.setSelectionMode(0);
+				}
+			}
+		});
+		myMessagesPanel.add(refreshNotReadLabel);
 		
+		JLabel toUserLabel = new JLabel("收件人");
+		toUserLabel.setBounds(14, 313, 72, 18);
+		myMessagesPanel.add(toUserLabel);
 		
+		toUserNameField = new JTextField();
+		toUserNameField.setBounds(100, 310, 120, 24);
+		myMessagesPanel.add(toUserNameField);
+		toUserNameField.setColumns(10);
 		
+		JLabel themeNameLabel = new JLabel("主题");
+		themeNameLabel.setBounds(247, 313, 72, 18);
+		myMessagesPanel.add(themeNameLabel);
+		
+		themeNameField = new JTextField();
+		themeNameField.setBounds(311, 310, 120, 24);
+		myMessagesPanel.add(themeNameField);
+		themeNameField.setColumns(10);
+		
+		JTextArea contentArea = new JTextArea();
+		contentArea.setBounds(62, 359, 428, 88);
+		myMessagesPanel.add(contentArea);
+		
+		JLabel contentLabel = new JLabel("内容");
+		contentLabel.setBounds(14, 361, 72, 18);
+		myMessagesPanel.add(contentLabel);
+		
+		JLabel sendLabel = new JLabel("");
+		sendLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameInactive.png")));
+		sendLabel.setBounds(311, 480, 101, 32);
+		sendLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				MessagesInf ms = new MessagesInf();
+				ms.setName(themeNameField.getText());
+				ms.setIsRead("未读");
+				ms.setSendUser(std.getUserName());
+				ms.setToUser(toUserNameField.getText());
+				ms.setContent(contentArea.getText());
+				Student sd = new Student();
+				sd.setUserName(toUserNameField.getText());
+				Administrator ad = new Administrator();
+				ad.setUserName(toUserNameField.getText());
+				if(!dbWork.checkAdministrator(ad) && !dbWork.checkStudent(sd)) {
+					JOptionPane.showMessageDialog(null, "发送失败", "目标用户不存在", JOptionPane.ERROR_MESSAGE);
+				}else {
+					dbWork.insertMessages(ms);
+					JOptionPane.showMessageDialog(null, "发送成功", "目标用户已经收到信息", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		myMessagesPanel.add(sendLabel);
+		
+		JLabel reSendLabel = new JLabel("");
+		reSendLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameInactive.png")));
+		reSendLabel.setBounds(123, 480, 101, 32);
+		reSendLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				MessagesInf ms = new MessagesInf();
+				ms.setName(themeNameField.getText());
+				ms.setIsRead("未读");
+				ms.setSendUser(std.getUserName());
+				int row = myMessagesTable.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null,  "没有选择需要回复的信息", "警告", JOptionPane.WARNING_MESSAGE);
+				}else {
+					String temp = myMessagesTable.getValueAt(row, 3).toString();
+	                //System.out.println("$" + temp);
+	                //int num = Integer.parseInt(temp);
+	                ms.setToUser(temp);
+	                ms.setContent(contentArea.getText());
+	                dbWork.insertMessages(ms);
+	                JOptionPane.showMessageDialog(null, "发送成功", "目标用户已收到信息", JOptionPane.INFORMATION_MESSAGE);
+	           
+				}
+			}
+		});
+		myMessagesPanel.add(reSendLabel);
+
 		
 		
 		

@@ -78,7 +78,6 @@ public class NewLoginFrame extends JFrame{
 				users.setUserPassword(new String(passwordField.getPassword()));
 				if(dbWork.confirmAdministrator(user)){
 					//user.setEmail();
-					
 					new ManagementFrame(user).setVisible(true);
 					NewLoginFrame.this.dispose();
 				}else if(dbWork.confirmStudent(users)){
