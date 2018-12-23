@@ -12,7 +12,10 @@ import java.util.List;
 import javax.sound.sampled.LineListener;
 import javax.swing.JOptionPane;
 
+import com.mysql.cj.Messages;
+
 import qdu.lyn.stdsys.inf.Attendance;
+import qdu.lyn.stdsys.inf.MessagesInf;
 import qdu.lyn.stdsys.inf.Schedule;
 import qdu.lyn.stdsys.inf.Vacation;
 import qdu.lyn.stdsys.user.Administrator;
@@ -609,6 +612,105 @@ public class DatabaseWork {
 			closeAll();
 		}
 		return false;
+	}
+	public void insertBroadcast(MessagesInf brc) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from student");
+			rSet = pStatement.executeQuery();
+			String toUser;
+			while(rSet.next()) {
+				String insertBro = "insert into Messages values(null, ?, ?, ?, ?, ?)";
+				pStatement = connection.prepareStatement(insertBro);
+				toUser = rSet.getString("username");
+				pStatement.setString(1, brc.getName());
+				pStatement.setString(2, brc.getIsRead());
+				pStatement.setString(3, brc.getSendUser());
+				pStatement.setString(4, toUser);
+				pStatement.setString(5, brc.getContent());
+				pStatement.executeUpdate();
+			}
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	public void insertMessages(MessagesInf brc) {
+		try {
+			getConnection();
+			System.out.println(brc.getName());
+			System.out.println(brc.getIsRead());
+			System.out.println(brc.getSendUser());
+			System.out.println(brc.getToUser());
+			System.out.println(brc.getContent());
+			String insertBro = "insert into messages values(null, ?, ?, ?, ?, ?)";
+			pStatement = connection.prepareStatement(insertBro);
+			pStatement.setString(1, brc.getName());
+			pStatement.setString(2, brc.getIsRead());
+			pStatement.setString(3, brc.getSendUser());
+			pStatement.setString(4, brc.getToUser());
+			pStatement.setString(5, brc.getContent());
+			pStatement.executeUpdate();
+			
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	public void readMessages(int num) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("update Messages set isRead = ? where num = ?");
+			pStatement.setString(1, "已读");
+			pStatement.setInt(2, num);
+			pStatement.executeUpdate();
+		} catch (SQLException e)
+		{
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	public List<String[]> selectNotReadMessage(String userName) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from messages where toUser = ?");
+			pStatement.setString(1, userName);
+			rSet = pStatement.executeQuery();
+			List<String[]> list = new ArrayList<String[]>();
+			while(rSet.next()) {
+				if(rSet.getString("isRead").equals("已读"))
+					continue;
+				list.add(new String[] {rSet.getString("num"), rSet.getString("name"), rSet.getString("isRead"), rSet.getString("sendUser"), rSet.getString("content")});
+			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
+	}
+	public List<String[]> selectAllMessage(String userName) {
+		try {
+			getConnection();
+			pStatement = connection.prepareStatement("select * from messages where toUser = ?");
+			pStatement.setString(1, userName);
+			rSet = pStatement.executeQuery();
+			List<String[]> list = new ArrayList<String[]>();
+			while(rSet.next()) {
+				list.add(new String[] {rSet.getString("num"), rSet.getString("name"), rSet.getString("isRead"), rSet.getString("sendUser"), rSet.getString("content")});
+			}
+			return list;
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeAll();
+		}
+		return null;
 	}
 	public void closeAll() {
 		if (rSet != null) {
