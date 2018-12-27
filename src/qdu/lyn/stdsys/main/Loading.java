@@ -5,11 +5,19 @@ import javax.swing.JFrame;
 import qdu.lyn.stdsys.login.NewLoginFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 
 public class Loading extends JFrame{
 
 	public Loading() {
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Image img = new ImageIcon(MainFrame.class.getResource("/Cursors/Pointer.png")).getImage();
+		Cursor cursor = tk.createCustomCursor(img,new Point(10,10),"stick"); 
+		setCursor(cursor);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Loading.class.getResource("/ico/NewPM.png")));
 		// TODO 自动生成的构造函数存根
 		setTitle("学生管理系统-正在启动");

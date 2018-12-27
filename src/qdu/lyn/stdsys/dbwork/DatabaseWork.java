@@ -24,7 +24,7 @@ import qdu.lyn.stdsys.user.StudentInf;
 
 public class DatabaseWork {
 	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";
-	protected static String dbUrl = "jdbc:mysql://127.0.0.1:3306/StudentDB?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false";
+	protected static String dbUrl = "jdbc:mysql://localhost/StudentDB?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true";
 	protected static String dbUser = "root";
 	protected static String dbPwd = "root";
 	protected static String dbName = "StudentDB";

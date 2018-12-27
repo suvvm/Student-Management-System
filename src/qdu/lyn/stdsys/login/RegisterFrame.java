@@ -10,7 +10,10 @@ import qdu.lyn.stdsys.user.Administrator;
 import qdu.lyn.stdsys.user.Student;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -29,6 +32,11 @@ public class RegisterFrame extends JFrame{
 	private DatabaseWork dbWork = new DatabaseWork();
 	private JTextField IdField;
 	public RegisterFrame() {
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Image img = new ImageIcon(MainFrame.class.getResource("/Cursors/Pointer.png")).getImage();
+		Cursor cursor = tk.createCustomCursor(img,new Point(10,10),"stick"); 
+		setCursor(cursor);
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegisterFrame.class.getResource("/ico/NewPM.png")));
 		
 		

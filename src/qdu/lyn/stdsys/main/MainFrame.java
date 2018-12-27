@@ -1,11 +1,16 @@
 package qdu.lyn.stdsys.main;
 
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.Cursor;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -24,6 +29,8 @@ import java.awt.Toolkit;
 
 public class MainFrame extends JFrame{
 	private JPanel contentPane;
+	//private String cursorUrl;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			
@@ -40,6 +47,13 @@ public class MainFrame extends JFrame{
 		});
 	}	
 	public MainFrame() {
+		
+		String cursorUrl = "/img/Cursors/Pointer.png";
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension screenSize = tk.getScreenSize();  
+		Image img = new ImageIcon(MainFrame.class.getResource("/Cursors/Pointer.png")).getImage();
+		Cursor cursor = tk.createCustomCursor(img,new Point(10,10),"stick"); 
+		setCursor(cursor);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/ico/NewPM.png")));
 		setTitle("主界面");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,6 +87,7 @@ public class MainFrame extends JFrame{
 				MainFrame.this.dispose();
 			}
 		});
+		//loginLabel.setCursor(cursor);
 		contentPane.add(loginLabel);
 		
 		JLabel registerLabel = new JLabel("");
@@ -153,6 +168,12 @@ public class MainFrame extends JFrame{
 		});
 		contentPane.add(exitLabel);
 		
+		/*JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(MainFrame.class.getResource("/Cursors/Pointer.png")));
+		lblNewLabel_1.setBounds(502, 259, 54, 66);
+		contentPane.add(lblNewLabel_1);*/
+		
+		
 		
 		
 		
@@ -160,6 +181,8 @@ public class MainFrame extends JFrame{
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, 0, 1252, 768);
 		lblNewLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/bg/newmainmenubg.png")));
+		//lblNewLabel.setCursor(cursor);
 		contentPane.add(lblNewLabel);
+		//add(contentPane);
 	}
 }

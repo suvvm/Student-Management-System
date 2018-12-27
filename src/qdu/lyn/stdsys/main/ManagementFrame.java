@@ -13,6 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -79,6 +82,11 @@ public class ManagementFrame extends JFrame{
 	private JTable messagesTable;
 	private JTextField reThemeNameField;
 	public ManagementFrame(Administrator admin) {
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Image img = new ImageIcon(MainFrame.class.getResource("/Cursors/Pointer.png")).getImage();
+		Cursor cursor = tk.createCustomCursor(img,new Point(10,10),"stick"); 
+		setCursor(cursor);
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ManagementFrame.class.getResource("/ico/NewPM.png")));
 		setSize(1280, 768);
 		setVisible(true);
@@ -194,7 +202,7 @@ public class ManagementFrame extends JFrame{
 			public void mouseEntered(MouseEvent e) {
 				// TODO 自动生成的方法存根
 				super.mouseEntered(e);
-				insertlabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/IncsertBut_c.jpg")));
+				insertlabel.setIcon(new ImageIcon(ManagementFrame.class.getResource("/but/InsertBut_c.jpg")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {

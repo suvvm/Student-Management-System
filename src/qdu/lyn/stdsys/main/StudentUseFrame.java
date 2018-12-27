@@ -1,6 +1,9 @@
 package qdu.lyn.stdsys.main;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -29,7 +32,6 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import jxl.biff.drawing.MsoDrawingGroupRecord;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -64,6 +66,11 @@ public class StudentUseFrame extends JFrame{
 	private JTextField themeNameField;
 	
 	public StudentUseFrame(Student std) {
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Image img = new ImageIcon(MainFrame.class.getResource("/Cursors/Pointer.png")).getImage();
+		Cursor cursor = tk.createCustomCursor(img,new Point(10,10),"stick"); 
+		setCursor(cursor);
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(StudentUseFrame.class.getResource("/ico/NewPM.png")));
 		setTitle("学生端");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,6 +91,138 @@ public class StudentUseFrame extends JFrame{
 		
 		
 		
+		
+		JPanel addMyInfPanel = new JPanel();
+		addMyInfPanel.setBounds(242, 62, 629, 588);
+		addMyInfPanel.setVisible(false);
+		getContentPane().add(addMyInfPanel);
+		if(!dbWork.checkStudentInf(studentInf)) {
+			addMyInfPanel.setVisible(true);
+		}else {
+			addMyInfPanel.setVisible(false);
+		}
+		addMyInfPanel.setLayout(null);
+		
+		JLabel label = new JLabel("完善信息");
+		label.setBounds(271, 13, 72, 18);
+		addMyInfPanel.add(label);
+		
+		JLabel addMyHomeLabel = new JLabel("家乡");
+		addMyHomeLabel.setBounds(90, 153, 72, 18);
+		addMyInfPanel.add(addMyHomeLabel);
+		
+		addMyHomeField = new JTextField();
+		addMyHomeField.setBounds(194, 150, 130, 24);
+		addMyInfPanel.add(addMyHomeField);
+		addMyHomeField.setColumns(10);
+		
+		JLabel addMyQqLable = new JLabel("QQ");
+		addMyQqLable.setBounds(90, 84, 72, 18);
+		addMyInfPanel.add(addMyQqLable);
+		
+		addMyQqField = new JTextField();
+		addMyQqField.setBounds(194, 81, 130, 24);
+		addMyInfPanel.add(addMyQqField);
+		addMyQqField.setColumns(10);
+		
+		JLabel addMyPhoneLabel = new JLabel("联系电话");
+		addMyPhoneLabel.setBounds(90, 223, 72, 18);
+		addMyInfPanel.add(addMyPhoneLabel);
+		
+		addMyPhoneField = new JTextField();
+		addMyPhoneField.setBounds(194, 220, 130, 24);
+		addMyInfPanel.add(addMyPhoneField);
+		addMyPhoneField.setColumns(10);
+		
+		JLabel addMyClassLabel = new JLabel("班级");
+		addMyClassLabel.setBounds(90, 290, 72, 18);
+		addMyInfPanel.add(addMyClassLabel);
+		
+		addMyClassField = new JTextField();
+		addMyClassField.setBounds(194, 287, 130, 24);
+		addMyInfPanel.add(addMyClassField);
+		addMyClassField.setColumns(10);
+		
+		JLabel addMyImgLabel = new JLabel("图片");
+		addMyImgLabel.setBounds(370, 84, 72, 18);
+		addMyInfPanel.add(addMyImgLabel);
+		
+		JLabel addShowMyImgLabel = new JLabel("");
+		addShowMyImgLabel.setBounds(370, 115, 202, 199);
+		addMyInfPanel.add(addShowMyImgLabel);
+		
+		JLabel addMyImgButLabel = new JLabel("");
+		addMyImgButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/optionsInactive.png")));
+		addMyImgButLabel.setBounds(456, 70, 104, 32);
+		addMyImgButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				JFileChooser jfc=new JFileChooser();  
+		        jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );  
+		        jfc.showDialog(new JLabel(), "选择");  
+		        File file=jfc.getSelectedFile();  
+		        if(file.isDirectory()){  
+		        	JOptionPane.showMessageDialog(null,  "选择错误", "所选非文件", JOptionPane.ERROR_MESSAGE);
+		        }else if(file.isFile()){  
+		        	myImgUrl = file.getAbsolutePath();
+		        	addShowMyImgLabel.setIcon(new ImageIcon(myImgUrl.replace("//", "////")));
+		        	JOptionPane.showMessageDialog(null,  "成功", "已获得图片", JOptionPane.INFORMATION_MESSAGE);
+		        	
+		        }  
+			}
+		});
+		addMyInfPanel.add(addMyImgButLabel);
+		
+		
+		
+		JLabel addMySubmitButLabel = new JLabel("");
+		addMySubmitButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameInactive.png")));
+		addMySubmitButLabel.setBounds(289, 420, 101, 32);
+		addMySubmitButLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseEntered(e);
+				addMySubmitButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameActive.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseExited(e);
+				addMySubmitButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameInactive.png")));
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO 自动生成的方法存根
+				super.mouseClicked(e);
+				studentInf.setUserName(std.getUserName());
+				studentInf.setName(std.getName());
+				studentInf.setId(std.getId());
+				studentInf.setClassName(addMyClassField.getText());
+				studentInf.setFileUrl(myImgUrl);
+				studentInf.setHome(addMyHomeField.getText());
+				studentInf.setPhoneNumber(addMyPhoneField.getText());
+				studentInf.setQqNumber(addMyQqField.getText());
+				studentInf.setEmail(std.getEmail());
+				dbWork.insertStudnetInf(studentInf);
+				JOptionPane.showMessageDialog(null,  "个人信息更新成功", "成功", JOptionPane.INFORMATION_MESSAGE);
+				addMyInfPanel.setVisible(false);
+				
+			}
+		});
+		addMyInfPanel.add(addMySubmitButLabel);
 		
 		
 		
@@ -958,138 +1097,6 @@ public class StudentUseFrame extends JFrame{
 		
 		
 		
-		
-		JPanel addMyInfPanel = new JPanel();
-		addMyInfPanel.setBounds(242, 62, 629, 588);
-		addMyInfPanel.setVisible(false);
-		getContentPane().add(addMyInfPanel);
-		if(!dbWork.checkStudentInf(studentInf)) {
-			addMyInfPanel.setVisible(true);
-		}else {
-			addMyInfPanel.setVisible(false);
-		}
-		addMyInfPanel.setLayout(null);
-		
-		JLabel label = new JLabel("完善信息");
-		label.setBounds(271, 13, 72, 18);
-		addMyInfPanel.add(label);
-		
-		JLabel addMyHomeLabel = new JLabel("家乡");
-		addMyHomeLabel.setBounds(90, 153, 72, 18);
-		addMyInfPanel.add(addMyHomeLabel);
-		
-		addMyHomeField = new JTextField();
-		addMyHomeField.setBounds(194, 150, 130, 24);
-		addMyInfPanel.add(addMyHomeField);
-		addMyHomeField.setColumns(10);
-		
-		JLabel addMyQqLable = new JLabel("QQ");
-		addMyQqLable.setBounds(90, 84, 72, 18);
-		addMyInfPanel.add(addMyQqLable);
-		
-		addMyQqField = new JTextField();
-		addMyQqField.setBounds(194, 81, 130, 24);
-		addMyInfPanel.add(addMyQqField);
-		addMyQqField.setColumns(10);
-		
-		JLabel addMyPhoneLabel = new JLabel("联系电话");
-		addMyPhoneLabel.setBounds(90, 223, 72, 18);
-		addMyInfPanel.add(addMyPhoneLabel);
-		
-		addMyPhoneField = new JTextField();
-		addMyPhoneField.setBounds(194, 220, 130, 24);
-		addMyInfPanel.add(addMyPhoneField);
-		addMyPhoneField.setColumns(10);
-		
-		JLabel addMyClassLabel = new JLabel("班级");
-		addMyClassLabel.setBounds(90, 290, 72, 18);
-		addMyInfPanel.add(addMyClassLabel);
-		
-		addMyClassField = new JTextField();
-		addMyClassField.setBounds(194, 287, 130, 24);
-		addMyInfPanel.add(addMyClassField);
-		addMyClassField.setColumns(10);
-		
-		JLabel addMyImgLabel = new JLabel("图片");
-		addMyImgLabel.setBounds(370, 84, 72, 18);
-		addMyInfPanel.add(addMyImgLabel);
-		
-		JLabel addShowMyImgLabel = new JLabel("");
-		addShowMyImgLabel.setBounds(370, 115, 202, 199);
-		addMyInfPanel.add(addShowMyImgLabel);
-		
-		JLabel addMyImgButLabel = new JLabel("");
-		addMyImgButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/optionsInactive.png")));
-		addMyImgButLabel.setBounds(456, 70, 104, 32);
-		addMyImgButLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseEntered(e);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseExited(e);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseClicked(e);
-				JFileChooser jfc=new JFileChooser();  
-		        jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );  
-		        jfc.showDialog(new JLabel(), "选择");  
-		        File file=jfc.getSelectedFile();  
-		        if(file.isDirectory()){  
-		        	JOptionPane.showMessageDialog(null,  "选择错误", "所选非文件", JOptionPane.ERROR_MESSAGE);
-		        }else if(file.isFile()){  
-		        	myImgUrl = file.getAbsolutePath();
-		        	addShowMyImgLabel.setIcon(new ImageIcon(myImgUrl.replace("//", "////")));
-		        	JOptionPane.showMessageDialog(null,  "成功", "已获得图片", JOptionPane.INFORMATION_MESSAGE);
-		        	
-		        }  
-			}
-		});
-		addMyInfPanel.add(addMyImgButLabel);
-		
-		
-		
-		JLabel addMySubmitButLabel = new JLabel("");
-		addMySubmitButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameInactive.png")));
-		addMySubmitButLabel.setBounds(289, 420, 101, 32);
-		addMySubmitButLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseEntered(e);
-				addMySubmitButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameActive.png")));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseExited(e);
-				addMySubmitButLabel.setIcon(new ImageIcon(StudentUseFrame.class.getResource("/but/leaveGameInactive.png")));
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO 自动生成的方法存根
-				super.mouseClicked(e);
-				studentInf.setUserName(std.getUserName());
-				studentInf.setName(std.getName());
-				studentInf.setId(std.getId());
-				studentInf.setClassName(addMyClassField.getText());
-				studentInf.setFileUrl(myImgUrl);
-				studentInf.setHome(addMyHomeField.getText());
-				studentInf.setPhoneNumber(addMyPhoneField.getText());
-				studentInf.setQqNumber(addMyQqField.getText());
-				studentInf.setEmail(std.getEmail());
-				dbWork.insertStudnetInf(studentInf);
-				JOptionPane.showMessageDialog(null,  "个人信息更新成功", "成功", JOptionPane.INFORMATION_MESSAGE);
-				addMyInfPanel.setVisible(false);
-				
-			}
-		});
-		addMyInfPanel.add(addMySubmitButLabel);
 		
 		
 		

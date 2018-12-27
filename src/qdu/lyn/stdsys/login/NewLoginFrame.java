@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Point;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +30,7 @@ import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 import javax.swing.JPasswordField;
 import java.awt.Color;
+import java.awt.Cursor;
 
 
 public class NewLoginFrame extends JFrame{
@@ -36,6 +39,13 @@ public class NewLoginFrame extends JFrame{
 	
 	private DatabaseWork dbWork = new DatabaseWork(); 
 	public NewLoginFrame() {
+		
+		String cursorUrl = "/img/Cursors/Pointer.png";
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Image img = new ImageIcon(MainFrame.class.getResource("/Cursors/Pointer.png")).getImage();
+		Cursor cursor = tk.createCustomCursor(img,new Point(10,10),"stick"); 
+		setCursor(cursor);
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewLoginFrame.class.getResource("/ico/NewPM.png")));
 		setSize(1280, 768);
 		getContentPane().setLayout(null);
