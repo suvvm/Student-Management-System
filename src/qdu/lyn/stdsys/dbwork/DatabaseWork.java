@@ -202,12 +202,15 @@ public class DatabaseWork {
 			pStatement.setString(9, user.getClassName());
 			
 			pStatement.executeUpdate();
+			
 		} catch (SQLException e)
 		{
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 	}
+	
+	
 	public void updateStudnetInf(StudentInf user) {
 		try {
 			getConnection();
@@ -225,6 +228,18 @@ public class DatabaseWork {
 			pStatement.setInt(9, user.getId());
 			
 			pStatement.executeUpdate();
+			insertStudnetInf = "insert into Student values(null, ?, ?, ?, ?, ?)";
+			pStatement = connection.prepareStatement(insertStudnetInf);
+			
+			pStatement.setString(1, user.getName());
+			pStatement.setString(2, user.getUserName());
+			String tpas = JOptionPane.showInputDialog(null,"请输入更改后新密码：\n","确认密码",JOptionPane.PLAIN_MESSAGE);
+			pStatement.setString(3, tpas);
+			pStatement.setString(4, user.getEmail());
+			pStatement.setInt(5, user.getId());
+			
+			pStatement.executeUpdate();
+			
 		} catch (SQLException e)
 		{
 			// TODO 自动生成的 catch 块
@@ -659,7 +674,7 @@ public class DatabaseWork {
 			e.printStackTrace();
 		}
 	}
-	public void readMessages(int num) {
+	/*public void readMessages(int num) {
 		try {
 			getConnection();
 			pStatement = connection.prepareStatement("update Messages set isRead = ? where num = ?");
@@ -671,18 +686,22 @@ public class DatabaseWork {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-	}
+	}*/
 	public List<String[]> selectNotReadMessage(String userName) {
 		try {
 			getConnection();
 			pStatement = connection.prepareStatement("select * from messages where toUser = ?");
 			pStatement.setString(1, userName);
 			rSet = pStatement.executeQuery();
+			pStatement = connection.prepareStatement("update Messages set isRead = ? where num = ?");
 			List<String[]> list = new ArrayList<String[]>();
 			while(rSet.next()) {
 				if(rSet.getString("isRead").equals("已读"))
 					continue;
 				list.add(new String[] {rSet.getString("num"), rSet.getString("name"), rSet.getString("isRead"), rSet.getString("sendUser"), rSet.getString("content")});
+				pStatement.setString(1, "已读");
+				pStatement.setInt(2, Integer.parseInt(rSet.getString("num")));
+				pStatement.executeUpdate();
 			}
 			return list;
 		}catch (SQLException e) {
@@ -699,9 +718,13 @@ public class DatabaseWork {
 			pStatement = connection.prepareStatement("select * from messages where toUser = ?");
 			pStatement.setString(1, userName);
 			rSet = pStatement.executeQuery();
+			pStatement = connection.prepareStatement("update Messages set isRead = ? where num = ?");
 			List<String[]> list = new ArrayList<String[]>();
 			while(rSet.next()) {
 				list.add(new String[] {rSet.getString("num"), rSet.getString("name"), rSet.getString("isRead"), rSet.getString("sendUser"), rSet.getString("content")});
+				pStatement.setString(1, "已读");
+				pStatement.setInt(2, Integer.parseInt(rSet.getString("num")));
+				pStatement.executeUpdate();
 			}
 			return list;
 		}catch (SQLException e) {

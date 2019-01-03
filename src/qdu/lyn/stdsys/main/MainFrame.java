@@ -31,7 +31,7 @@ public class MainFrame extends JFrame{
 	private JPanel contentPane;
 	//private String cursorUrl;
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			
 			@Override
@@ -45,7 +45,7 @@ public class MainFrame extends JFrame{
 				}
 			}
 		});
-	}	
+	}	*/
 	public MainFrame() {
 		
 		String cursorUrl = "/img/Cursors/Pointer.png";
@@ -180,7 +180,7 @@ public class MainFrame extends JFrame{
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, 0, 1252, 768);
-		lblNewLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/bg/newmainmenubg.png")));
+		lblNewLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/bg/mainFrameBg.jpg")));
 		//lblNewLabel.setCursor(cursor);
 		contentPane.add(lblNewLabel);
 		//add(contentPane);

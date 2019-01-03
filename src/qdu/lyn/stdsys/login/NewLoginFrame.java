@@ -219,7 +219,7 @@ public class NewLoginFrame extends JFrame{
 		
 		
 	}
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		NewLoginFrame newLoginFrame = new NewLoginFrame();
 		EventQueue.invokeLater(new Runnable(){
 			public void run() {
@@ -227,11 +227,11 @@ public class NewLoginFrame extends JFrame{
 					NewLoginFrame frame = new NewLoginFrame(); 
 					frame.setVisible(true);
 				} catch (Exception e) {
-					// TODO: handle exception
+
 					e.printStackTrace();
 				}
 			}
 		});
-		//newLoginFrame.setVisible(true);
-	}
+
+	}*/
 }

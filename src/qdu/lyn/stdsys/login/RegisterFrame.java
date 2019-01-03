@@ -20,6 +20,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
+import java.awt.Color;
 
 //import propertymanagement.view.RegisterFrame;
 
@@ -31,6 +32,11 @@ public class RegisterFrame extends JFrame{
 	private JTextField emailField;
 	private DatabaseWork dbWork = new DatabaseWork();
 	private JTextField IdField;
+	private JLabel label;
+	private JLabel label_1;
+	private JLabel label_2;
+	private JLabel label_3;
+	private JLabel label_4;
 	public RegisterFrame() {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Image img = new ImageIcon(MainFrame.class.getResource("/Cursors/Pointer.png")).getImage();
@@ -111,32 +117,27 @@ public class RegisterFrame extends JFrame{
 		getContentPane().add(registerLabel);
 		
 		passwordField = new JTextField();
-		passwordField.setText("密码");
-		passwordField.setBounds(399, 375, 86, 24);
+		passwordField.setBounds(547, 224, 145, 24);
 		getContentPane().add(passwordField);
 		passwordField.setColumns(10);
 		
 		userNameField = new JTextField();
-		userNameField.setText("用户名");
-		userNameField.setBounds(399, 282, 86, 24);
+		userNameField.setBounds(547, 161, 145, 24);
 		getContentPane().add(userNameField);
 		userNameField.setColumns(10);
 		
 		nameField = new JTextField();
-		nameField.setText("姓名");
-		nameField.setBounds(625, 282, 86, 24);
+		nameField.setBounds(547, 283, 145, 24);
 		getContentPane().add(nameField);
 		nameField.setColumns(10);
 		
 		IdField = new JTextField();
-		IdField.setText("学号");
-		IdField.setBounds(399, 464, 86, 24);
+		IdField.setBounds(547, 404, 145, 24);
 		getContentPane().add(IdField);
 		IdField.setColumns(10);
 		
 		emailField = new JTextField();
-		emailField.setText("邮箱");
-		emailField.setBounds(625, 375, 86, 24);
+		emailField.setBounds(547, 345, 145, 24);
 		getContentPane().add(emailField);
 		emailField.setColumns(10);
 		
@@ -193,9 +194,30 @@ public class RegisterFrame extends JFrame{
 		});
 		getContentPane().add(backToMainLabel);
 		
+		label = new JLabel("用户名");
+		label.setForeground(Color.DARK_GRAY);
+		label.setBounds(439, 164, 72, 18);
+		getContentPane().add(label);
+		
+		label_1 = new JLabel("密码");
+		label_1.setBounds(439, 227, 72, 18);
+		getContentPane().add(label_1);
+		
+		label_2 = new JLabel("姓名");
+		label_2.setBounds(439, 282, 72, 18);
+		getContentPane().add(label_2);
+		
+		label_3 = new JLabel("邮箱");
+		label_3.setBounds(439, 348, 72, 18);
+		getContentPane().add(label_3);
+		
+		label_4 = new JLabel("学号");
+		label_4.setBounds(439, 407, 72, 18);
+		getContentPane().add(label_4);
+		
 		
 		JLabel bgLabel = new JLabel("");
-		bgLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/bg/newmainmenubg.png")));
+		bgLabel.setIcon(new ImageIcon(RegisterFrame.class.getResource("/bg/reBg.jpg")));
 		bgLabel.setSize(1280,768);
 		getContentPane().add(bgLabel);
 		
